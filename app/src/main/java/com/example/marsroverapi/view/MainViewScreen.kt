@@ -7,5 +7,5 @@ import com.example.marsroverapi.viewmodel.APIViewModel
 
 @Composable
 fun MainViewScreen(navController: NavController, apiViewModel: APIViewModel){
-
+    DebugViewScreen(apiViewModel)
 }

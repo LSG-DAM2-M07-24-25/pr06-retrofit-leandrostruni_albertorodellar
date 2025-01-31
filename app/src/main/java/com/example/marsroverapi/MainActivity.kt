@@ -39,6 +39,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+//Mover a otro package
 @Composable
 fun AppMarsRover(
     modifier: Modifier = Modifier,

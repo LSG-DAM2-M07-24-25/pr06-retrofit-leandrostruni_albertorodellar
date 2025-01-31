@@ -1,6 +1,7 @@
 package com.example.marsroverapi.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.marsroverapi.api.Repository
@@ -13,9 +14,9 @@ import kotlinx.coroutines.withContext
 class APIViewModel : ViewModel() {
     private val repository = Repository()
     private val _loading = MutableLiveData(true)
-    val loading = _loading
+    val loading: LiveData<Boolean> = _loading
     private val _marsPhotos = MutableLiveData<DatosAPI>()
-    val marsPhotos = _marsPhotos
+    val marsPhotos:LiveData<DatosAPI> = _marsPhotos
 
     fun fetchMarsPhotos(sol: Int, apiKey: String){
         CoroutineScope(Dispatchers.IO).launch{
