@@ -1,6 +1,6 @@
 package com.example.marsroverapi.api
 
-import com.example.marsroverapi.model.DatosAPI
+import com.example.marsroverapi.model.DataAPI
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -10,14 +10,16 @@ import retrofit2.http.Query
 
 interface APIInterface {
 
-    @GET("rovers/curiosity/photos")
-    suspend fun getMarsPhotos(
-        @Query("sol") sol: Int,
-        @Query("api_key") apiKey: String
-    ): Response<DatosAPI>
+    @GET("search.php")
+    suspend fun searchCocktailByName(
+        @Query("s") name: String
+    ): Response<DataAPI>
+
+    @GET("random.php")
+    suspend fun getRandomCocktail(): Response<DataAPI>
 
     companion object{
-        private const val BASE_URL = "https://api.nasa.gov/mars-photos/api/v1/"
+        private const val BASE_URL = "https://www.thecocktaildb.com/api/json/v1/1/"
 
         fun create(): APIInterface{
             val client = OkHttpClient.Builder().build()

@@ -3,7 +3,8 @@ package com.example.marsroverapi.api
 class Repository {
     private val apiInterface = APIInterface.create()
 
-    suspend fun getMarsPhotos(sol: Int, apiKey: String) = apiInterface.getMarsPhotos(sol, apiKey)
+    suspend fun searchCocktailByName(name: String) = apiInterface.searchCocktailByName(name)
+    suspend fun getRandomCocktail() = apiInterface.getRandomCocktail()
 }
 
 
