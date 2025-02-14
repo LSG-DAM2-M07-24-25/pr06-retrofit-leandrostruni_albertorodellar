@@ -1,4 +1,4 @@
-package com.example.marsroverapi.api
+package com.example.cocktailapi.api
 
 class Repository {
     private val apiInterface = APIInterface.create()

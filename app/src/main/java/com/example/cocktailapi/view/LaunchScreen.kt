@@ -1,9 +1,9 @@
-package com.example.marsroverapi.view
+package com.example.cocktailapi.view
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavController
-import com.example.marsroverapi.model.Routes
+import com.example.cocktailapi.model.Routes
 import kotlinx.coroutines.delay
 
 @Composable

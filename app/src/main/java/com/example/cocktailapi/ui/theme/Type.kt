@@ -1,4 +1,4 @@
-package com.example.marsroverapi.ui.theme
+package com.example.cocktailapi.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

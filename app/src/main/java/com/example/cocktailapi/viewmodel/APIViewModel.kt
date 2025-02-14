@@ -1,11 +1,11 @@
-package com.example.marsroverapi.viewmodel
+package com.example.cocktailapi.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.marsroverapi.api.Repository
-import com.example.marsroverapi.model.DataAPI
+import com.example.cocktailapi.api.Repository
+import com.example.cocktailapi.model.DataAPI
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.example.marsroverapi
+package com.example.cocktailapi
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,18 +8,16 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.marsroverapi.model.Routes
-import com.example.marsroverapi.ui.theme.MarsRoverAPITheme
-import com.example.marsroverapi.view.LaunchScreen
-import com.example.marsroverapi.view.MainViewScreen
-import com.example.marsroverapi.viewmodel.APIViewModel
+import com.example.cocktailapi.model.Routes
+import com.example.cocktailapi.ui.theme.MarsRoverAPITheme
+import com.example.cocktailapi.view.LaunchScreen
+import com.example.cocktailapi.view.MainViewScreen
+import com.example.cocktailapi.viewmodel.APIViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

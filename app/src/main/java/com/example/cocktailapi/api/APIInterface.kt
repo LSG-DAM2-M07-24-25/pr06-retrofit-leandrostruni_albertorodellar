@@ -1,6 +1,6 @@
-package com.example.marsroverapi.api
+package com.example.cocktailapi.api
 
-import com.example.marsroverapi.model.DataAPI
+import com.example.cocktailapi.model.DataAPI
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit

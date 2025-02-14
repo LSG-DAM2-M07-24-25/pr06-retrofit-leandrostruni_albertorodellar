@@ -1,4 +1,4 @@
-package com.example.marsroverapi.model
+package com.example.cocktailapi.model
 
 import com.google.gson.annotations.SerializedName
 
