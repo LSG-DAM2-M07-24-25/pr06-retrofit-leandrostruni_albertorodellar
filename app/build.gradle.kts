@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.marsroverapi"
+    namespace = "com.example.cocktailapi"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.marsroverapi"
+        applicationId = "com.example.cocktailapi"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

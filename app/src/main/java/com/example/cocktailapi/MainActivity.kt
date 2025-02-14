@@ -14,7 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.cocktailapi.model.Routes
-import com.example.cocktailapi.ui.theme.MarsRoverAPITheme
+import com.example.cocktailapi.ui.theme.CocktailAPITheme
 import com.example.cocktailapi.view.LaunchScreen
 import com.example.cocktailapi.view.MainViewScreen
 import com.example.cocktailapi.viewmodel.APIViewModel
@@ -25,9 +25,9 @@ class MainActivity : ComponentActivity() {
         val apiViewModel: APIViewModel by viewModels<APIViewModel>()
         enableEdgeToEdge()
         setContent {
-            MarsRoverAPITheme {
+            CocktailAPITheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    AppMarsRover(
+                    AppCocktail(
                         modifier = Modifier.padding(innerPadding),
                         apiViewModel = apiViewModel
                     )
@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
 
 //Mover a otro package
 @Composable
-fun AppMarsRover(
+fun AppCocktail(
     modifier: Modifier = Modifier,
     apiViewModel: APIViewModel
 ) {
