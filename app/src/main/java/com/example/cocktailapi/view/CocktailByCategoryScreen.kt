@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -53,19 +54,17 @@ fun CocktailByCategoryScreen(
     Column(modifier = Modifier.padding(16.dp)) {
         Text("Filtrar por categoría", style = MaterialTheme.typography.headlineSmall)
 
-        CategoryDropdownMenu(categories,selectedCategories)
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(
-            onClick = {
+        CategoryDropdownMenu(
+            categories = categories,
+            selectedCategories = selectedCategories,
+            onApplyFilters = {
                 if (selectedCategories.value.isNotEmpty()) {
                     cocktailViewModel.fetchFilteredCocktails(selectedCategories.value.toList())
                 }
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Buscar Cócteles")
-        }
+            }
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         if (loading) {
             CircularProgressIndicator()
