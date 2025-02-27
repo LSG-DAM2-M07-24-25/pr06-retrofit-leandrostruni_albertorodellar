@@ -24,9 +24,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItem
 import com.example.cocktailapi.viewmodel.APIViewModel
+import com.example.cocktailapi.viewmodel.CocktailViewModel
 
 @Composable
-fun CocktailByNameScreen(navController: NavController, apiViewModel: APIViewModel) {
+fun CocktailByNameScreen(
+    navController: NavController,
+    apiViewModel: APIViewModel,
+    cocktailViewModel: CocktailViewModel
+) {
     var cocktailName by remember { mutableStateOf("") }
     val cocktailData by apiViewModel.cocktailData.observeAsState()
     val loading by apiViewModel.loading.observeAsState(initial = false)
@@ -61,7 +66,7 @@ fun CocktailByNameScreen(navController: NavController, apiViewModel: APIViewMode
             cocktailData?.drinks?.let { drinks ->
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(drinks) { cocktail ->
-                        CocktailItem(cocktail)
+                        CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
                     }
                 }
             } ?: Text("No hay resultados", style = MaterialTheme.typography.bodyLarge)

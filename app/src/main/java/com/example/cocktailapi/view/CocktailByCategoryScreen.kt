@@ -24,10 +24,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItem
+import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
 @Composable
-fun CocktailByCategoryScreen(navController: NavController, cocktailViewModel: CocktailViewModel){
+fun CocktailByCategoryScreen(
+    navController: NavController,
+    apiViewModel: APIViewModel,
+    cocktailViewModel: CocktailViewModel,
+
+) {
     var isOrdinaryDrinkChecked by remember { mutableStateOf(false) }
     var isCocktailChecked by remember { mutableStateOf(false) }
     val cocktailData by cocktailViewModel.cocktailData.observeAsState()
@@ -82,7 +88,7 @@ fun CocktailByCategoryScreen(navController: NavController, cocktailViewModel: Co
             cocktailData?.drinks?.let { drinks ->
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(drinks) { cocktail ->
-                        CocktailItem(cocktail)
+                        CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
                     }
                 }
             } ?: Text("No hay resultados", style = MaterialTheme.typography.bodyLarge)

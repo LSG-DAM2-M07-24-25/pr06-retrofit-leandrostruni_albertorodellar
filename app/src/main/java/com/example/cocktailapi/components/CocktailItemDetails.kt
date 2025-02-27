@@ -1,7 +1,9 @@
 package com.example.cocktailapi.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -10,10 +12,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
 import com.example.cocktailapi.model.Drink
 
 @Composable
-fun CocktailItem(cocktail: Drink) {
+fun CocktailItemDetails(cocktail: Drink) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -21,6 +25,17 @@ fun CocktailItem(cocktail: Drink) {
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
+            cocktail.strDrinkThumb?.let {
+                Image(
+                    painter = rememberAsyncImagePainter(it),
+                    contentDescription = cocktail.strDrink,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp)
+                        .padding(bottom = 16.dp)
+                )
+            }
+
             Text("Nombre: ${cocktail.strDrink}", style = MaterialTheme.typography.titleLarge)
             Text("Categoría: ${cocktail.strCategory}", style = MaterialTheme.typography.bodyLarge)
             Text("Tipo: ${cocktail.strAlcoholic}", style = MaterialTheme.typography.bodyLarge)

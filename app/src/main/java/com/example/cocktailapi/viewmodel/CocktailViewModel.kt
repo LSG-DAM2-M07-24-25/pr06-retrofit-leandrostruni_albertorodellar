@@ -19,6 +19,9 @@ class CocktailViewModel : ViewModel() {
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
 
+    private val _selectedCocktailId = MutableLiveData<String?>()
+    val selectedCocktailId: LiveData<String?> = _selectedCocktailId
+
     fun fetchFilteredCocktails(isOrdinary: Boolean, isCocktail: Boolean) {
         val categories = mutableListOf<String>()
         if (isOrdinary) categories.add("Ordinary_Drink")
@@ -35,7 +38,10 @@ class CocktailViewModel : ViewModel() {
 
             for (category in categories) {
                 val response = repository.getCocktailByCategory(category)
-                Log.d("API Response", "Categoría: $category - Código: ${response.code()} - Cuerpo: ${response.body()}")
+                Log.d(
+                    "API Response",
+                    "Categoría: $category - Código: ${response.code()} - Cuerpo: ${response.body()}"
+                )
                 if (response.isSuccessful) {
                     response.body()?.drinks?.let { drinksList.addAll(it) }
                 } else {
@@ -51,5 +57,10 @@ class CocktailViewModel : ViewModel() {
                 _loading.value = false
             }
         }
+    }
+
+    //Mét-odo para guardar el id del cocktail seleccionado para poder detallar info
+    fun selectCocktail(id: String) {
+        _selectedCocktailId.value = id ?: ""
     }
 }
