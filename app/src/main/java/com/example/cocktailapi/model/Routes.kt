@@ -5,4 +5,5 @@ sealed class Routes(val route: String ) {
     object MainViewScreen: Routes("mainViewScreen")
     object SearchByNameScreen : Routes("searchByNameScreen")
     object SearchRandomScreen : Routes("searchRandomScreen")
+    object SearchByCategoryScreen : Routes("SearchByCategory")
 }

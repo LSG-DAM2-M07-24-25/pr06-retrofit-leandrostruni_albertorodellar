@@ -18,6 +18,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.cocktailapi.components.CocktailItem
 import com.example.cocktailapi.viewmodel.APIViewModel
 
 @Composable

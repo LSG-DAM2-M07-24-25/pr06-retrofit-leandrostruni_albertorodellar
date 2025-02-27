@@ -18,7 +18,7 @@ fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
         BottomNavItem.SearchByName,
         BottomNavItem.SearchRandom,
-        //BottomNavItem.SearchByCategory
+        BottomNavItem.SearchByCategory
     )
 
     NavigationBar(
