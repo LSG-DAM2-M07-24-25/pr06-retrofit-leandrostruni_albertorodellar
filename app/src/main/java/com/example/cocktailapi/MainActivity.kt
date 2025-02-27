@@ -13,8 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.cocktailapi.components.BottomNavigationBar
 import com.example.cocktailapi.model.Routes
 import com.example.cocktailapi.ui.theme.CocktailAPITheme
+import com.example.cocktailapi.view.CocktailByCategoryScreen
+import com.example.cocktailapi.view.CocktailByNameScreen
+import com.example.cocktailapi.view.CocktailRandomScreen
 import com.example.cocktailapi.view.LaunchScreen
 import com.example.cocktailapi.view.MainViewScreen
 import com.example.cocktailapi.viewmodel.APIViewModel
@@ -49,14 +53,23 @@ fun AppCocktail(
 ) {
 
     val navigationController = rememberNavController()
-    NavHost(
-        navController = navigationController,
-        startDestination = Routes.LaunchScreen.route
-    ) {
-        composable(Routes.LaunchScreen.route) { LaunchScreen(navigationController) }
-        composable(Routes.MainViewScreen.route) { MainViewScreen(navigationController, apiViewModel,cocktailViewModel)
+
+    Scaffold(
+        bottomBar = { BottomNavigationBar(navigationController) }
+    ) { innerPadding ->
+        NavHost(
+            navController = navigationController,
+            startDestination = Routes.LaunchScreen.route,
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            composable(Routes.LaunchScreen.route) { LaunchScreen(navigationController) }
+            composable(Routes.MainViewScreen.route) { MainViewScreen(navigationController, apiViewModel, cocktailViewModel) }
+            composable(Routes.SearchByNameScreen.route) { CocktailByNameScreen(navigationController,apiViewModel) }
+            composable(Routes.SearchRandomScreen.route) { CocktailRandomScreen(navigationController,apiViewModel) }
+            composable(Routes.SearchByCategoryScreen.route) { CocktailByCategoryScreen(navigationController,cocktailViewModel) }
         }
     }
+
 
 }
 
