@@ -22,22 +22,38 @@ class CocktailViewModel : ViewModel() {
     private val _selectedCocktailId = MutableLiveData<String?>()
     val selectedCocktailId: LiveData<String?> = _selectedCocktailId
 
-    fun fetchFilteredCocktails(isOrdinary: Boolean, isCocktail: Boolean) {
-        val categories = mutableListOf<String>()
-        if (isOrdinary) categories.add("Ordinary_Drink")
-        if (isCocktail) categories.add("Cocktail")
-        _cocktailData.value = null
+    private val _categories = MutableLiveData<List<String?>>()
+    val categories: LiveData<List<String?>> = _categories
 
-        if (categories.isEmpty()) {
-            _cocktailData.postValue(DataAPI(emptyList()))
+    fun fetchCategories() {
+        _loading.value = true
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.getCategories()
+
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    _categories.value =
+                        response.body()?.drinks?.map { it.strCategory } ?: emptyList()
+                } else {
+                    Log.e("API Error", "Error al obtener categorías: ${response.message()}")
+                }
+                _loading.value = false
+            }
+        }
+    }
+
+    fun fetchFilteredCocktails(selectedCategories: List<String>) {
+
+        if (selectedCategories.isEmpty()) {
+            _cocktailData.value = DataAPI(emptyList())
             return
         }
 
-        _loading.postValue(true)
+        _loading.value = true
         CoroutineScope(Dispatchers.IO).launch {
             val drinksList = mutableListOf<Drink>()
 
-            for (category in categories) {
+            for (category in selectedCategories) {
                 val response = repository.getCocktailByCategory(category)
                 Log.d(
                     "API Response",
@@ -62,6 +78,6 @@ class CocktailViewModel : ViewModel() {
 
     //Mét-odo para guardar el id del cocktail seleccionado para poder detallar info
     fun selectCocktail(id: String) {
-        _selectedCocktailId.value = id ?: ""
+        _selectedCocktailId.value = id
     }
 }
