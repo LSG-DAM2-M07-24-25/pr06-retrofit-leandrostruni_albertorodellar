@@ -45,7 +45,7 @@ class CocktailViewModel : ViewModel() {
     fun fetchFilteredCocktails(selectedCategories: List<String>) {
 
         if (selectedCategories.isEmpty()) {
-            _cocktailData.value = DataAPI(emptyList())
+            _cocktailData.postValue(DataAPI(emptyList()))
             return
         }
 
@@ -79,5 +79,9 @@ class CocktailViewModel : ViewModel() {
     //Mét-odo para guardar el id del cocktail seleccionado para poder detallar info
     fun selectCocktail(id: String) {
         _selectedCocktailId.value = id
+    }
+
+    fun clearCocktails() {
+        _cocktailData.postValue(DataAPI(emptyList()))
     }
 }
