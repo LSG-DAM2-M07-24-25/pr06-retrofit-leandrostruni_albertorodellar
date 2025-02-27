@@ -29,12 +29,13 @@ interface APIInterface {
         @Query("c") category: String
     ): Response<DataAPI>
 
+    @GET("list.php?c=list")
+    suspend fun getCategories(): Response<DataAPI>
 
-
-    companion object{
+    companion object {
         private const val BASE_URL = "https://www.thecocktaildb.com/api/json/v1/1/"
 
-        fun create(): APIInterface{
+        fun create(): APIInterface {
             val client = OkHttpClient.Builder().build()
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)

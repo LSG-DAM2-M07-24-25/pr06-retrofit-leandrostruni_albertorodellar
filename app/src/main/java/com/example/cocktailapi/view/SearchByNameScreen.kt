@@ -47,6 +47,7 @@ fun SearchByNameScreen(
             .fillMaxWidth()
             .padding(16.dp)
     ) {
+        Text("Buscar Cocktail", style = MaterialTheme.typography.headlineSmall)
         TextField(
             value = cocktailName,
             onValueChange = { cocktailName = it },
