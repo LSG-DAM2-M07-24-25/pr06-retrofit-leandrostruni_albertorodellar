@@ -1,6 +1,7 @@
 package com.example.cocktailapi.view
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +12,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -21,49 +23,34 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.cocktailapi.model.Drink
 import com.example.cocktailapi.viewmodel.APIViewModel
+import com.example.cocktailapi.viewmodel.CocktailViewModel
 
 @Composable
-fun DebugViewScreen(apiViewModel: APIViewModel) {
+fun DebugViewScreen(
+    apiViewModel: APIViewModel, cocktailViewModel: CocktailViewModel) {
     val cocktailData by apiViewModel.cocktailData.observeAsState()
     val loading by apiViewModel.loading.observeAsState(initial = true)
-    var cocktailName by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        TextField(
-            value = cocktailName,
-            onValueChange = { cocktailName = it },
-            label = { Text("Buscar Cocktail") },
-            modifier = Modifier.fillMaxWidth()
-        )
+
+        CocktailByName(apiViewModel)
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
-            onClick = { apiViewModel.searchCocktail(cocktailName) },
-            modifier = Modifier.fillMaxWidth()
-        )
-        {
-            Text("Buscar Cocktail")
-        }
+        CocktailRandom(apiViewModel)
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
-            onClick = { apiViewModel.fetchRandomCocktail() },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Cocktail Aleatorio")
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
+        CocktailByCategory(apiViewModel)
 
         if (loading) {
             CircularProgressIndicator()
@@ -76,6 +63,7 @@ fun DebugViewScreen(apiViewModel: APIViewModel) {
                 }
             } ?: Text("No hay datos disponibles")
         }
+
     }
 }
 
@@ -92,7 +80,10 @@ fun CocktailItem(cocktail: Drink) {
             Text("Categoría: ${cocktail.strCategory}", style = MaterialTheme.typography.bodyLarge)
             Text("Tipo: ${cocktail.strAlcoholic}", style = MaterialTheme.typography.bodyLarge)
             Text("Vaso: ${cocktail.strGlass}", style = MaterialTheme.typography.bodyLarge)
-            Text("Instrucciones: ${cocktail.strInstructions}", style = MaterialTheme.typography.bodyMedium)
+            Text(
+                "Instrucciones: ${cocktail.strInstructions}",
+                style = MaterialTheme.typography.bodyMedium
+            )
 
             // Ingredientes y medidas
             val ingredientes = listOfNotNull(
@@ -116,6 +107,80 @@ fun CocktailItem(cocktail: Drink) {
                 val medida = medidas.getOrNull(index) ?: ""
                 Text(" - $medida $ingredient", style = MaterialTheme.typography.bodyMedium)
             }
+        }
+    }
+}
+
+@Composable
+fun CocktailByName(apiViewModel: APIViewModel) {
+    var cocktailName by remember { mutableStateOf("") }
+
+    TextField(
+        value = cocktailName,
+        onValueChange = { cocktailName = it },
+        label = { Text("Buscar Cocktail") },
+        modifier = Modifier.fillMaxWidth()
+    )
+
+    Spacer(modifier = Modifier.height(16.dp))
+
+    Button(
+        onClick = { apiViewModel.searchCocktail(cocktailName) },
+        modifier = Modifier.fillMaxWidth()
+    )
+    {
+        Text("Buscar Cocktail")
+    }
+}
+
+@Composable
+fun CocktailRandom(apiViewModel: APIViewModel) {
+    Button(
+        onClick = { apiViewModel.fetchRandomCocktail() },
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text("Cocktail Aleatorio")
+    }
+}
+
+@Composable
+fun CocktailByCategory(apiViewModel: APIViewModel, cocktailViewModel: CocktailViewModel) {
+    var isOrdinaryDrinkChecked by remember { mutableStateOf(false) }
+    var isCocktailChecked by remember { mutableStateOf(false) }
+
+    Column(modifier = Modifier.padding(16.dp)) {
+        Text("Filtrar por categoría", style = MaterialTheme.typography.headlineSmall)
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
+            Checkbox(
+                checked = isOrdinaryDrinkChecked,
+                onCheckedChange = { checked ->
+                    isOrdinaryDrinkChecked = checked
+                    fetchFilteredCocktails(apiViewModel, isOrdinaryDrinkChecked, isCocktailChecked)
+                }
+            )
+            Text("Ordinary Drink", modifier = Modifier.padding(start = 8.dp))
+        }
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
+            Checkbox(
+                checked = isCocktailChecked,
+                onCheckedChange = { checked ->
+                    isCocktailChecked = checked
+                    fetchFilteredCocktails(apiViewModel, isOrdinaryDrinkChecked, isCocktailChecked)
+                }
+            )
+            Text("Cocktail", modifier = Modifier.padding(start = 8.dp))
         }
     }
 }

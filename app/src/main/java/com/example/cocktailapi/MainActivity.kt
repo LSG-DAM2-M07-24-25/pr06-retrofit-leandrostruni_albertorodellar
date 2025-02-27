@@ -18,18 +18,21 @@ import com.example.cocktailapi.ui.theme.CocktailAPITheme
 import com.example.cocktailapi.view.LaunchScreen
 import com.example.cocktailapi.view.MainViewScreen
 import com.example.cocktailapi.viewmodel.APIViewModel
+import com.example.cocktailapi.viewmodel.CocktailViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val apiViewModel: APIViewModel by viewModels<APIViewModel>()
+        val cocktailViewModel: CocktailViewModel by viewModels<CocktailViewModel>
         enableEdgeToEdge()
         setContent {
             CocktailAPITheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     AppCocktail(
                         modifier = Modifier.padding(innerPadding),
-                        apiViewModel = apiViewModel
+                        apiViewModel = apiViewModel,
+                        cocktailViewModel = cocktailViewModel,
                     )
                 }
             }
@@ -41,7 +44,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppCocktail(
     modifier: Modifier = Modifier,
-    apiViewModel: APIViewModel
+    apiViewModel: APIViewModel,
+    cocktailViewModel: CocktailViewModel
 ) {
 
     val navigationController = rememberNavController()
@@ -50,7 +54,7 @@ fun AppCocktail(
         startDestination = Routes.LaunchScreen.route
     ) {
         composable(Routes.LaunchScreen.route) { LaunchScreen(navigationController) }
-        composable(Routes.MainViewScreen.route) { MainViewScreen(navigationController, apiViewModel)
+        composable(Routes.MainViewScreen.route) { MainViewScreen(navigationController, apiViewModel,cocktailViewModel)
         }
     }
 

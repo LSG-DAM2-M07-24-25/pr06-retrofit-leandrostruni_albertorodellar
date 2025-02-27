@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.cocktailapi.api.Repository
 import com.example.cocktailapi.model.DataAPI
+import com.example.cocktailapi.model.Drink
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,6 +33,7 @@ class APIViewModel : ViewModel() {
             }
         }
     }
+
     fun fetchRandomCocktail() {
         _loading.value = true
         CoroutineScope(Dispatchers.IO).launch {
@@ -45,5 +47,32 @@ class APIViewModel : ViewModel() {
                 _loading.value = false
             }
         }
+    }
+
+    fun fetchCocktailByCategory(categories: List<String>) {
+        _loading.value = true
+        CoroutineScope(Dispatchers.IO).launch {
+            val drinksList = mutableListOf<Drink>()
+            for (category in categories) {
+                val response = repository.getCocktailByCategory(category)
+                if (response.isSuccessful) {
+                    response.body()?.drinks?.let { drinksList.addAll(it) }
+                } else {
+                    Log.e(
+                        "Error API",
+                        "Error al obtener cócteles de $category: ${response.message()}"
+                    )
+                }
+
+                withContext(Dispatchers.Main) {
+                    _cocktailData.value = DataAPI(drinksList)
+                    _loading.value = false
+                }
+            }
+        }
+    }
+
+    fun clearCocktails() {
+        TODO("Not yet implemented")
     }
 }
