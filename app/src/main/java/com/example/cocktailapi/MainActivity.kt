@@ -19,6 +19,7 @@ import com.example.cocktailapi.ui.theme.CocktailAPITheme
 import com.example.cocktailapi.view.CocktailByCategoryScreen
 import com.example.cocktailapi.view.CocktailRandomScreen
 import com.example.cocktailapi.view.DetailsScreen
+import com.example.cocktailapi.view.FavoritesScreen
 import com.example.cocktailapi.view.LaunchScreen
 import com.example.cocktailapi.view.MainViewScreen
 import com.example.cocktailapi.view.SearchByNameScreen
@@ -93,8 +94,10 @@ fun AppCocktail(
                     cocktailViewModel
                 )
             }
+            composable(Routes.FavoritesScreen.route) {
+                FavoritesScreen(navigationController)
+            }
         }
     }
-
 }
 

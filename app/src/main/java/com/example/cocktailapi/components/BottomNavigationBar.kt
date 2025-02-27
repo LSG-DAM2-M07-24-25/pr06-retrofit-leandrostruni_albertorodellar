@@ -16,9 +16,11 @@ import com.example.cocktailapi.model.BottomNavItem
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
+        BottomNavItem.Home,
         BottomNavItem.SearchByName,
         BottomNavItem.SearchRandom,
-        BottomNavItem.SearchByCategory
+        BottomNavItem.SearchByCategory,
+        BottomNavItem.Favorites
     )
 
     NavigationBar(
