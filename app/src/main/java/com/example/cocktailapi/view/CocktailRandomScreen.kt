@@ -13,6 +13,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -28,8 +29,12 @@ fun CocktailRandomScreen(
     apiViewModel: APIViewModel,
     cocktailViewModel: CocktailViewModel
 ) {
-    val cocktailData by apiViewModel.cocktailData.observeAsState()
+    val cocktailData by apiViewModel.cocktailData.observeAsState(initial = null)
     val loading by apiViewModel.loading.observeAsState(initial = false)
+
+    LaunchedEffect(Unit) {
+        apiViewModel.clearCocktailData()
+    }
 
     Column(
         modifier = Modifier

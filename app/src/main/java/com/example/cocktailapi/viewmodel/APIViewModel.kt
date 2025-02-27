@@ -58,4 +58,8 @@ class APIViewModel : ViewModel() {
             }
         }
     }
+
+    fun clearCocktailData() {
+        _cocktailData.value = null
+    }
 }

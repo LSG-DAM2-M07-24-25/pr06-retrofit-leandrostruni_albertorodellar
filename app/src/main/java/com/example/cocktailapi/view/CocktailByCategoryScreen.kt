@@ -14,6 +14,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -36,8 +37,12 @@ fun CocktailByCategoryScreen(
 ) {
     var isOrdinaryDrinkChecked by remember { mutableStateOf(false) }
     var isCocktailChecked by remember { mutableStateOf(false) }
-    val cocktailData by cocktailViewModel.cocktailData.observeAsState()
+    val cocktailData by cocktailViewModel.cocktailData.observeAsState(initial = null)
     val loading by cocktailViewModel.loading.observeAsState(initial = false)
+
+    LaunchedEffect(Unit) {
+        apiViewModel.clearCocktailData()
+    }
 
     Column(modifier = Modifier.padding(16.dp)) {
         Text("Filtrar por categoría", style = MaterialTheme.typography.headlineSmall)

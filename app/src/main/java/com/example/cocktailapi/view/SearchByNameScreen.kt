@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -33,8 +34,13 @@ fun SearchByNameScreen(
     cocktailViewModel: CocktailViewModel
 ) {
     var cocktailName by remember { mutableStateOf("") }
-    val cocktailData by apiViewModel.cocktailData.observeAsState()
+    val cocktailData by apiViewModel.cocktailData.observeAsState(initial = null)
     val loading by apiViewModel.loading.observeAsState(initial = false)
+
+    LaunchedEffect(Unit) {
+        apiViewModel.clearCocktailData()
+    }
+
 
     Column(
         modifier = Modifier
