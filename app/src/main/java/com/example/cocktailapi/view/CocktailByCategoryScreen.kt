@@ -53,7 +53,7 @@ fun CocktailByCategoryScreen(
                 if (selectedCategories.value.isNotEmpty()) {
                     cocktailViewModel.fetchFilteredCocktails(selectedCategories.value.toList())
                 }else {
-                    cocktailViewModel.clearCocktails() // Limpia la lista si no hay seleccionados
+                    cocktailViewModel.clearCocktails()
                 }
             }
         )

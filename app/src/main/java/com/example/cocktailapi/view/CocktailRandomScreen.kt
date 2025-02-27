@@ -41,6 +41,8 @@ fun CocktailRandomScreen(
             .fillMaxWidth()
             .padding(16.dp)
     ) {
+        Text("Cocktail Aleatorio", style = MaterialTheme.typography.headlineSmall)
+
         Button(
             onClick = { apiViewModel.fetchRandomCocktail() },
             modifier = Modifier.fillMaxWidth()

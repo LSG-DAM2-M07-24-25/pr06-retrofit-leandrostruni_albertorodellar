@@ -33,7 +33,7 @@ fun DetailsScreen(
             .padding(16.dp)
     ) {
         selectedCocktail?.let { drink ->
-            CocktailItemDetails(drink) // 🔥 Usa el nuevo componente aquí
+            CocktailItemDetails(drink)
         } ?: Text("Cargando datos del cóctel...", style = MaterialTheme.typography.bodyLarge)
 
         Spacer(modifier = Modifier.height(16.dp))
