@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.cocktailapi.components.CategoryDropdownMenu
 import com.example.cocktailapi.components.CocktailItem
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
@@ -52,34 +53,7 @@ fun CocktailByCategoryScreen(
     Column(modifier = Modifier.padding(16.dp)) {
         Text("Filtrar por categoría", style = MaterialTheme.typography.headlineSmall)
 
-        LazyColumn {
-            items(categories) { category ->
-                category?.let {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 4.dp, horizontal = 8.dp)
-                    ) {
-                        Checkbox(
-                            checked = selectedCategories.value.contains(it),
-                            onCheckedChange = { checked ->
-                                selectedCategories.value =
-                                    selectedCategories.value.toMutableSet().apply {
-                                        if (checked) add(it) else remove(it)
-                                    }
-                            }
-                        )
-                        Text(
-                            text = it,
-                            modifier = Modifier.padding(start = 8.dp), // Espaciado del texto
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-                    }
-                }
-            }
-        }
-
+        CategoryDropdownMenu(categories,selectedCategories)
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(

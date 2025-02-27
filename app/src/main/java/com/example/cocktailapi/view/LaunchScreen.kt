@@ -9,7 +9,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun LaunchScreen(navController: NavController){
     LaunchedEffect(Unit) {
-        delay(3000)
+        delay(1000)
         navController.navigate(Routes.MainViewScreen.route)
     }
 }
