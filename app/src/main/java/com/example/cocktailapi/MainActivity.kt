@@ -17,6 +17,7 @@ import com.example.cocktailapi.components.BottomNavigationBar
 import com.example.cocktailapi.model.Routes
 import com.example.cocktailapi.ui.theme.CocktailAPITheme
 import com.example.cocktailapi.view.CocktailByNameScreen
+import com.example.cocktailapi.view.CocktailRandomScreen
 import com.example.cocktailapi.view.LaunchScreen
 import com.example.cocktailapi.view.MainViewScreen
 import com.example.cocktailapi.viewmodel.APIViewModel
@@ -63,6 +64,7 @@ fun AppCocktail(
             composable(Routes.LaunchScreen.route) { LaunchScreen(navigationController) }
             composable(Routes.MainViewScreen.route) { MainViewScreen(navigationController, apiViewModel, cocktailViewModel) }
             composable(Routes.SearchByNameScreen.route) { CocktailByNameScreen(navigationController,apiViewModel) }
+            composable(Routes.SearchRandomScreen.route) { CocktailRandomScreen(navigationController,apiViewModel) }
         }
     }
 

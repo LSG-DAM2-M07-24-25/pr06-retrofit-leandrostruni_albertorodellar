@@ -47,8 +47,6 @@ fun DebugViewScreen(
             .padding(16.dp)
     ) {
 
-        CocktailRandom(apiViewModel)
-
         Spacer(modifier = Modifier.height(16.dp))
 
         CocktailByCategory(cocktailViewModel)
@@ -114,15 +112,7 @@ fun CocktailItem(cocktail: Drink) {
 }
 
 
-@Composable
-fun CocktailRandom(apiViewModel: APIViewModel) {
-    Button(
-        onClick = { apiViewModel.fetchRandomCocktail() },
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Text("Cocktail Aleatorio")
-    }
-}
+
 
 @Composable
 fun CocktailByCategory(cocktailViewModel: CocktailViewModel) {

@@ -17,7 +17,7 @@ import com.example.cocktailapi.model.BottomNavItem
 fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
         BottomNavItem.SearchByName,
-        //BottomNavItem.SearchRandom,
+        BottomNavItem.SearchRandom,
         //BottomNavItem.SearchByCategory
     )
 
