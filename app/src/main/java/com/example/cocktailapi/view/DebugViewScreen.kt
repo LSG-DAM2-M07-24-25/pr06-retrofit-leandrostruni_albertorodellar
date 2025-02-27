@@ -47,10 +47,6 @@ fun DebugViewScreen(
             .padding(16.dp)
     ) {
 
-        CocktailByName(apiViewModel)
-
-        Spacer(modifier = Modifier.height(16.dp))
-
         CocktailRandom(apiViewModel)
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -117,27 +113,6 @@ fun CocktailItem(cocktail: Drink) {
     }
 }
 
-@Composable
-fun CocktailByName(apiViewModel: APIViewModel) {
-    var cocktailName by remember { mutableStateOf("") }
-
-    TextField(
-        value = cocktailName,
-        onValueChange = { cocktailName = it },
-        label = { Text("Buscar Cocktail") },
-        modifier = Modifier.fillMaxWidth()
-    )
-
-    Spacer(modifier = Modifier.height(16.dp))
-
-    Button(
-        onClick = { apiViewModel.searchCocktail(cocktailName) },
-        modifier = Modifier.fillMaxWidth()
-    )
-    {
-        Text("Buscar Cocktail")
-    }
-}
 
 @Composable
 fun CocktailRandom(apiViewModel: APIViewModel) {
