@@ -20,6 +20,12 @@ class APIViewModel : ViewModel() {
     val cocktailData: LiveData<DataAPI?> = _cocktailData
 
     fun searchCocktail(name: String) {
+
+        if (name.isBlank()) {
+            Log.e("Error API", "No se puede buscar un cóctel con un nombre vacío")
+            return
+        }
+
         _loading.value = true
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.searchCocktailByName(name)
@@ -47,32 +53,5 @@ class APIViewModel : ViewModel() {
                 _loading.value = false
             }
         }
-    }
-
-    fun fetchCocktailByCategory(categories: List<String>) {
-        _loading.value = true
-        CoroutineScope(Dispatchers.IO).launch {
-            val drinksList = mutableListOf<Drink>()
-            for (category in categories) {
-                val response = repository.getCocktailByCategory(category)
-                if (response.isSuccessful) {
-                    response.body()?.drinks?.let { drinksList.addAll(it) }
-                } else {
-                    Log.e(
-                        "Error API",
-                        "Error al obtener cócteles de $category: ${response.message()}"
-                    )
-                }
-
-                withContext(Dispatchers.Main) {
-                    _cocktailData.value = DataAPI(drinksList)
-                    _loading.value = false
-                }
-            }
-        }
-    }
-
-    fun clearCocktails() {
-        TODO("Not yet implemented")
     }
 }

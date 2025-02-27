@@ -32,9 +32,14 @@ import com.example.cocktailapi.viewmodel.CocktailViewModel
 
 @Composable
 fun DebugViewScreen(
-    apiViewModel: APIViewModel, cocktailViewModel: CocktailViewModel) {
-    val cocktailData by apiViewModel.cocktailData.observeAsState()
-    val loading by apiViewModel.loading.observeAsState(initial = true)
+    apiViewModel: APIViewModel, cocktailViewModel: CocktailViewModel
+) {
+    val apiCocktailData  by apiViewModel.cocktailData.observeAsState()
+    val categoryCocktailData by cocktailViewModel.cocktailData.observeAsState()
+    val loadingApi by apiViewModel.loading.observeAsState(initial = false)
+    val loadingCocktail by cocktailViewModel.loading.observeAsState(initial = false)
+
+    val loading = loadingApi || loadingCocktail
 
     Column(
         modifier = Modifier
@@ -50,12 +55,13 @@ fun DebugViewScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        CocktailByCategory(apiViewModel)
+        CocktailByCategory(cocktailViewModel)
 
         if (loading) {
             CircularProgressIndicator()
         } else {
-            cocktailData?.drinks?.let { drinks ->
+            val drinksList = categoryCocktailData?.drinks ?: apiCocktailData?.drinks
+            drinksList?.let { drinks ->
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(drinks) { cocktail ->
                         CocktailItem(cocktail)
@@ -144,9 +150,10 @@ fun CocktailRandom(apiViewModel: APIViewModel) {
 }
 
 @Composable
-fun CocktailByCategory(apiViewModel: APIViewModel, cocktailViewModel: CocktailViewModel) {
+fun CocktailByCategory(cocktailViewModel: CocktailViewModel) {
     var isOrdinaryDrinkChecked by remember { mutableStateOf(false) }
     var isCocktailChecked by remember { mutableStateOf(false) }
+    val cocktails by cocktailViewModel.cocktailData.observeAsState()
 
     Column(modifier = Modifier.padding(16.dp)) {
         Text("Filtrar por categoría", style = MaterialTheme.typography.headlineSmall)
@@ -161,7 +168,10 @@ fun CocktailByCategory(apiViewModel: APIViewModel, cocktailViewModel: CocktailVi
                 checked = isOrdinaryDrinkChecked,
                 onCheckedChange = { checked ->
                     isOrdinaryDrinkChecked = checked
-                    fetchFilteredCocktails(apiViewModel, isOrdinaryDrinkChecked, isCocktailChecked)
+                    cocktailViewModel.fetchFilteredCocktails(
+                        isOrdinaryDrinkChecked,
+                        isCocktailChecked
+                    )
                 }
             )
             Text("Ordinary Drink", modifier = Modifier.padding(start = 8.dp))
@@ -177,7 +187,10 @@ fun CocktailByCategory(apiViewModel: APIViewModel, cocktailViewModel: CocktailVi
                 checked = isCocktailChecked,
                 onCheckedChange = { checked ->
                     isCocktailChecked = checked
-                    fetchFilteredCocktails(apiViewModel, isOrdinaryDrinkChecked, isCocktailChecked)
+                    cocktailViewModel.fetchFilteredCocktails(
+                        isOrdinaryDrinkChecked,
+                        isCocktailChecked
+                    )
                 }
             )
             Text("Cocktail", modifier = Modifier.padding(start = 8.dp))

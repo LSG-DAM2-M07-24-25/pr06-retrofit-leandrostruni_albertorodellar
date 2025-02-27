@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val apiViewModel: APIViewModel by viewModels<APIViewModel>()
-        val cocktailViewModel: CocktailViewModel by viewModels<CocktailViewModel>
+        val cocktailViewModel: CocktailViewModel by viewModels<CocktailViewModel>()
         enableEdgeToEdge()
         setContent {
             CocktailAPITheme {
