@@ -10,11 +10,8 @@ import com.example.cocktailapi.viewmodel.CocktailViewModel
 
 @Composable
 fun MainViewScreen(
-    navController: NavController,
-    apiViewModel: APIViewModel,
-    cocktailViewModel: CocktailViewModel
 ) {
     Text(
-        text="Bienvenido"
+        text = "Bienvenido"
     )
 }

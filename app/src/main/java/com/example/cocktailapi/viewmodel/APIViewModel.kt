@@ -26,7 +26,9 @@ class APIViewModel : ViewModel() {
             return
         }
 
+        _cocktailData.value = null
         _loading.value = true
+
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.searchCocktailByName(name)
             withContext(Dispatchers.Main) {
@@ -41,7 +43,9 @@ class APIViewModel : ViewModel() {
     }
 
     fun fetchRandomCocktail() {
+        _cocktailData.value = null
         _loading.value = true
+
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.getRandomCocktail()
             withContext(Dispatchers.Main) {

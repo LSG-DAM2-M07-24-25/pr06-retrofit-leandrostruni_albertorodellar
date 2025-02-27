@@ -27,7 +27,7 @@ import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
 @Composable
-fun CocktailByNameScreen(
+fun SearchByNameScreen(
     navController: NavController,
     apiViewModel: APIViewModel,
     cocktailViewModel: CocktailViewModel

@@ -26,6 +26,7 @@ class CocktailViewModel : ViewModel() {
         val categories = mutableListOf<String>()
         if (isOrdinary) categories.add("Ordinary_Drink")
         if (isCocktail) categories.add("Cocktail")
+        _cocktailData.value = null
 
         if (categories.isEmpty()) {
             _cocktailData.postValue(DataAPI(emptyList()))
