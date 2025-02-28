@@ -22,7 +22,7 @@ class APIViewModel : ViewModel() {
     fun searchCocktail(name: String) {
 
         if (name.isBlank()) {
-            Log.e("Error API", "No se puede buscar un cóctel con un nombre vacío")
+            Log.e("Error API", "No se puede buscar un cocktail con un nombre vacío")
             return
         }
 
@@ -43,6 +43,23 @@ class APIViewModel : ViewModel() {
     }
 
     fun fetchRandomCocktail() {
+        _cocktailData.value = null
+        _loading.value = true
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.getRandomCocktail()
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    _cocktailData.value = response.body()
+                } else {
+                    Log.e("Error API", response.message())
+                }
+                _loading.value = false
+            }
+        }
+    }
+
+    fun getCocktailById(){
         _cocktailData.value = null
         _loading.value = true
 
