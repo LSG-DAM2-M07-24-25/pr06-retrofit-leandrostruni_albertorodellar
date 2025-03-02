@@ -9,6 +9,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -25,6 +26,13 @@ fun DetailsScreen(
     cocktailViewModel: CocktailViewModel
 ){
     val selectedCocktailId by cocktailViewModel.selectedCocktailId.observeAsState()
+
+    LaunchedEffect(selectedCocktailId) {
+        selectedCocktailId?.let { id ->
+            apiViewModel.getCocktailById(id)
+        }
+    }
+
     val selectedCocktail = apiViewModel.cocktailData.value?.drinks?.find { it.idDrink == selectedCocktailId }
 
     Column(

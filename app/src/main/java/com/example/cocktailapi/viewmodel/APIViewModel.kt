@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.cocktailapi.api.Repository
 import com.example.cocktailapi.model.DataAPI
-import com.example.cocktailapi.model.Drink
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -59,12 +58,12 @@ class APIViewModel : ViewModel() {
         }
     }
 
-    fun getCocktailById(){
+    fun getCocktailById(id: String) {
         _cocktailData.value = null
         _loading.value = true
 
         CoroutineScope(Dispatchers.IO).launch {
-            val response = repository.getRandomCocktail()
+            val response = repository.getCocktailById(id)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     _cocktailData.value = response.body()
