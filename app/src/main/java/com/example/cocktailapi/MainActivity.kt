@@ -95,7 +95,9 @@ fun AppCocktail(
                 )
             }
             composable(Routes.FavoritesScreen.route) {
-                FavoritesScreen(navigationController)
+                FavoritesScreen(navigationController,
+                    apiViewModel,
+                    cocktailViewModel)
             }
         }
     }
