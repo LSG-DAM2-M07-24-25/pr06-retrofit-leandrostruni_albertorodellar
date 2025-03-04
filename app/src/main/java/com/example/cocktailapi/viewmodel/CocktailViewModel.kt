@@ -49,6 +49,10 @@ class CocktailViewModel : ViewModel() {
             return
         }
 
+        if (_cocktailData.value?.drinks?.isNotEmpty() == true) {
+            return
+        }
+
         _loading.value = true
         CoroutineScope(Dispatchers.IO).launch {
             val drinksList = mutableListOf<Drink>()

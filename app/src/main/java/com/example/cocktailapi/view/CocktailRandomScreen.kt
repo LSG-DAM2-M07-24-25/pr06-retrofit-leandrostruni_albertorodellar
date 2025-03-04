@@ -32,7 +32,7 @@ fun CocktailRandomScreen(
     val cocktailData by apiViewModel.cocktailData.observeAsState(initial = null)
     val loading by apiViewModel.loading.observeAsState(initial = false)
 
-    LaunchedEffect(Unit) {
+    if (apiViewModel.cocktailData.value == null) {
         apiViewModel.clearCocktailData()
     }
 

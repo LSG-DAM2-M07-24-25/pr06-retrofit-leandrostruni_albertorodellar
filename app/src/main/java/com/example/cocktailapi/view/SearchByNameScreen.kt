@@ -19,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -33,12 +34,14 @@ fun SearchByNameScreen(
     apiViewModel: APIViewModel,
     cocktailViewModel: CocktailViewModel
 ) {
-    var cocktailName by remember { mutableStateOf("") }
+    var cocktailName by rememberSaveable { mutableStateOf("") }
     val cocktailData by apiViewModel.cocktailData.observeAsState(initial = null)
     val loading by apiViewModel.loading.observeAsState(initial = false)
 
     LaunchedEffect(Unit) {
-        apiViewModel.clearCocktailData()
+        if (apiViewModel.cocktailData.value == null) {
+            apiViewModel.clearCocktailData()
+        }
     }
 
 
