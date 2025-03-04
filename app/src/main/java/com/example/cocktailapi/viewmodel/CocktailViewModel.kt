@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.example.cocktailapi.api.Repository
 import com.example.cocktailapi.model.DataAPI
 import com.example.cocktailapi.model.Drink
+import com.example.cocktailapi.model.DrinkEntity
+import com.example.cocktailapi.room.DrinkRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -87,5 +89,66 @@ class CocktailViewModel : ViewModel() {
 
     fun clearCocktails() {
         _cocktailData.postValue(DataAPI(emptyList()))
+    }
+
+    // ROOM SECTION
+    private val drinkRepository = DrinkRepository()
+
+    private val _isFavorite = MutableLiveData<Boolean>(false)
+    val isFavorite: LiveData<Boolean> = _isFavorite
+
+    private val _favorites = MutableLiveData<MutableList<DrinkEntity>>()
+    val favorites: LiveData<MutableList<DrinkEntity>> = _favorites
+
+    private val _selectedDrink = MutableLiveData<DrinkEntity?>()
+    val selectedDrink: LiveData<DrinkEntity?> = _selectedDrink
+
+    // Obtener todos los favoritos
+    fun getFavorites() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = drinkRepository.getFavorites()
+            withContext(Dispatchers.Main) {
+                _favorites.value = response
+                _loading.value = false
+            }
+        }
+    }
+
+    // Obtener una bebida por su ID
+    fun getDrinkById(idDrink: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val drink = drinkRepository.getDrinkById(idDrink)
+            withContext(Dispatchers.Main) {
+                _selectedDrink.value = drink
+            }
+        }
+    }
+
+    // Verificar si un cóctel es favorito
+    fun isFavorite(idDrink: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = drinkRepository.isFavorite(idDrink)
+            withContext(Dispatchers.Main) {
+                _isFavorite.value = response
+            }
+        }
+    }
+
+    // Añadir un cóctel a favoritos
+    fun addFavorite(drink: Drink) {
+        val drinkEntity = drink.toDrinkEntity(isFavorite = true)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            drinkRepository.addFavorite(drinkEntity)
+        }
+    }
+
+    // Eliminar un cóctel de favoritos
+    fun removeFavorite(drink: Drink) {
+        val drinkEntity = drink.toDrinkEntity(isFavorite = false)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            drinkRepository.removeFavorite(drinkEntity)
+        }
     }
 }

@@ -56,4 +56,17 @@ data class Drink(
     val strMeasure15: String?,
     val strTags: String?,
     val strVideo: String?
-)
+) {
+    // Función para convertir Drink a DrinkEntity, para la base de datos
+    fun toDrinkEntity(isFavorite: Boolean = false): DrinkEntity {
+        return DrinkEntity(
+            idDrink = this.idDrink,
+            strDrink = this.strDrink,
+            strCategory = this.strCategory,
+            strAlcoholic = this.strAlcoholic,
+            strGlass = this.strGlass,
+            strDrinkThumb = this.strDrinkThumb,
+            isFavorite = isFavorite
+        )
+    }
+}

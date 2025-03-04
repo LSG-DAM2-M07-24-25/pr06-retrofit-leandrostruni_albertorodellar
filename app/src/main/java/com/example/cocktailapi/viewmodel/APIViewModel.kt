@@ -47,6 +47,7 @@ class APIViewModel : ViewModel() {
 
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.getRandomCocktail()
+            Log.e("API", response.message())
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     _cocktailData.value = response.body()
