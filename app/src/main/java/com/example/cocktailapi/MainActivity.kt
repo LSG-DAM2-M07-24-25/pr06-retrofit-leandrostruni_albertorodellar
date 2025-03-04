@@ -61,11 +61,17 @@ fun AppCocktail(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = currentRoute ?: "Cocktail App") {
-                navigationController.popBackStack()
+            if (currentRoute != Routes.LaunchScreen.route) {
+                TopAppBar(title = currentRoute ?: "Cocktail Finder") {
+                    navigationController.popBackStack()
+                }
             }
         },
-        bottomBar = { BottomNavigationBar(navigationController) }
+        bottomBar = {
+            if (currentRoute != Routes.LaunchScreen.route) {
+                BottomNavigationBar(navigationController)
+            }
+        }
     ) { innerPadding ->
         NavHost(
             navController = navigationController,
