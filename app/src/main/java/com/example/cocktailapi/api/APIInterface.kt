@@ -29,8 +29,15 @@ interface APIInterface {
         @Query("c") category: String
     ): Response<DataAPI>
 
+    //www.thecocktaildb.com/api/json/v1/1/list.php?c=list
     @GET("list.php?c=list")
     suspend fun getCategories(): Response<DataAPI>
+
+    //www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007
+    @GET("lookup.php")
+    suspend fun getCocktailById(
+        @Query("i") id: String
+    ): Response<DataAPI>
 
     companion object {
         private const val BASE_URL = "https://www.thecocktaildb.com/api/json/v1/1/"

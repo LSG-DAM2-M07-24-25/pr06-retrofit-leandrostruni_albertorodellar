@@ -12,8 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.cocktailapi.components.BottomNavigationBar
+import com.example.cocktailapi.components.TopAppBar
 import com.example.cocktailapi.model.Routes
 import com.example.cocktailapi.ui.theme.CocktailAPITheme
 import com.example.cocktailapi.view.CocktailByCategoryScreen
@@ -55,8 +57,14 @@ fun AppCocktail(
 ) {
 
     val navigationController = rememberNavController()
+    val currentRoute = navigationController.currentBackStackEntryAsState().value?.destination?.route
 
     Scaffold(
+        topBar = {
+            TopAppBar(title = currentRoute ?: "Cocktail App") {
+                navigationController.popBackStack()
+            }
+        },
         bottomBar = { BottomNavigationBar(navigationController) }
     ) { innerPadding ->
         NavHost(

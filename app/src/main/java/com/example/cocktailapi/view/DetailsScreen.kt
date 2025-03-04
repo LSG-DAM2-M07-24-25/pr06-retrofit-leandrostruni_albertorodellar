@@ -21,6 +21,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -44,24 +45,22 @@ fun DetailsScreen(
     cocktailViewModel: CocktailViewModel
 ){
     val selectedCocktailId by cocktailViewModel.selectedCocktailId.observeAsState()
-    selectedCocktailId?.let { cocktailViewModel.getDrinkById(it) }
-    val selectedCocktail: Drink?
-    val selectedDrink by cocktailViewModel.selectedDrink.observeAsState()
-    selectedCocktail = if (selectedDrink != null) {
-        selectedDrink?.toDrink()
-    } else {
-        apiViewModel.cocktailData.value?.drinks?.find { it.idDrink == selectedCocktailId }
+    
+    LaunchedEffect(selectedCocktailId) {
+        selectedCocktailId?.let { id ->
+            apiViewModel.getCocktailById(id)
+        }
     }
+
+    val selectedCocktail = apiViewModel.cocktailData.value?.drinks?.find { it.idDrink == selectedCocktailId }
+    
     // Comprobamos si el cóctel es favorito
     selectedCocktail?.let { cocktailViewModel.isFavorite(it.idDrink) }
     val isFavorite: Boolean by cocktailViewModel.isFavorite.observeAsState(false)
-
     var isLoadingFavorite by remember { mutableStateOf(false) }
+    
     val scrollState = rememberScrollState()
-    Log.d("DetailsScreen", "cocktailData: ${apiViewModel.cocktailData.value?.drinks}")
-
-    Log.d("DetailsScreen", "selectedCocktailId: $selectedCocktailId")
-    Log.d("DetailsScreen", "selectedCocktail: $selectedCocktail")
+  
     Column(
         modifier = Modifier
             .fillMaxSize()

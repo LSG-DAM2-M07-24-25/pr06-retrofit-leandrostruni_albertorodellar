@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.cocktailapi.api.Repository
 import com.example.cocktailapi.model.DataAPI
-import com.example.cocktailapi.model.Drink
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,7 +21,7 @@ class APIViewModel : ViewModel() {
     fun searchCocktail(name: String) {
 
         if (name.isBlank()) {
-            Log.e("Error API", "No se puede buscar un cóctel con un nombre vacío")
+            Log.e("Error API", "No se puede buscar un cocktail con un nombre vacío")
             return
         }
 
@@ -49,6 +48,23 @@ class APIViewModel : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.getRandomCocktail()
             Log.e("API", response.message())
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    _cocktailData.value = response.body()
+                } else {
+                    Log.e("Error API", response.message())
+                }
+                _loading.value = false
+            }
+        }
+    }
+
+    fun getCocktailById(id: String) {
+        _cocktailData.value = null
+        _loading.value = true
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.getCocktailById(id)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     _cocktailData.value = response.body()

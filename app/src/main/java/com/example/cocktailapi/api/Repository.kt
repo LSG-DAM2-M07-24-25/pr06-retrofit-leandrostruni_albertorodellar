@@ -7,5 +7,6 @@ class Repository {
     suspend fun getRandomCocktail() = apiInterface.getRandomCocktail()
     suspend fun getCocktailByCategory(category: String) = apiInterface.getCocktailByCategory(category)
     suspend fun getCategories() = apiInterface.getCategories()
+    suspend fun getCocktailById(id: String) = apiInterface.getCocktailById(id)
     }
 
