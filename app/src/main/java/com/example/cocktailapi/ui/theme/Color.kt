@@ -2,10 +2,10 @@ package com.example.cocktailapi.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
-
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+// Colores principales de la paleta
+val NavyBlue = Color(0xFF0D1B2A) // Fondo oscuro
+val SoftGold = Color(0xFFF4A261) // Botones y resaltados
+val WineRed = Color(0xFF9B2226) // Títulos y detalles
+val EmeraldGreen = Color(0xFF2A9D8F) // Éxito / Confirmaciones
+val VintageCream = Color(0xFFF6E8C3) // Fondo claro
+val SlateGray = Color(0xFF1B263B) // Texto en fondos claros
