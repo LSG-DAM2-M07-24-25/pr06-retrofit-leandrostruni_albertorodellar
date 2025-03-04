@@ -12,6 +12,10 @@ interface DrinkDao {
     @Query("SELECT * FROM drinks WHERE is_favorite = 1")
     fun getFavorites(): MutableList<DrinkEntity>
 
+    // Obtener una bebida por su ID
+    @Query("SELECT * FROM drinks WHERE idDrink = :id LIMIT 1")
+    fun getDrinkById(id: String): DrinkEntity?
+
     // Comprobar si una bebida es favorita
     @Query("SELECT is_favorite FROM drinks WHERE idDrink = :id")
     fun isFavorite(id: String): Boolean

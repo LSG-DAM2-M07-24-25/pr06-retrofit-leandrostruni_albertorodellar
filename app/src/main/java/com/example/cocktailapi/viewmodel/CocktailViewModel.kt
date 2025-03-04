@@ -96,6 +96,9 @@ class CocktailViewModel : ViewModel() {
     private val _favorites = MutableLiveData<MutableList<DrinkEntity>>()
     val favorites: LiveData<MutableList<DrinkEntity>> = _favorites
 
+    private val _selectedDrink = MutableLiveData<DrinkEntity?>()
+    val selectedDrink: LiveData<DrinkEntity?> = _selectedDrink
+
     // Obtener todos los favoritos
     fun getFavorites() {
         CoroutineScope(Dispatchers.IO).launch {
@@ -103,6 +106,16 @@ class CocktailViewModel : ViewModel() {
             withContext(Dispatchers.Main) {
                 _favorites.value = response
                 _loading.value = false
+            }
+        }
+    }
+
+    // Obtener una bebida por su ID
+    fun getDrinkById(idDrink: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val drink = drinkRepository.getDrinkById(idDrink)
+            withContext(Dispatchers.Main) {
+                _selectedDrink.value = drink
             }
         }
     }

@@ -18,8 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItem
-import com.example.cocktailapi.model.Drink
-import com.example.cocktailapi.model.DrinkEntity
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
@@ -53,7 +51,7 @@ fun FavoritesScreen(
                 }
             }
         } else {
-            Text("No hay resultados", style = MaterialTheme.typography.bodyLarge)
+            Text("No hay favoritos", style = MaterialTheme.typography.bodyLarge)
         }
     }
 }

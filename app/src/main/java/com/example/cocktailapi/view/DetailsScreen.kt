@@ -4,13 +4,18 @@ import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -27,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItemDetails
+import com.example.cocktailapi.model.Drink
 import com.example.cocktailapi.model.DrinkEntity
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
@@ -38,46 +44,63 @@ fun DetailsScreen(
     cocktailViewModel: CocktailViewModel
 ){
     val selectedCocktailId by cocktailViewModel.selectedCocktailId.observeAsState()
-    val selectedCocktail = apiViewModel.cocktailData.value?.drinks?.find { it.idDrink == selectedCocktailId }
-
+    selectedCocktailId?.let { cocktailViewModel.getDrinkById(it) }
+    val selectedCocktail: Drink?
+    val selectedDrink by cocktailViewModel.selectedDrink.observeAsState()
+    selectedCocktail = if (selectedDrink != null) {
+        selectedDrink?.toDrink()
+    } else {
+        apiViewModel.cocktailData.value?.drinks?.find { it.idDrink == selectedCocktailId }
+    }
     // Comprobamos si el cóctel es favorito
     selectedCocktail?.let { cocktailViewModel.isFavorite(it.idDrink) }
     val isFavorite: Boolean by cocktailViewModel.isFavorite.observeAsState(false)
 
     var isLoadingFavorite by remember { mutableStateOf(false) }
+    val scrollState = rememberScrollState()
+    Log.d("DetailsScreen", "cocktailData: ${apiViewModel.cocktailData.value?.drinks}")
 
+    Log.d("DetailsScreen", "selectedCocktailId: $selectedCocktailId")
+    Log.d("DetailsScreen", "selectedCocktail: $selectedCocktail")
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(scrollState)
             .padding(16.dp)
     ) {
         selectedCocktail?.let { drink ->
-            CocktailItemDetails(drink)
-            Spacer(modifier = Modifier.height(16.dp))
-            IconButton(
-                onClick = {
-                    isLoadingFavorite = true
-                    cocktailViewModel.isFavorite(drink.idDrink)
-
-                    if (!isFavorite) {
-                        cocktailViewModel.addFavorite(drink)  // Añadimos a favoritos
-                        isLoadingFavorite = false
-                    } else {
-                        cocktailViewModel.removeFavorite(drink)  // Eliminamos de favoritos
-                        isLoadingFavorite = false
-                    }
-                },
-                enabled = !isLoadingFavorite,
+            Card(
                 modifier = Modifier
-                    .padding(16.dp)
-                    .align(Alignment.End)
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
-                Icon(
-                    imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-                    contentDescription = "Favorite",
-                    tint = if (isFavorite) Color.Red else Color.Gray,
-                    modifier = Modifier.size(48.dp)
-                )
+                IconButton(
+                    onClick = {
+                        isLoadingFavorite = true
+                        cocktailViewModel.isFavorite(drink.idDrink)
+
+                        if (!isFavorite) {
+                            cocktailViewModel.addFavorite(drink)  // Añadimos a favoritos
+                            isLoadingFavorite = false
+                        } else {
+                            cocktailViewModel.removeFavorite(drink)  // Eliminamos de favoritos
+                            isLoadingFavorite = false
+                        }
+                    },
+                    enabled = !isLoadingFavorite,
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .align(Alignment.End)
+                ) {
+                    Icon(
+                        imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                        contentDescription = "Favorite",
+                        tint = if (isFavorite) Color.Red else Color.Gray,
+                        modifier = Modifier.size(48.dp)
+                    )
+                }
+                CocktailItemDetails(drink)
             }
         } ?: Text("Cargando datos del cóctel...", style = MaterialTheme.typography.bodyLarge)
 
