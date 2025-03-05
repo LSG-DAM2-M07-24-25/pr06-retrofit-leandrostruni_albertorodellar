@@ -58,7 +58,6 @@ fun CocktailItemDetails(cocktail: Drink) {
 
         cocktail.strIngredient1?.let {
             Text("Ingredientes:", style = MaterialTheme.typography.bodyLarge)
-            Text("Ingredientes:", style = MaterialTheme.typography.bodyLarge)
             ingredientes.forEachIndexed { index, ingredient ->
                 val medida = medidas.getOrNull(index) ?: ""
                 Text(" - $medida $ingredient", style = MaterialTheme.typography.bodyMedium)
