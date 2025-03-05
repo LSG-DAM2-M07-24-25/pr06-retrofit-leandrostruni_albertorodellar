@@ -94,7 +94,7 @@ class CocktailViewModel : ViewModel() {
     // ROOM SECTION
     private val drinkRepository = DrinkRepository()
 
-    private val _isFavorite = MutableLiveData<Boolean>(false)
+    private val _isFavorite = MutableLiveData(false)
     val isFavorite: LiveData<Boolean> = _isFavorite
 
     private val _favorites = MutableLiveData<MutableList<DrinkEntity>>()
@@ -137,18 +137,24 @@ class CocktailViewModel : ViewModel() {
     // Añadir un cóctel a favoritos
     fun addFavorite(drink: Drink) {
         val drinkEntity = drink.toDrinkEntity(isFavorite = true)
-
         CoroutineScope(Dispatchers.IO).launch {
-            drinkRepository.addFavorite(drinkEntity)
+            try {
+                drinkRepository.addFavorite(drinkEntity)
+            } catch (e: Exception) {
+                Log.e("Room Error", "Error al añadir a favoritos: ${e.message}")
+            }
         }
     }
 
     // Eliminar un cóctel de favoritos
     fun removeFavorite(drink: Drink) {
         val drinkEntity = drink.toDrinkEntity(isFavorite = false)
-
         CoroutineScope(Dispatchers.IO).launch {
-            drinkRepository.removeFavorite(drinkEntity)
+            try {
+                drinkRepository.removeFavorite(drinkEntity)
+            } catch (e: Exception) {
+                Log.e("Room Error", "Error al eliminar de favoritos: ${e.message}")
+            }
         }
     }
 }

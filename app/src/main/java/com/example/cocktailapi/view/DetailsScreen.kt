@@ -58,7 +58,11 @@ fun DetailsScreen(
     selectedCocktail?.let { cocktailViewModel.isFavorite(it.idDrink) }
     val isFavorite: Boolean by cocktailViewModel.isFavorite.observeAsState(false)
     var isLoadingFavorite by remember { mutableStateOf(false) }
-    
+    LaunchedEffect(selectedCocktail) {
+        selectedCocktail?.let {
+            cocktailViewModel.isFavorite(it.idDrink)
+        }
+    }
     val scrollState = rememberScrollState()
   
     Column(
@@ -77,14 +81,16 @@ fun DetailsScreen(
                 IconButton(
                     onClick = {
                         isLoadingFavorite = true
-                        cocktailViewModel.isFavorite(drink.idDrink)
-
+                        val drinkToUpdate = drink.toDrinkEntity(isFavorite = !isFavorite)
                         if (!isFavorite) {
-                            cocktailViewModel.addFavorite(drink)  // Añadimos a favoritos
+                            cocktailViewModel.addFavorite(drinkToUpdate.toDrink())  // Añadimos a favoritos
                             isLoadingFavorite = false
                         } else {
-                            cocktailViewModel.removeFavorite(drink)  // Eliminamos de favoritos
+                            cocktailViewModel.removeFavorite(drinkToUpdate.toDrink())  // Eliminamos de favoritos
                             isLoadingFavorite = false
+                        }
+                        if (!isLoadingFavorite){
+                            cocktailViewModel.isFavorite(drinkToUpdate.idDrink)
                         }
                     },
                     enabled = !isLoadingFavorite,
