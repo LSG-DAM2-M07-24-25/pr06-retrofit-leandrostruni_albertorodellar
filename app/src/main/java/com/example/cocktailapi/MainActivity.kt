@@ -79,7 +79,7 @@ fun AppCocktail(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Routes.LaunchScreen.route) { LaunchScreen(navigationController) }
-            composable(Routes.MainViewScreen.route) { MainViewScreen() }
+            composable(Routes.MainViewScreen.route) { MainViewScreen(navigationController) }
             composable(Routes.SearchByNameScreen.route) {
                 SearchByNameScreen(
                     navigationController,
