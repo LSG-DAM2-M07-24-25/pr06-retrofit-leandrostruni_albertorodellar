@@ -1,5 +1,7 @@
 package com.example.cocktailapi.view
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,10 +16,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItem
+import com.example.cocktailapi.ui.theme.NavyBlue
+import com.example.cocktailapi.ui.theme.SoftGold
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
@@ -37,21 +42,34 @@ fun FavoritesScreen(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .fillMaxSize()
+            .background(NavyBlue)
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Cocktails Favoritos", style = MaterialTheme.typography.headlineSmall)
+        Text(
+            "Cocktails Favoritos", style = MaterialTheme.typography.headlineSmall,
+            color = SoftGold
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         if (favorites.isNotEmpty()) {
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(favorites) { cocktail ->
-                    val drink = cocktail.toDrink()
-                    CocktailItem(drink, navController, apiViewModel, cocktailViewModel)
+            Box(
+                modifier = Modifier.weight(1f)
+            ) {
+                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                    items(favorites) { cocktail ->
+                        val drink = cocktail.toDrink()
+                        CocktailItem(drink, navController, apiViewModel, cocktailViewModel)
+                    }
                 }
             }
         } else {
-            Text("No hay favoritos", style = MaterialTheme.typography.bodyLarge)
+            Text(
+                "No hay cocktails en favoritos", style = MaterialTheme.typography.bodyLarge,
+                color = SoftGold
+            )
         }
     }
 }

@@ -13,16 +13,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.cocktailapi.model.Drink
 import com.example.cocktailapi.model.Routes
+import com.example.cocktailapi.ui.theme.NavyBlue
+import com.example.cocktailapi.ui.theme.SoftGold
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
 @Composable
-fun CocktailItem(drink: Drink, navController: NavController,apiViewModel: APIViewModel, cocktailViewModel: CocktailViewModel) {
+fun CocktailItem(
+    drink: Drink,
+    navController: NavController,
+    apiViewModel: APIViewModel,
+    cocktailViewModel: CocktailViewModel
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -31,24 +39,39 @@ fun CocktailItem(drink: Drink, navController: NavController,apiViewModel: APIVie
                 cocktailViewModel.selectCocktail(drink.idDrink)
                 navController.navigate(Routes.DetailsScreen.route)
             },
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        colors = CardDefaults.cardColors(containerColor = NavyBlue)
     ) {
-        Column (
-            modifier = Modifier.fillMaxWidth()
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            drink.strDrinkThumb?.let{
+            drink.strDrinkThumb?.let {
                 Image(
                     painter = rememberAsyncImagePainter(it),
                     contentDescription = drink.strDrink,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .height(150.dp)
                 )
             }
-            Text("Nombre: ${drink.strDrink}", style = MaterialTheme.typography.titleLarge)
-            Text("Categoría: ${drink.strCategory}", style = MaterialTheme.typography.bodyLarge)
-            Text("Tipo: ${drink.strAlcoholic}", style = MaterialTheme.typography.bodyLarge)
+            Text(
+                "Nombre: ${drink.strDrink}",
+                style = MaterialTheme.typography.titleLarge,
+                color = SoftGold
+            )
+            Text(
+                "Categoría: ${drink.strCategory}",
+                style = MaterialTheme.typography.bodyLarge,
+                color = Color.White
+            )
+            Text(
+                "Tipo: ${drink.strAlcoholic}",
+                style = MaterialTheme.typography.bodyLarge,
+                color = Color.White
+            )
         }
     }
 }

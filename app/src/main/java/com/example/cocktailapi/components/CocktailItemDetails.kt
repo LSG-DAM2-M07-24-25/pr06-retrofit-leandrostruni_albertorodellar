@@ -26,7 +26,7 @@ fun CocktailItemDetails(cocktail: Drink) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(250.dp)
-                    .padding(bottom = 16.dp)
+                    .padding(bottom = 16.dp),
             )
         }
 

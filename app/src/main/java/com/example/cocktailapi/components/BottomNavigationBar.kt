@@ -12,6 +12,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.cocktailapi.model.BottomNavItem
+import com.example.cocktailapi.ui.theme.NavyBlue
+import com.example.cocktailapi.ui.theme.SoftGold
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
@@ -25,7 +27,7 @@ fun BottomNavigationBar(navController: NavController) {
 
     NavigationBar(
         tonalElevation = 8.dp,
-        containerColor = MaterialTheme.colorScheme.primaryContainer
+        containerColor = NavyBlue
     ) {
         val navBackStackEntry = navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry.value?.destination?.route
@@ -33,10 +35,10 @@ fun BottomNavigationBar(navController: NavController) {
         items.forEach { item ->
             NavigationBarItem(
                 icon = { Icon(item.icon, contentDescription = item.label) },
-                label = { Text(item.label) },
+                label = { Text(item.label,color = SoftGold) },
                 selected = currentRoute == item.route,
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.primary,
+                    selectedIconColor = SoftGold,
                     unselectedIconColor = Color.Gray
                 ),
                 onClick = {
