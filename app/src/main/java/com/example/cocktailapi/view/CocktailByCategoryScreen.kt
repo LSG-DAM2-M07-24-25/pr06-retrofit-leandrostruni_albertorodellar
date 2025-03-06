@@ -1,9 +1,11 @@
 package com.example.cocktailapi.view
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CategoryDropdownMenu
 import com.example.cocktailapi.components.CocktailItem
+import com.example.cocktailapi.ui.theme.NavyBlue
+import com.example.cocktailapi.ui.theme.SoftGold
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
@@ -43,8 +47,19 @@ fun CocktailByCategoryScreen(
         cocktailViewModel.fetchCategories()
     }
 
-    Column(modifier = Modifier.padding(16.dp)) {
-        Text("Filtrar por categoría", style = MaterialTheme.typography.headlineSmall)
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxSize()
+            .background(NavyBlue)
+            .padding(16.dp)
+    ) {
+
+        Text(
+            "Filtrar por categoría",
+            style = MaterialTheme.typography.headlineSmall,
+            color = SoftGold
+        )
 
         CategoryDropdownMenu(
             categories = categories,
@@ -52,7 +67,7 @@ fun CocktailByCategoryScreen(
             onApplyFilters = {
                 if (selectedCategories.value.isNotEmpty()) {
                     cocktailViewModel.fetchFilteredCocktails(selectedCategories.value.toList())
-                }else {
+                } else {
                     cocktailViewModel.clearCocktails()
                 }
             }
@@ -69,8 +84,13 @@ fun CocktailByCategoryScreen(
                         CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
                     }
                 }
-            } ?: Text("No hay resultados", style = MaterialTheme.typography.bodyLarge)
+            } ?: Text(
+                "No hay resultados",
+                style = MaterialTheme.typography.bodyLarge,
+                color = SoftGold
+            )
         }
+
     }
 }
 

@@ -56,7 +56,7 @@ fun CocktailRandomScreen(
         }
     }
 
-    LazyColumn(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxSize()
@@ -64,44 +64,38 @@ fun CocktailRandomScreen(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        item {
-            Text(
-                "Cocktail Aleatorio",
-                style = MaterialTheme.typography.headlineSmall,
+
+        Text(
+            "Cocktail Aleatorio",
+            style = MaterialTheme.typography.headlineSmall,
+            color = SoftGold
+        )
+
+        Button(
+            onClick = { apiViewModel.fetchRandomCocktail() },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(containerColor = SoftGold)
+        ) {
+            Text("Cocktail Aleatorio", color = NavyBlue)
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        if (loading) {
+            CircularProgressIndicator()
+        } else {
+            cocktailData?.drinks?.let { drinks ->
+                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                    items(drinks) { cocktail ->
+                        CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
+                    }
+                }
+            } ?: Text(
+                "No hay resultados",
+                style = MaterialTheme.typography.bodyLarge,
                 color = SoftGold
             )
         }
 
-        item {
-            Button(
-                onClick = { apiViewModel.fetchRandomCocktail() },
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = SoftGold)
-            ) {
-                Text("Cocktail Aleatorio", color = NavyBlue)
-            }
-        }
-
-        item {
-            Spacer(modifier = Modifier.height(16.dp))
-        }
-
-        item {
-            if (loading) {
-                CircularProgressIndicator()
-            } else {
-                cocktailData?.drinks?.let { drinks ->
-                    LazyColumn(modifier = Modifier.fillMaxSize()) {
-                        items(drinks) { cocktail ->
-                            CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
-                        }
-                    }
-                } ?: Text(
-                    "No hay resultados",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = SoftGold
-                )
-            }
-        }
     }
 }
