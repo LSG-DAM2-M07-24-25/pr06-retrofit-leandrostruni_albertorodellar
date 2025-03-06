@@ -67,7 +67,7 @@ fun SearchByNameScreen(
         }
     }
 
-    Column(
+    LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxSize()
@@ -75,45 +75,57 @@ fun SearchByNameScreen(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            "Buscar Cocktail",
-            style = MaterialTheme.typography.headlineSmall,
-            color = SoftGold
-        )
-        TextField(
-            value = cocktailName,
-            onValueChange = { cocktailName = it },
-            label = { Text("Buscar Cocktail") },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(
-            onClick = { apiViewModel.searchCocktail(cocktailName) },
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = WineRed)
-        )
-        {
-            Text("Buscar Cocktail", color = Color.White)
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        if (loading) {
-            CircularProgressIndicator()
-        } else {
-            cocktailData?.drinks?.let { drinks ->
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(drinks) { cocktail ->
-                        CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
-                    }
-                }
-            } ?: Text(
-                "No hay resultados.",
-                style = MaterialTheme.typography.bodyLarge,
+        item {
+            Text(
+                "Buscar Cocktail",
+                style = MaterialTheme.typography.headlineSmall,
                 color = SoftGold
             )
+        }
+        item {
+            TextField(
+                value = cocktailName,
+                onValueChange = { cocktailName = it },
+                label = { Text("Buscar Cocktail") },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
+        item {
+            Button(
+                onClick = { apiViewModel.searchCocktail(cocktailName) },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(containerColor = WineRed)
+            )
+            {
+                Text("Buscar Cocktail", color = Color.White)
+            }
+        }
+
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
+        item {
+            if (loading) {
+                CircularProgressIndicator()
+            } else {
+                cocktailData?.drinks?.let { drinks ->
+                    LazyColumn(modifier = Modifier.fillMaxSize()) {
+                        items(drinks) { cocktail ->
+                            CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
+                        }
+                    }
+                } ?: Text(
+                    "No hay resultados.",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = SoftGold
+                )
+            }
         }
     }
 }
