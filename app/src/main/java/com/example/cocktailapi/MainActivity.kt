@@ -18,6 +18,7 @@ import com.example.cocktailapi.components.BottomNavigationBar
 import com.example.cocktailapi.components.TopAppBar
 import com.example.cocktailapi.model.Routes
 import com.example.cocktailapi.ui.theme.CocktailAPITheme
+import com.example.cocktailapi.view.AppCocktailNavigation
 import com.example.cocktailapi.view.CocktailByCategoryScreen
 import com.example.cocktailapi.view.CocktailRandomScreen
 import com.example.cocktailapi.view.DetailsScreen
@@ -37,7 +38,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CocktailAPITheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    AppCocktail(
+                    AppCocktailNavigation(
                         modifier = Modifier.padding(innerPadding),
                         apiViewModel = apiViewModel,
                         cocktailViewModel = cocktailViewModel,
@@ -48,72 +49,5 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-//Mover a otro package
-@Composable
-fun AppCocktail(
-    modifier: Modifier = Modifier,
-    apiViewModel: APIViewModel,
-    cocktailViewModel: CocktailViewModel
-) {
 
-    val navigationController = rememberNavController()
-    val currentRoute = navigationController.currentBackStackEntryAsState().value?.destination?.route
-
-    Scaffold(
-        topBar = {
-            if (currentRoute != Routes.LaunchScreen.route) {
-                TopAppBar(title = currentRoute ?: "Cocktail Finder") {
-                    navigationController.popBackStack()
-                }
-            }
-        },
-        bottomBar = {
-            if (currentRoute != Routes.LaunchScreen.route) {
-                BottomNavigationBar(navigationController)
-            }
-        }
-    ) { innerPadding ->
-        NavHost(
-            navController = navigationController,
-            startDestination = Routes.LaunchScreen.route,
-            modifier = Modifier.padding(innerPadding)
-        ) {
-            composable(Routes.LaunchScreen.route) { LaunchScreen(navigationController) }
-            composable(Routes.MainViewScreen.route) { MainViewScreen(navigationController) }
-            composable(Routes.SearchByNameScreen.route) {
-                SearchByNameScreen(
-                    navigationController,
-                    apiViewModel,
-                    cocktailViewModel
-                )
-            }
-            composable(Routes.SearchRandomScreen.route) {
-                CocktailRandomScreen(
-                    navigationController,
-                    apiViewModel,
-                    cocktailViewModel
-                )
-            }
-            composable(Routes.SearchByCategoryScreen.route) {
-                CocktailByCategoryScreen(
-                    navigationController,
-                    apiViewModel,
-                    cocktailViewModel
-                )
-            }
-            composable(Routes.DetailsScreen.route) {
-                DetailsScreen(
-                    navigationController,
-                    apiViewModel,
-                    cocktailViewModel
-                )
-            }
-            composable(Routes.FavoritesScreen.route) {
-                FavoritesScreen(navigationController,
-                    apiViewModel,
-                    cocktailViewModel)
-            }
-        }
-    }
-}
 
