@@ -14,12 +14,17 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.navigation.NavController
+import com.example.cocktailapi.model.Routes
 import com.example.cocktailapi.ui.theme.NavyBlue
 import com.example.cocktailapi.ui.theme.SoftGold
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBar(title: String, onBackPressed: (() -> Unit)? = null) {
+fun TopAppBar(title: String,
+              onBackPressed: (() -> Unit)? = null,
+              navController: NavController
+) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     CenterAlignedTopAppBar(
@@ -35,15 +40,21 @@ fun TopAppBar(title: String, onBackPressed: (() -> Unit)? = null) {
             )
         },
         navigationIcon = {
-            onBackPressed?.let {
-                IconButton(onClick = it) {
+                IconButton(onClick = {
+                    if (navController.previousBackStackEntry != null) {
+                        navController.popBackStack()
+                    } else {
+                        navController.navigate(Routes.MainViewScreen.route) {
+                            popUpTo(Routes.MainViewScreen.route) { inclusive = true }
+                        }
+                    }
+                }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Volver",
                         tint = SoftGold
                     )
                 }
-            }
         },
         actions = {
             IconButton(onClick = { /* Acción del menú */ }) {
