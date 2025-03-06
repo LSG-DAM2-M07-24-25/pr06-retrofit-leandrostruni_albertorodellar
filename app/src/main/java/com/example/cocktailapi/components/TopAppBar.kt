@@ -14,6 +14,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.style.TextOverflow
+import com.example.cocktailapi.ui.theme.NavyBlue
+import com.example.cocktailapi.ui.theme.SoftGold
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -22,8 +24,8 @@ fun TopAppBar(title: String, onBackPressed: (() -> Unit)? = null) {
 
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            titleContentColor = MaterialTheme.colorScheme.primary,
+            containerColor = NavyBlue,
+            titleContentColor = SoftGold,
         ),
         title = {
             Text(
@@ -37,7 +39,8 @@ fun TopAppBar(title: String, onBackPressed: (() -> Unit)? = null) {
                 IconButton(onClick = it) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Volver"
+                        contentDescription = "Volver",
+                        tint = SoftGold
                     )
                 }
             }
