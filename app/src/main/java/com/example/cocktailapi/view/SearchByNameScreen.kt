@@ -1,5 +1,6 @@
 package com.example.cocktailapi.view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,10 +24,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItem
+import com.example.cocktailapi.ui.theme.NavyBlue
+import com.example.cocktailapi.ui.theme.SoftGold
+import com.example.cocktailapi.ui.theme.WineRed
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
@@ -38,15 +45,15 @@ fun SearchByNameScreen(
     var cocktailName by rememberSaveable { mutableStateOf("") }
     val cocktailData by apiViewModel.cocktailData.observeAsState(initial = null)
     val loading by apiViewModel.loading.observeAsState(initial = false)
-/*
-    //Mantener lista cuado se rota pantalla
-    LaunchedEffect(Unit) {
-        if (apiViewModel.cocktailData.value == null) {
-            apiViewModel.clearCocktailData()
+    /*
+        //Mantener lista cuado se rota pantalla
+        LaunchedEffect(Unit) {
+            if (apiViewModel.cocktailData.value == null) {
+                apiViewModel.clearCocktailData()
+            }
         }
-    }
 
- */
+     */
     // Limpiar la lista solo cuando se sale de la pantalla
     DisposableEffect(navController) {
         val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
@@ -63,9 +70,16 @@ fun SearchByNameScreen(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .fillMaxSize()
+            .background(NavyBlue)
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Buscar Cocktail", style = MaterialTheme.typography.headlineSmall)
+        Text(
+            "Buscar Cocktail",
+            style = MaterialTheme.typography.headlineSmall,
+            color = SoftGold
+        )
         TextField(
             value = cocktailName,
             onValueChange = { cocktailName = it },
@@ -77,10 +91,11 @@ fun SearchByNameScreen(
 
         Button(
             onClick = { apiViewModel.searchCocktail(cocktailName) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(containerColor = WineRed)
         )
         {
-            Text("Buscar Cocktail")
+            Text("Buscar Cocktail", color = Color.White)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -94,7 +109,11 @@ fun SearchByNameScreen(
                         CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
                     }
                 }
-            } ?: Text("No hay resultados", style = MaterialTheme.typography.bodyLarge)
+            } ?: Text(
+                "No hay resultados.",
+                style = MaterialTheme.typography.bodyLarge,
+                color = SoftGold
+            )
         }
     }
 }
