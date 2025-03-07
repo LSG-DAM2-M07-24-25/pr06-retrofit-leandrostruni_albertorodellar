@@ -26,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,6 +58,9 @@ fun DetailsScreen(
     // Comprobamos si el cóctel es favorito
     selectedCocktail?.let { cocktailViewModel.isFavorite(it.idDrink) }
     val isFavorite: Boolean by cocktailViewModel.isFavorite.observeAsState(false)
+    Log.d("DetailsScreen", "isFavorite inicial: $isFavorite")
+    val isFavoriteState by rememberUpdatedState(isFavorite)
+
     var isLoadingFavorite by remember { mutableStateOf(false) }
     LaunchedEffect(selectedCocktail) {
         selectedCocktail?.let {
@@ -82,6 +86,7 @@ fun DetailsScreen(
                     onClick = {
                         isLoadingFavorite = true
                         val drinkToUpdate = drink.toDrinkEntity(isFavorite = !isFavorite)
+                        Log.d("DetailsScreen", "drinkToUpdate: $drinkToUpdate")
                         if (!isFavorite) {
                             cocktailViewModel.addFavorite(drinkToUpdate.toDrink())  // Añadimos a favoritos
                             isLoadingFavorite = false
@@ -89,9 +94,8 @@ fun DetailsScreen(
                             cocktailViewModel.removeFavorite(drinkToUpdate.toDrink())  // Eliminamos de favoritos
                             isLoadingFavorite = false
                         }
-                        if (!isLoadingFavorite){
-                            cocktailViewModel.isFavorite(drinkToUpdate.idDrink)
-                        }
+                        Log.d("DetailsScreen", "isFavorite final: $isFavorite")
+                        cocktailViewModel.isFavorite(drinkToUpdate.idDrink)
                     },
                     enabled = !isLoadingFavorite,
                     modifier = Modifier
@@ -99,7 +103,7 @@ fun DetailsScreen(
                         .align(Alignment.End)
                 ) {
                     Icon(
-                        imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                        imageVector = if (isFavoriteState) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                         contentDescription = "Favorite",
                         tint = if (isFavorite) Color.Red else Color.Gray,
                         modifier = Modifier.size(48.dp)
