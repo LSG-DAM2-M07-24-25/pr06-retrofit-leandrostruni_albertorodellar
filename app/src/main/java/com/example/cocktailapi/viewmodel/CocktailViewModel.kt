@@ -100,9 +100,6 @@ class CocktailViewModel : ViewModel() {
     private val _favorites = MutableLiveData<MutableList<DrinkEntity>>()
     val favorites: LiveData<MutableList<DrinkEntity>> = _favorites
 
-    private val _selectedDrink = MutableLiveData<DrinkEntity?>()
-    val selectedDrink: LiveData<DrinkEntity?> = _selectedDrink
-
     // Obtener todos los favoritos
     fun getFavorites() {
         CoroutineScope(Dispatchers.IO).launch {
@@ -114,17 +111,7 @@ class CocktailViewModel : ViewModel() {
         }
     }
 
-    // Obtener una bebida por su ID
-    fun getDrinkById(idDrink: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val drink = drinkRepository.getDrinkById(idDrink)
-            withContext(Dispatchers.Main) {
-                _selectedDrink.value = drink
-            }
-        }
-    }
-
-    // Verificar si un cóctel es favorito
+    // Verificar si un cocktail es favorito
     fun isFavorite(idDrink: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = drinkRepository.isFavorite(idDrink)
@@ -134,7 +121,7 @@ class CocktailViewModel : ViewModel() {
         }
     }
 
-    // Añadir un cóctel a favoritos
+    // Añadir cocktail a favoritos
     fun addFavorite(drink: Drink) {
         val drinkEntity = drink.toDrinkEntity(isFavorite = true)
         CoroutineScope(Dispatchers.IO).launch {
@@ -146,7 +133,7 @@ class CocktailViewModel : ViewModel() {
         }
     }
 
-    // Eliminar un cóctel de favoritos
+    // Eliminar cocktail de favoritos
     fun removeFavorite(drink: Drink) {
         val drinkEntity = drink.toDrinkEntity(isFavorite = false)
         CoroutineScope(Dispatchers.IO).launch {
