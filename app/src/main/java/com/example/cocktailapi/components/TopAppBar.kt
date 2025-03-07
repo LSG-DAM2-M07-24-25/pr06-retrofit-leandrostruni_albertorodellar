@@ -21,9 +21,10 @@ import com.example.cocktailapi.ui.theme.SoftGold
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBar(title: String,
-              onBackPressed: (() -> Unit)? = null,
-              navController: NavController
+fun TopAppBar(
+    title: String,
+    onBackPressed: (() -> Unit)? = null,
+    navController: NavController
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -40,21 +41,32 @@ fun TopAppBar(title: String,
             )
         },
         navigationIcon = {
-                IconButton(onClick = {
-                    if (navController.previousBackStackEntry != null) {
+            IconButton(onClick = {
+                val currentRoute = navController.currentBackStackEntry?.destination?.route
+                when (currentRoute) {
+                    Routes.DetailsScreen.route -> {
                         navController.popBackStack()
-                    } else {
-                        navController.navigate(Routes.MainViewScreen.route) {
-                            popUpTo(Routes.MainViewScreen.route) { inclusive = true }
+                    }
+                    Routes.MainViewScreen.route -> {
+                        // Si estamos en MainViewScreen, implementar salir de la App
+                    }
+                    else -> {
+                        if (navController.previousBackStackEntry != null) {
+                            navController.popBackStack()
+                        } else {
+                            navController.navigate(Routes.MainViewScreen.route) {
+                                popUpTo(Routes.MainViewScreen.route) { inclusive = true }
+                            }
                         }
                     }
-                }) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Volver",
-                        tint = SoftGold
-                    )
                 }
+            }) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Volver",
+                    tint = SoftGold
+                )
+            }
         },
         actions = {
             IconButton(onClick = { /* Acción del menú */ }) {
