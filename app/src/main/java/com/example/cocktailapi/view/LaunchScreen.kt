@@ -4,13 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -25,10 +21,8 @@ import kotlinx.coroutines.delay
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.cocktailapi.R
-import com.example.cocktailapi.ui.theme.NavyBlue
-import com.example.cocktailapi.ui.theme.SoftGold
+import com.example.cocktailapi.ui.theme.DarkGreen
 
 @Composable
 fun LaunchScreen(navController: NavController){
@@ -43,7 +37,7 @@ fun LaunchScreen(navController: NavController){
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(NavyBlue),
+            .background(DarkGreen),
         contentAlignment = Alignment.Center
     ) {
         Column(

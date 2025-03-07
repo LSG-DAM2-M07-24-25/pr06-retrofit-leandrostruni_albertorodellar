@@ -19,7 +19,8 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.cocktailapi.model.Drink
 import com.example.cocktailapi.model.Routes
-import com.example.cocktailapi.ui.theme.NavyBlue
+import com.example.cocktailapi.ui.theme.DarkerGreen
+import com.example.cocktailapi.ui.theme.LightGold
 import com.example.cocktailapi.ui.theme.SoftGold
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
@@ -40,7 +41,7 @@ fun CocktailItem(
                 navController.navigate(Routes.DetailsScreen.route)
             },
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        colors = CardDefaults.cardColors(containerColor = NavyBlue)
+        colors = CardDefaults.cardColors(containerColor = DarkerGreen)
     ) {
         Column(
             modifier = Modifier

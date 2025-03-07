@@ -7,16 +7,16 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.NavController
 import com.example.cocktailapi.model.Routes
-import com.example.cocktailapi.ui.theme.NavyBlue
+import com.example.cocktailapi.ui.theme.DarkGreen
+import com.example.cocktailapi.ui.theme.DarkerGreen
 import com.example.cocktailapi.ui.theme.SoftGold
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,8 +29,8 @@ fun TopAppBar(title: String,
 
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = NavyBlue,
-            titleContentColor = SoftGold,
+            containerColor = DarkerGreen,
+            titleContentColor = Color.White,
         ),
         title = {
             Text(
