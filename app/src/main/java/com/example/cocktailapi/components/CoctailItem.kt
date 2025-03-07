@@ -58,20 +58,24 @@ fun CocktailItem(
                 )
             }
             Text(
-                "Nombre: ${drink.strDrink}",
+                "${drink.strDrink}",
                 style = MaterialTheme.typography.titleLarge,
                 color = SoftGold
             )
-            Text(
-                "Categoría: ${drink.strCategory}",
-                style = MaterialTheme.typography.bodyLarge,
-                color = Color.White
-            )
-            Text(
-                "Tipo: ${drink.strAlcoholic}",
-                style = MaterialTheme.typography.bodyLarge,
-                color = Color.White
-            )
+            drink.strCategory?.let {
+                Text(
+                    "Categoría: ${drink.strCategory}",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = Color.White
+                )
+            }
+            drink.strAlcoholic?.let{
+                Text(
+                    "Tipo: ${drink.strAlcoholic}",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = Color.White
+                )
+            }
         }
     }
 }
