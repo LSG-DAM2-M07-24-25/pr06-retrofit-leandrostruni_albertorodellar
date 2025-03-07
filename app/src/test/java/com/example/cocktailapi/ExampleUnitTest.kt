@@ -1,4 +1,4 @@
-package com.example.marsroverapi
+package com.example.cocktailapi
 
 import org.junit.Test
 

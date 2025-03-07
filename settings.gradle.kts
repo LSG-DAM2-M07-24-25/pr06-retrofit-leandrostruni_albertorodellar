@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Mars Rover API"
+rootProject.name = "Cocktail API"
 include(":app")
  

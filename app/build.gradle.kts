@@ -2,14 +2,15 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("kotlin-kapt")
 }
 
 android {
-    namespace = "com.example.marsroverapi"
+    namespace = "com.example.cocktailapi"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.marsroverapi"
+        applicationId = "com.example.cocktailapi"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -49,6 +50,14 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.runtime.livedata)
+    implementation(libs.androidx.navigation.compose.v260)
+    implementation(libs.androidx.room.common)
+    dependencies { implementation(libs.coil.compose) }
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -56,4 +65,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("androidx.room:room-runtime:2.6.1" )
+    implementation("androidx.room:room-ktx:2.6.1" )
+    kapt("androidx.room:room-compiler:2.6.1" )
 }

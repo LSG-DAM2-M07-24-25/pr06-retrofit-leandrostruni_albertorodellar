@@ -1,4 +1,4 @@
-package com.example.marsroverapi
+package com.example.cocktailapi
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
