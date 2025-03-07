@@ -12,8 +12,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.cocktailapi.model.BottomNavItem
+import com.example.cocktailapi.model.Routes
 import com.example.cocktailapi.ui.theme.NavyBlue
 import com.example.cocktailapi.ui.theme.SoftGold
+import okhttp3.Route
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
@@ -44,9 +46,7 @@ fun BottomNavigationBar(navController: NavController) {
                 onClick = {
                     if (currentRoute != item.route) {
                         navController.navigate(item.route) {
-                            popUpTo(navController.graph.startDestinationId) {
-                                saveState = true
-                            }
+                            popUpTo(Routes.MainViewScreen.route) { inclusive = false }
                             launchSingleTop = true
                             restoreState = true
                         }
