@@ -144,4 +144,47 @@ class CocktailViewModel : ViewModel() {
             }
         }
     }
+
+    // SEARCH BAR SECTION
+    private val _searchedText = MutableLiveData("")
+    val searchedText: LiveData<String> = _searchedText
+
+    private val _searchHistory = MutableLiveData<List<String>>(emptyList())
+    val searchHistory: LiveData<List<String>> = _searchHistory
+
+    private val _filteredFavorites = MutableLiveData<List<DrinkEntity>>()
+    val filteredFavorites: LiveData<List<DrinkEntity>> = _filteredFavorites
+
+    // Esto observa los cambios en la lista de favoritos y en el texto buscado
+    init {
+        _favorites.observeForever { filterFavorites() }
+        _searchedText.observeForever { filterFavorites() }
+        _searchHistory.observeForever { filterFavorites() }
+    }
+
+    fun onSearchTextChange(text: String) {
+        this._searchedText.value = text
+    }
+
+    fun addToHistory(query: String) {
+        if (query.isNotBlank()) {
+            _searchHistory.value = _searchHistory.value.orEmpty() + query
+        }
+    }
+
+    fun clearHistory() {
+        this._searchedText.value = "" // Neteja el text després de fer la cerca
+        this._searchHistory.value = emptyList()
+    }
+
+    private fun filterFavorites() {
+        val query = _searchedText.value.orEmpty().lowercase()
+        val allFavorites = _favorites.value.orEmpty()
+
+        _filteredFavorites.value = if (query.isBlank()) {
+            allFavorites
+        } else {
+            allFavorites.filter { it.strDrink.contains(query, ignoreCase = true) }
+        }
+    }
 }
