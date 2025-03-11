@@ -16,15 +16,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItem
-import com.example.cocktailapi.ui.theme.NavyBlue
+import com.example.cocktailapi.ui.theme.DarkGreen
 import com.example.cocktailapi.ui.theme.SoftGold
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
@@ -60,23 +60,16 @@ fun CocktailRandomScreen(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxSize()
-            .background(NavyBlue)
+            .background(DarkGreen)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        Text(
-            "Cocktail Aleatorio",
-            style = MaterialTheme.typography.headlineSmall,
-            color = SoftGold
-        )
-
         Button(
             onClick = { apiViewModel.fetchRandomCocktail() },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(containerColor = SoftGold)
         ) {
-            Text("Cocktail Aleatorio", color = NavyBlue)
+            Text("Cocktail Aleatorio", color = Color.Black)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -96,6 +89,5 @@ fun CocktailRandomScreen(
                 color = SoftGold
             )
         }
-
     }
 }

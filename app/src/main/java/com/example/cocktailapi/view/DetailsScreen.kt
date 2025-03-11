@@ -1,6 +1,7 @@
 package com.example.cocktailapi.view
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -36,6 +37,7 @@ import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItemDetails
 import com.example.cocktailapi.model.Drink
 import com.example.cocktailapi.model.DrinkEntity
+import com.example.cocktailapi.ui.theme.DarkGreen
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
@@ -72,6 +74,7 @@ fun DetailsScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(DarkGreen)
             .verticalScroll(scrollState)
             .padding(16.dp)
     ) {
@@ -111,7 +114,11 @@ fun DetailsScreen(
                 }
                 CocktailItemDetails(drink)
             }
-        } ?: Text("Cargando datos del cóctel...", style = MaterialTheme.typography.bodyLarge)
+        } ?: Text(
+            "Cargando datos del cóctel...",
+            style = MaterialTheme.typography.bodyLarge,
+            color = Color.White
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 

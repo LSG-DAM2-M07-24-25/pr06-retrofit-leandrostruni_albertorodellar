@@ -1,7 +1,6 @@
 package com.example.cocktailapi.components
 
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -12,10 +11,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.cocktailapi.model.BottomNavItem
-import com.example.cocktailapi.model.Routes
-import com.example.cocktailapi.ui.theme.NavyBlue
+import com.example.cocktailapi.ui.theme.DarkGreen
+import com.example.cocktailapi.ui.theme.DarkerGreen
 import com.example.cocktailapi.ui.theme.SoftGold
-import okhttp3.Route
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
@@ -29,7 +27,7 @@ fun BottomNavigationBar(navController: NavController) {
 
     NavigationBar(
         tonalElevation = 8.dp,
-        containerColor = NavyBlue
+        containerColor = DarkerGreen
     ) {
         val navBackStackEntry = navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry.value?.destination?.route
@@ -37,16 +35,18 @@ fun BottomNavigationBar(navController: NavController) {
         items.forEach { item ->
             NavigationBarItem(
                 icon = { Icon(item.icon, contentDescription = item.label) },
-                label = { Text(item.label,color = SoftGold) },
+                label = { Text(item.label,color = Color.White) },
                 selected = currentRoute == item.route,
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = SoftGold,
-                    unselectedIconColor = Color.Gray
+                    selectedIconColor = Color.Black,
+                    unselectedIconColor = Color.White
                 ),
                 onClick = {
                     if (currentRoute != item.route) {
                         navController.navigate(item.route) {
-                            popUpTo(Routes.MainViewScreen.route) { inclusive = false }
+                            popUpTo(navController.graph.startDestinationId) {
+                                saveState = true
+                            }
                             launchSingleTop = true
                             restoreState = true
                         }
