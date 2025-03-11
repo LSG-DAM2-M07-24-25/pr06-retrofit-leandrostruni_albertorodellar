@@ -1,6 +1,7 @@
 package com.example.cocktailapi.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
@@ -52,7 +54,8 @@ fun CategoryDropdownMenu(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(300.dp)
-                    .background(SoftGold)
+                    .background(SoftGold, shape = RoundedCornerShape(16.dp))
+                    .border(2.dp, DarkGreen, shape = RoundedCornerShape(16.dp))
                     .padding(8.dp)
             ) {
                 items(categories) { category ->

@@ -18,6 +18,6 @@ val LightGreen = Color(0xFF66BB6A) // Indicadores de éxito y acciones positivas
 val DarkGreen = Color(0xFF004D40) // Fondo oscuro elegante
 val DarkerGreen = Color(0xFF002A23) // Fondo oscuro más oscuro
 
-val SoftGold = Color(0xFFFFFFFF) // Resaltados y botones
+val SoftGold = Color(0xA5B7F6CD) // Resaltados y botones
 val LightGold = Color(0xFFFFF8E1) // Fondo claro y elementos secundarios
 
