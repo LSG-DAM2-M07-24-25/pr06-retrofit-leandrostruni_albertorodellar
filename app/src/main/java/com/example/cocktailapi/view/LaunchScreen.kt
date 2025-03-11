@@ -28,7 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cocktailapi.R
-import com.example.cocktailapi.ui.theme.NavyBlue
+import com.example.cocktailapi.ui.theme.DarkGreen
 import com.example.cocktailapi.ui.theme.SoftGold
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
@@ -39,7 +39,7 @@ fun LaunchScreen(navController: NavController){
 
     //Aplicar background tambien en la barra de estado
     SideEffect {
-        systemUiController.setStatusBarColor(NavyBlue)
+        systemUiController.setStatusBarColor(DarkGreen)
     }
 
     LaunchedEffect(Unit) {
@@ -51,7 +51,7 @@ fun LaunchScreen(navController: NavController){
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(NavyBlue),
+            .background(DarkGreen),
         contentAlignment = Alignment.Center
     ) {
         Column(
