@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.androidx.navigation.compose.v260)
     implementation(libs.androidx.room.common)
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
     dependencies { implementation(libs.coil.compose) }
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

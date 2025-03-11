@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
@@ -27,12 +28,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cocktailapi.R
-import com.example.cocktailapi.ui.theme.NavyBlue
+import com.example.cocktailapi.ui.theme.DarkGreen
 import com.example.cocktailapi.ui.theme.SoftGold
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun LaunchScreen(navController: NavController){
     var alpha by remember { mutableFloatStateOf(0f) }
+    val systemUiController = rememberSystemUiController()
+
+    //Aplicar background tambien en la barra de estado
+    SideEffect {
+        systemUiController.setStatusBarColor(DarkGreen)
+    }
 
     LaunchedEffect(Unit) {
         alpha = 1f
@@ -43,7 +51,7 @@ fun LaunchScreen(navController: NavController){
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(NavyBlue),
+            .background(DarkGreen),
         contentAlignment = Alignment.Center
     ) {
         Column(

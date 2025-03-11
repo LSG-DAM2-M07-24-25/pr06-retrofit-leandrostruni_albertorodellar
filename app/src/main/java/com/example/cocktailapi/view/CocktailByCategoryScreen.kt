@@ -19,12 +19,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CategoryDropdownMenu
 import com.example.cocktailapi.components.CocktailItem
-import com.example.cocktailapi.ui.theme.NavyBlue
+import com.example.cocktailapi.ui.theme.DarkGreen
 import com.example.cocktailapi.ui.theme.SoftGold
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
@@ -51,16 +52,10 @@ fun CocktailByCategoryScreen(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxSize()
-            .background(NavyBlue)
-            .padding(16.dp)
+            .background(DarkGreen)
+            .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        Text(
-            "Filtrar por categoría",
-            style = MaterialTheme.typography.headlineSmall,
-            color = SoftGold
-        )
-
         CategoryDropdownMenu(
             categories = categories,
             selectedCategories = selectedCategories,
