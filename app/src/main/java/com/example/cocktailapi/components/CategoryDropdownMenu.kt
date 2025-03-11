@@ -100,15 +100,30 @@ fun CategoryDropdownMenu(
             }
         }
 
-        Button(
-            onClick = {
-                expanded = false
-                onApplyFilters()
-            },
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = LightGreen)
+        Row(
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Aplicar Filtros", color = Color.White)
+            Button(
+                onClick = {
+                    expanded = false
+                    onApplyFilters()
+                },
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.buttonColors(containerColor = LightGreen)
+            ) {
+                Text("Aplicar Filtros", color = Color.White)
+            }
+
+            Button(
+                onClick = {
+                    selectedCategories.value = mutableSetOf()
+                },
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.buttonColors(containerColor = LightGreen)
+            ) {
+                Text("Desmarcar", color = Color.White)
+            }
         }
+
     }
 }
