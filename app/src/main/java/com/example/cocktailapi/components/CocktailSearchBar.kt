@@ -46,7 +46,7 @@ fun CocktailSearchBar(myViewModel: CocktailViewModel) {
         placeholder = { Text("Busca un cocktail...") },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(horizontal = 16.dp)
             .clip(RoundedCornerShape(16.dp))
     ) {}
 }

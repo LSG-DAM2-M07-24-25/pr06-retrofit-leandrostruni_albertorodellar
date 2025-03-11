@@ -1,6 +1,7 @@
 package com.example.cocktailapi.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -53,6 +54,25 @@ fun FavoritesScreen(
     ) {
         if (favorites.isNotEmpty()) {
             CocktailSearchBar(cocktailViewModel)
+            searchHistory.lastOrNull()?.let {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp)
+                        .clickable {
+                            cocktailViewModel.onSearchTextChange(it)
+                        },
+                    shape = RoundedCornerShape(12.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+
+                ) {
+                        Text(
+                            text = it,
+                            modifier = Modifier.padding(16.dp),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                }
+            }
             Box(
                 modifier = Modifier.weight(1f)
             ) {
