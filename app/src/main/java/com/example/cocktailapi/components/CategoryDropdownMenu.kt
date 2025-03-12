@@ -27,8 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.cocktailapi.ui.theme.DarkGreen
-import com.example.cocktailapi.ui.theme.SoftGold
+import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.ui.theme.LightGreen
 
 
@@ -54,7 +53,7 @@ fun CategoryDropdownMenu(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(300.dp)
-                    .background(SoftGold, shape = RoundedCornerShape(16.dp))
+                    .background(White, shape = RoundedCornerShape(16.dp))
                     .border(2.dp, DarkGreen, shape = RoundedCornerShape(16.dp))
                     .padding(8.dp)
             ) {

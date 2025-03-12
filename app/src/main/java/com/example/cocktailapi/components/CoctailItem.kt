@@ -20,8 +20,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.cocktailapi.model.Drink
 import com.example.cocktailapi.model.Routes
 import com.example.cocktailapi.ui.theme.DarkerGreen
-import com.example.cocktailapi.ui.theme.LightGold
-import com.example.cocktailapi.ui.theme.SoftGold
+import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
@@ -61,7 +60,7 @@ fun CocktailItem(
             Text(
                 "${drink.strDrink}",
                 style = MaterialTheme.typography.titleLarge,
-                color = SoftGold
+                color = White
             )
             drink.strCategory?.let {
                 Text(
