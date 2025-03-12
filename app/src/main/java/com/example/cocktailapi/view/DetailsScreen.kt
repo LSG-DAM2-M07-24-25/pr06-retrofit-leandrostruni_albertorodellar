@@ -1,6 +1,5 @@
 package com.example.cocktailapi.view
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -27,7 +26,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,8 +33,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItemDetails
-import com.example.cocktailapi.model.Drink
-import com.example.cocktailapi.model.DrinkEntity
 import com.example.cocktailapi.ui.theme.DarkGreen
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
@@ -47,30 +43,20 @@ fun DetailsScreen(
     apiViewModel: APIViewModel,
     cocktailViewModel: CocktailViewModel
 ){
+    val scrollState = rememberScrollState()
     val selectedCocktailId by cocktailViewModel.selectedCocktailId.observeAsState()
-    
+    var isFavorite by remember { mutableStateOf(false) }
+    var isLoadingFavorite by remember { mutableStateOf(false) }
+
+    val cocktailData by apiViewModel.cocktailData.observeAsState()
+    val selectedCocktail = cocktailData?.drinks?.find { it.idDrink == selectedCocktailId }
+
     LaunchedEffect(selectedCocktailId) {
         selectedCocktailId?.let { id ->
             apiViewModel.getCocktailById(id)
+            isFavorite = cocktailViewModel.isFavorite(id)
         }
     }
-
-    val selectedCocktail = apiViewModel.cocktailData.value?.drinks?.find { it.idDrink == selectedCocktailId }
-    
-    // Comprobamos si el cóctel es favorito
-    selectedCocktail?.let { cocktailViewModel.isFavorite(it.idDrink) }
-    val isFavorite: Boolean by cocktailViewModel.isFavorite.observeAsState(false)
-    Log.d("DetailsScreen", "isFavorite inicial: $isFavorite")
-    val isFavoriteState by rememberUpdatedState(isFavorite)
-
-    var isLoadingFavorite by remember { mutableStateOf(false) }
-    LaunchedEffect(selectedCocktail) {
-        selectedCocktail?.let {
-            cocktailViewModel.isFavorite(it.idDrink)
-        }
-    }
-    val scrollState = rememberScrollState()
-  
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -89,7 +75,6 @@ fun DetailsScreen(
                     onClick = {
                         isLoadingFavorite = true
                         val drinkToUpdate = drink.toDrinkEntity(isFavorite = !isFavorite)
-                        Log.d("DetailsScreen", "drinkToUpdate: $drinkToUpdate")
                         if (!isFavorite) {
                             cocktailViewModel.addFavorite(drinkToUpdate.toDrink())  // Añadimos a favoritos
                             isLoadingFavorite = false
@@ -97,8 +82,7 @@ fun DetailsScreen(
                             cocktailViewModel.removeFavorite(drinkToUpdate.toDrink())  // Eliminamos de favoritos
                             isLoadingFavorite = false
                         }
-                        Log.d("DetailsScreen", "isFavorite final: $isFavorite")
-                        cocktailViewModel.isFavorite(drinkToUpdate.idDrink)
+                        isFavorite = !isFavorite
                     },
                     enabled = !isLoadingFavorite,
                     modifier = Modifier
@@ -106,7 +90,7 @@ fun DetailsScreen(
                         .align(Alignment.End)
                 ) {
                     Icon(
-                        imageVector = if (isFavoriteState) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                        imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                         contentDescription = "Favorite",
                         tint = if (isFavorite) Color.Red else Color.Gray,
                         modifier = Modifier.size(48.dp)

@@ -114,14 +114,12 @@ class CocktailViewModel : ViewModel() {
     }
 
     // Verificar si un cocktail es favorito
-    fun isFavorite(idDrink: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = drinkRepository.isFavorite(idDrink)
-            withContext(Dispatchers.Main) {
-                _isFavorite.value = response
-            }
+    suspend fun isFavorite(idDrink: String): Boolean {
+        return withContext(Dispatchers.IO) {
+            drinkRepository.isFavorite(idDrink)
         }
     }
+
 
     // Añadir cocktail a favoritos
     fun addFavorite(drink: Drink) {
@@ -175,7 +173,7 @@ class CocktailViewModel : ViewModel() {
     }
 
     fun clearHistory() {
-        this._searchedText.value = "" // Neteja el text després de fer la cerca
+        this._searchedText.value = ""
         this._searchHistory.value = emptyList()
     }
 

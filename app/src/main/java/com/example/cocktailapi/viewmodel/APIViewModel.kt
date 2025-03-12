@@ -21,7 +21,6 @@ class APIViewModel : ViewModel() {
     fun searchCocktail(name: String) {
 
         if (name.isBlank()) {
-            Log.e("Error API", "No se puede buscar un cocktail con un nombre vacío")
             return
         }
 
@@ -47,7 +46,6 @@ class APIViewModel : ViewModel() {
 
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.getRandomCocktail()
-            Log.e("API", response.message())
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     _cocktailData.value = response.body()
@@ -68,6 +66,7 @@ class APIViewModel : ViewModel() {
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     _cocktailData.value = response.body()
+                    Log.d("DetailsScreen vm", "getCocktailById: ${_cocktailData.value}")
                 } else {
                     Log.e("Error API", response.message())
                 }
