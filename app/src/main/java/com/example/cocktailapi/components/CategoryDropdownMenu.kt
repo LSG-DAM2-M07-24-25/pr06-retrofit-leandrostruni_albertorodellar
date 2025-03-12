@@ -117,6 +117,7 @@ fun CategoryDropdownMenu(
             Button(
                 onClick = {
                     selectedCategories.value = mutableSetOf()
+                    onApplyFilters()
                 },
                 modifier = Modifier.weight(1f),
                 colors = ButtonDefaults.buttonColors(containerColor = LightGreen)

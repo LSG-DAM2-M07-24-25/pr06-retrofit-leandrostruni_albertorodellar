@@ -26,6 +26,7 @@ class CocktailViewModel : ViewModel() {
 
     private val _categories = MutableLiveData<List<String?>>()
     val categories: LiveData<List<String?>> = _categories
+    private var currentCategories: List<String?>? = null
 
     fun fetchCategories() {
         _loading.value = true
@@ -45,14 +46,15 @@ class CocktailViewModel : ViewModel() {
     }
 
     fun fetchFilteredCocktails(selectedCategories: List<String>) {
-
         if (selectedCategories.isEmpty()) {
-            _cocktailData.postValue(DataAPI(emptyList()))
+            clearCocktails()
             return
         }
 
-        if (_cocktailData.value?.drinks?.isNotEmpty() == true) {
+        if (currentCategories == selectedCategories) {
             return
+        } else {
+            currentCategories = selectedCategories
         }
 
         _loading.value = true
