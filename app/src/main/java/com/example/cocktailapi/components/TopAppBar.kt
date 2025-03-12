@@ -14,6 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.NavController
+import com.composables.icons.lucide.ArrowLeft
+import com.composables.icons.lucide.Lucide
 import com.example.cocktailapi.model.Routes
 import com.example.cocktailapi.ui.theme.DarkerGreen
 import com.example.cocktailapi.ui.theme.White
@@ -61,7 +63,7 @@ fun TopAppBar(
                 }
             }) {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    imageVector = Lucide.ArrowLeft,
                     contentDescription = "Volver",
                     tint = White
                 )
