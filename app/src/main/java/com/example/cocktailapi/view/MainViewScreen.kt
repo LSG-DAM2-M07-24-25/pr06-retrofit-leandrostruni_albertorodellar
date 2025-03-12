@@ -21,7 +21,7 @@ import androidx.navigation.NavController
 import com.example.cocktailapi.R
 import com.example.cocktailapi.model.Routes
 import com.example.cocktailapi.ui.theme.DarkGreen
-import com.example.cocktailapi.ui.theme.SoftGold
+import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.ui.theme.LightGreen
 
 
@@ -70,7 +70,7 @@ fun MainViewScreen(
             Button(
                 onClick = { navController.navigate(Routes.SearchRandomScreen.route) },
                 modifier = Modifier.fillMaxWidth(0.8f),
-                colors = ButtonDefaults.buttonColors(containerColor = SoftGold)
+                colors = ButtonDefaults.buttonColors(containerColor = White)
             ) {
                 Text("Random Cocktail", color = Color.Black)
             }
@@ -100,7 +100,7 @@ fun MainViewScreen(
             Button(
                 onClick = { navController.navigate(Routes.FavoritesScreen.route) },
                 modifier = Modifier.fillMaxWidth(0.8f),
-                colors = ButtonDefaults.buttonColors(containerColor = SoftGold)
+                colors = ButtonDefaults.buttonColors(containerColor = White)
             ) {
                 Text("Favoritos", color = Color.Black)
             }

@@ -14,10 +14,10 @@ val WineRed = Color(0xFF9B2226) // Títulos y detalles
 val VintageCream = Color(0xFFF6E8C3) // Fondo claro
 val SlateGray = Color(0xFF1B263B) // Texto en fondos claros
 
-val LightGreen = Color(0xFF66BB6A) // Indicadores de éxito y acciones positivas
+val LightGreen = Color(0xFF66BB6A) // Botones y resaltados
 val DarkGreen = Color(0xFF004D40) // Fondo oscuro elegante
 val DarkerGreen = Color(0xFF002A23) // Fondo oscuro más oscuro
 
-val SoftGold = Color(0xFFFFFFFF) // Resaltados y botones
-val LightGold = Color(0xFFFFF8E1) // Fondo claro y elementos secundarios
+val White = Color(0xFFF3F3F3) // Resaltados y botones
+val LightGray = Color(0xFF1C1C1C) // Fondo searchBar
 

@@ -178,7 +178,7 @@ class CocktailViewModel : ViewModel() {
     }
 
     private fun filterFavorites() {
-        val query = _searchedText.value.orEmpty().lowercase()
+        val query = _searchedText.value.orEmpty().lowercase().trimStart()
         val allFavorites = _favorites.value.orEmpty()
 
         _filteredFavorites.value = if (query.isBlank()) {

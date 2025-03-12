@@ -123,7 +123,7 @@ fun DetailsScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = { navController.popBackStack() }) {
-            Text("Volver")
+            Text("Volver", color = DarkGreen)
         }
     }
 }
