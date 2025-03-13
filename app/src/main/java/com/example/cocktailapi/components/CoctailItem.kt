@@ -2,7 +2,9 @@ package com.example.cocktailapi.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -42,39 +44,45 @@ fun CocktailItem(
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(containerColor = DarkerGreen)
     ) {
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            drink.strDrinkThumb?.let {
-                Image(
-                    painter = rememberAsyncImagePainter(it),
-                    contentDescription = drink.strDrink,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(150.dp)
-                )
-            }
-            Text(
-                drink.strDrink,
-                style = MaterialTheme.typography.titleLarge,
-                color = White
-            )
-            drink.strCategory?.let {
+                .fillMaxHeight(1f)
+        ){
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                drink.strDrinkThumb?.let {
+                    Image(
+                        painter = rememberAsyncImagePainter(it),
+                        contentDescription = drink.strDrink,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(150.dp)
+                    )
+                }
                 Text(
-                    "Categoría: ${drink.strCategory}",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color.White
+                    drink.strDrink,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = White
                 )
-            }
-            drink.strAlcoholic?.let{
-                Text(
-                    "Tipo: ${drink.strAlcoholic}",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color.White
-                )
+                drink.strCategory?.let {
+                    Text(
+                        "Categoría: ${drink.strCategory}",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.White
+                    )
+                }
+                drink.strAlcoholic?.let {
+                    Text(
+                        "Tipo: ${drink.strAlcoholic}",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.White
+                    )
+                }
             }
         }
     }
