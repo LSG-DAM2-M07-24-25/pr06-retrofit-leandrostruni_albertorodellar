@@ -41,7 +41,6 @@ fun CocktailByCategoryScreen(
     apiViewModel: APIViewModel,
     cocktailViewModel: CocktailViewModel,
     isExpandedScreen: Boolean
-
 ) {
     val selectedCategories = rememberSaveable() { mutableStateOf(mutableSetOf<String>()) }
     val cocktailData by cocktailViewModel.cocktailData.observeAsState(initial = null)
