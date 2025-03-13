@@ -24,7 +24,12 @@ import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.ui.theme.LightGreen
 import com.example.cocktailapi.ui.theme.SoftGold
 
-
+/**
+ * Pantalla principal de la aplicación con opciones de búsqueda y exploración.
+ *
+ * @param navController Controlador de navegación.
+ * @param isExpandedScreen Indica si la pantalla es grande para ajustar el diseño.
+ */
 @Composable
 fun MainViewScreen(
     navController: NavController,

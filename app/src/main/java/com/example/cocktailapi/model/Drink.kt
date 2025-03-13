@@ -2,6 +2,23 @@ package com.example.cocktailapi.model
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Modelo de datos que representa un cóctel obtenido de la API.
+ *
+ * Contiene información detallada sobre el cóctel, incluyendo su nombre, imagen,
+ * ingredientes, instrucciones y categoría.
+ *
+ * @property idDrink Identificador único del cóctel.
+ * @property strDrink Nombre del cóctel.
+ * @property strCategory Categoría a la que pertenece el cóctel.
+ * @property strAlcoholic Indica si el cóctel es alcohólico o no.
+ * @property strGlass Tipo de vaso recomendado para servir el cóctel.
+ * @property strDrinkThumb URL de la imagen del cóctel.
+ * @property strInstructions Instrucciones para preparar el cóctel.
+ * @property strIngredient1-15 Lista de ingredientes utilizados.
+ * @property strMeasure1-15 Lista de medidas correspondientes a cada ingrediente.
+ * @property dateModified Fecha de la última modificación de la receta.
+ */
 data class Drink(
     val dateModified: String?,
     val idDrink: String,
@@ -57,7 +74,13 @@ data class Drink(
     val strTags: String?,
     val strVideo: String?
 ) {
-    // Función para convertir Drink a DrinkEntity, para la base de datos
+
+    /**
+     * Convierte un objeto `Drink` en un `DrinkEntity` para almacenamiento en la base de datos.
+     *
+     * @param isFavorite Indica si el cóctel ha sido marcado como favorito (por defecto `false`).
+     * @return Una instancia de [DrinkEntity] con los datos esenciales del cóctel.
+     */
     fun toDrinkEntity(isFavorite: Boolean = false): DrinkEntity {
         return DrinkEntity(
             idDrink = this.idDrink,

@@ -1,5 +1,9 @@
 package com.example.cocktailapi.api
 
+/**
+ * Repositorio que actúa como una capa de abstracción entre la API y el ViewModel.
+ * Permite realizar llamadas a los diferentes métodos de la API de TheCocktailDB.
+ */
 class Repository {
     private val apiInterface = APIInterface.create()
 

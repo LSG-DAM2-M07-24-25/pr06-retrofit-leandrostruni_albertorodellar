@@ -33,6 +33,16 @@ import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
+/**
+ * Pantalla que muestra un cóctel aleatorio.
+ *
+ * El usuario puede presionar un botón para obtener un nuevo cóctel aleatorio.
+ *
+ * @param navController Controlador de navegación.
+ * @param apiViewModel ViewModel para gestionar las solicitudes a la API.
+ * @param cocktailViewModel ViewModel que maneja la lógica de los cócteles.
+ * @param isExpandedScreen Indica si la pantalla es grande para ajustar la UI.
+ */
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun CocktailRandomScreen(

@@ -4,6 +4,19 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+/**
+ * Modelo de datos para almacenar cócteles en la base de datos local.
+ *
+ * Se usa en Room para gestionar los datos de cócteles en la caché o favoritos.
+ *
+ * @property idDrink Identificador único del cóctel.
+ * @property strDrink Nombre del cóctel.
+ * @property strCategory Categoría del cóctel.
+ * @property strAlcoholic Indica si el cóctel es alcohólico o no.
+ * @property strGlass Tipo de vaso recomendado para el cóctel.
+ * @property strDrinkThumb URL de la imagen del cóctel.
+ * @property isFavorite Indica si el cóctel ha sido marcado como favorito.
+ */
 @Entity(tableName = "drinks")
 data class DrinkEntity(
     @PrimaryKey val idDrink: String,
@@ -15,6 +28,11 @@ data class DrinkEntity(
 
     @ColumnInfo(name = "is_favorite") var isFavorite: Boolean = false
 ) {
+    /**
+     * Convierte un objeto `DrinkEntity` en un `Drink` para ser utilizado en la UI.
+     *
+     * @return Una instancia de [Drink] con los datos almacenados.
+     */
     fun toDrink(): Drink {
         return Drink(
             idDrink = this.idDrink,
