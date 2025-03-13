@@ -45,7 +45,6 @@ fun FavoritesScreen(
 
     val favorites by cocktailViewModel.favorites.observeAsState(emptyList())
     val searchedCocktails by cocktailViewModel.searchedCocktails.observeAsState(emptyList())
-    Log.d("searchedCocktails", searchedCocktails.toString())
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -67,10 +66,9 @@ fun FavoritesScreen(
                         modifier = Modifier.fillMaxSize(),
                         contentPadding = PaddingValues(16.dp)
                     ) {
-                        items(filteredFavorites.size) { index ->
-                            val cocktail = filteredFavorites[index]
-                            val drink = cocktail.toDrink()
-                            CocktailItem(drink, navController, apiViewModel, cocktailViewModel)
+                        items(searchedCocktails.size) { index ->
+                            val cocktail = searchedCocktails[index]
+                            CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
                         }
                     }
                 } else {
@@ -79,12 +77,11 @@ fun FavoritesScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         contentPadding = PaddingValues(16.dp)
                     ) {
-                        items(filteredFavorites) { cocktail ->
-                            val drink = cocktail.toDrink()
-                            CocktailItem(drink, navController, apiViewModel, cocktailViewModel)
+                        items(searchedCocktails) { cocktail ->
+                            CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
                         }
 
-                        if (filteredFavorites.isEmpty()) {
+                        if (searchedCocktails.isEmpty()) {
                             item {
                                 Spacer(modifier = Modifier.padding(16.dp))
                                 Text(

@@ -93,6 +93,7 @@ class CocktailViewModel : ViewModel() {
 
     fun clearCocktails() {
         _cocktailData.postValue(DataAPI(emptyList()))
+        _searchedCocktails.postValue(emptyList())
     }
 
     // ROOM SECTION
