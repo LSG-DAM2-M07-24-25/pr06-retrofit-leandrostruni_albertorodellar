@@ -11,7 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.cocktailapi.model.Drink
 
@@ -65,7 +67,11 @@ fun CocktailItemDetails(cocktail: Drink, isExpandedScreen: Boolean) {
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(cocktail.strDrink, style = MaterialTheme.typography.titleLarge)
+                Text(
+                    cocktail.strDrink,
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight.Bold,
+                )
                 Text("Categoría: ${cocktail.strCategory}", style = MaterialTheme.typography.bodyLarge)
                 Text("Tipo: ${cocktail.strAlcoholic}", style = MaterialTheme.typography.bodyLarge)
                 Text("Vaso: ${cocktail.strGlass}", style = MaterialTheme.typography.bodyLarge)
@@ -90,7 +96,11 @@ fun CocktailItemDetails(cocktail: Drink, isExpandedScreen: Boolean) {
                 )
             }
 
-            Text(cocktail.strDrink, style = MaterialTheme.typography.titleLarge)
+            Text(
+                cocktail.strDrink,
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold,
+            )
             Text("Categoría: ${cocktail.strCategory}", style = MaterialTheme.typography.bodyLarge)
             Text("Tipo: ${cocktail.strAlcoholic}", style = MaterialTheme.typography.bodyLarge)
             Text("Vaso: ${cocktail.strGlass}", style = MaterialTheme.typography.bodyLarge)

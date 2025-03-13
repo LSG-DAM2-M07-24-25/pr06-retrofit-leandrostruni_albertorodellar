@@ -75,7 +75,7 @@ fun CocktailByCategoryScreen(
                 .fillMaxWidth()
                 .fillMaxSize()
                 .background(DarkGreen)
-                .padding(16.dp),
+                .padding(horizontal = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             CategoryDropdownMenu(
@@ -90,13 +90,13 @@ fun CocktailByCategoryScreen(
                 },
                 isExpandedScreen
             )
+            CocktailSearchBar(cocktailViewModel)
 
             Spacer(modifier = Modifier.height(16.dp))
 
             if (loading) {
                 CircularProgressIndicator()
             } else {
-                CocktailSearchBar(cocktailViewModel)
                 cocktailData?.drinks?.let { drinks ->
                     if (isExpandedScreen) {
                         LazyVerticalGrid(
