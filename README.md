@@ -65,12 +65,12 @@ La aplicación sigue el patrón de arquitectura **MVVM (Model-View-ViewModel)**,
   <tr>
     <td align="center">
       <img src="app/src/main/res/drawable/screenshot_1.png" alt="Móvil" width="200"/>
-      <p>Captura 1</p>
+      <p>Móvil</p>
     </td>
     <td width="100"></td> <!-- Celda vacía para espacio -->
     <td align="center">
       <img src="app/src/main/res/drawable/screenshot_2.png" alt="Móvil" width="200"/>
-      <p>Captura 2</p>
+      <p>Móvil</p>
     </td>
   </tr>
 </table>
@@ -79,12 +79,12 @@ La aplicación sigue el patrón de arquitectura **MVVM (Model-View-ViewModel)**,
   <tr>
     <td align="center">
       <img src="app/src/main/res/drawable/screenshot_3.png" alt="Tablet" width="200"/>
-      <p>Captura 1</p>
+      <p>Tablet</p>
     </td>
     <td width="100"></td> <!-- Celda vacía para espacio -->
     <td align="center">
       <img src="app/src/main/res/drawable/screenshot_4.png" alt="Tablet" width="200"/>
-      <p>Captura 2</p>
+      <p>Tablet</p>
     </td>
   </tr>
 </table>
