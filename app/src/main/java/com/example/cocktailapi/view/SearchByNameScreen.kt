@@ -2,12 +2,15 @@ package com.example.cocktailapi.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
@@ -81,16 +84,16 @@ fun SearchByNameScreen(
             value = cocktailName,
             onValueChange = { cocktailName = it },
             label = { Text("Buscar Cocktail", style = TextStyle(color = Color.White)) },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(if (isExpandedScreen) 0.5f else 0.8f),
             singleLine = true,
             textStyle = TextStyle(color = Color.White),
             shape = RoundedCornerShape(32.dp),
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = LightGray, // ← Color de fondo cuando está enfocado
-                unfocusedContainerColor = LightGray, // ← Color de fondo cuando no está enfocado
-                cursorColor = Color.Black, // ← Color del cursor
-                focusedIndicatorColor = Color.Transparent, // ← Oculta la línea de abajo al enfocar
-                unfocusedIndicatorColor = Color.Transparent // ← Oculta la línea cuando no está enfocado
+                focusedContainerColor = LightGray,
+                unfocusedContainerColor = LightGray,
+                cursorColor = Color.White,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
             )
         )
 
@@ -111,9 +114,29 @@ fun SearchByNameScreen(
             CircularProgressIndicator()
         } else {
             cocktailData?.drinks?.let { drinks ->
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(drinks) { cocktail ->
-                        CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
+                if (isExpandedScreen) {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(5),
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(16.dp)
+                    ) {
+                        items(drinks.size) { index ->
+                            CocktailItem(
+                                drinks[index],
+                                navController,
+                                apiViewModel,
+                                cocktailViewModel
+                            )
+                        }
+                    }
+                } else {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(16.dp)
+                    ) {
+                        items(drinks) { cocktail ->
+                            CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
+                        }
                     }
                 }
             } ?: Text(
@@ -122,6 +145,5 @@ fun SearchByNameScreen(
                 color = White
             )
         }
-
     }
 }
