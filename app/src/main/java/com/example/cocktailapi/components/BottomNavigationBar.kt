@@ -16,7 +16,12 @@ import com.example.cocktailapi.ui.theme.DarkGreen
 import com.example.cocktailapi.ui.theme.DarkerGreen
 
 @Composable
-fun BottomNavigationBar(navController: NavController) {
+fun BottomNavigationBar(
+    navController: NavController,
+    isExpandedScreen: Boolean = false
+) {
+    if (isExpandedScreen) return
+
     val items = listOf(
         BottomNavItem.Home,
         BottomNavItem.SearchByName,
