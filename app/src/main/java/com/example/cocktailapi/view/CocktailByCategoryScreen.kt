@@ -89,9 +89,9 @@ fun CocktailByCategoryScreen(
                     }
                 },
                 isExpandedScreen
-            )¡
+            )
 
-            Spacer(modifier = Modifier.height(16.dp))¡
+            Spacer(modifier = Modifier.height(16.dp))
 
             if (loading) {
                 CircularProgressIndicator()

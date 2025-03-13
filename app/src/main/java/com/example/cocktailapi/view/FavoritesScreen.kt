@@ -46,7 +46,6 @@ fun FavoritesScreen(
 
     val favorites by cocktailViewModel.favorites.observeAsState(emptyList())
     val searchedCocktails by cocktailViewModel.searchedCocktails.observeAsState(emptyList())
-    Log.d("searchedCocktails", searchedCocktails.toString())
 
     Column(
         modifier = Modifier
