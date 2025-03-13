@@ -26,6 +26,7 @@ class CocktailViewModel : ViewModel() {
 
     private val _categories = MutableLiveData<List<String?>>()
     val categories: LiveData<List<String?>> = _categories
+    private var currentCategories: List<String?>? = null
 
     fun fetchCategories() {
         _loading.value = true
@@ -45,14 +46,15 @@ class CocktailViewModel : ViewModel() {
     }
 
     fun fetchFilteredCocktails(selectedCategories: List<String>) {
-
         if (selectedCategories.isEmpty()) {
-            _cocktailData.postValue(DataAPI(emptyList()))
+            clearCocktails()
             return
         }
 
-        if (_cocktailData.value?.drinks?.isNotEmpty() == true) {
+        if (currentCategories == selectedCategories) {
             return
+        } else {
+            currentCategories = selectedCategories
         }
 
         _loading.value = true
@@ -112,14 +114,12 @@ class CocktailViewModel : ViewModel() {
     }
 
     // Verificar si un cocktail es favorito
-    fun isFavorite(idDrink: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = drinkRepository.isFavorite(idDrink)
-            withContext(Dispatchers.Main) {
-                _isFavorite.value = response
-            }
+    suspend fun isFavorite(idDrink: String): Boolean {
+        return withContext(Dispatchers.IO) {
+            drinkRepository.isFavorite(idDrink)
         }
     }
+
 
     // Añadir cocktail a favoritos
     fun addFavorite(drink: Drink) {
@@ -173,12 +173,12 @@ class CocktailViewModel : ViewModel() {
     }
 
     fun clearHistory() {
-        this._searchedText.value = "" // Neteja el text després de fer la cerca
+        this._searchedText.value = ""
         this._searchHistory.value = emptyList()
     }
 
     private fun filterFavorites() {
-        val query = _searchedText.value.orEmpty().lowercase()
+        val query = _searchedText.value.orEmpty().lowercase().trimStart()
         val allFavorites = _favorites.value.orEmpty()
 
         _filteredFavorites.value = if (query.isBlank()) {

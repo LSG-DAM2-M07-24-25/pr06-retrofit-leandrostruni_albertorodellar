@@ -3,7 +3,7 @@ import android.util.Log
 import com.example.cocktailapi.model.DrinkEntity
 
 class DrinkRepository {
-    val daoInterface: DrinkDao = DrinkApplication.database.drinkDao()
+    private val daoInterface: DrinkDao = DrinkApplication.database.drinkDao()
 
     suspend fun getFavorites(): MutableList<DrinkEntity> = daoInterface.getFavorites()
     suspend fun isFavorite(id: String): Boolean = daoInterface.isFavorite(id)
@@ -13,5 +13,6 @@ class DrinkRepository {
         } catch (e: Exception) {
             Log.e("Database Error", "Error al agregar bebida favorita: ${e.message}")
         }
-    }    suspend fun removeFavorite(drink: DrinkEntity) = daoInterface.removeFavorite(drink)
+    }
+    suspend fun removeFavorite(drink: DrinkEntity) = daoInterface.removeFavorite(drink)
 }

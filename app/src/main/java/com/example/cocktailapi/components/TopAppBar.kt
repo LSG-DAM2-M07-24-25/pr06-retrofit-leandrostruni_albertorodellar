@@ -22,9 +22,8 @@ import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Menu
 import com.composables.icons.lucide.Settings
 import com.example.cocktailapi.model.Routes
-import com.example.cocktailapi.ui.theme.DarkGreen
 import com.example.cocktailapi.ui.theme.DarkerGreen
-import com.example.cocktailapi.ui.theme.SoftGold
+import com.example.cocktailapi.ui.theme.White
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -80,12 +79,12 @@ fun TopAppBar(
                             }
                         }
                     }
-                }) {
-                    Icon(
-                        imageVector = Lucide.ArrowLeft,
-                        contentDescription = "Volver",
-                        tint = SoftGold
-                    )
+            }) {
+                Icon(
+                    imageVector = Lucide.ArrowLeft,
+                    contentDescription = "Volver",
+                    tint = White
+                )
                 }
             }
         },

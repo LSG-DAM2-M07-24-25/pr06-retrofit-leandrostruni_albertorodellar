@@ -14,7 +14,6 @@ import com.example.cocktailapi.model.BottomNavItem
 import com.example.cocktailapi.model.Routes
 import com.example.cocktailapi.ui.theme.DarkGreen
 import com.example.cocktailapi.ui.theme.DarkerGreen
-import com.example.cocktailapi.ui.theme.SoftGold
 
 @Composable
 fun BottomNavigationBar(

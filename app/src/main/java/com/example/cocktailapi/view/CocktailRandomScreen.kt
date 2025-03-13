@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItem
 import com.example.cocktailapi.ui.theme.DarkGreen
-import com.example.cocktailapi.ui.theme.SoftGold
+import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
@@ -67,7 +67,7 @@ fun CocktailRandomScreen(
         Button(
             onClick = { apiViewModel.fetchRandomCocktail() },
             modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = SoftGold)
+            colors = ButtonDefaults.buttonColors(containerColor = White)
         ) {
             Text("Cocktail Aleatorio", color = Color.Black)
         }
@@ -86,7 +86,7 @@ fun CocktailRandomScreen(
             } ?: Text(
                 "No hay resultados",
                 style = MaterialTheme.typography.bodyLarge,
-                color = SoftGold
+                color = White
             )
         }
     }
