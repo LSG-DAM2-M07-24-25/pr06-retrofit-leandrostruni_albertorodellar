@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItem
 import com.example.cocktailapi.components.CocktailSearchBar
+import com.example.cocktailapi.model.Drink
 import com.example.cocktailapi.ui.theme.DarkGreen
 import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.viewmodel.APIViewModel
@@ -45,6 +46,8 @@ fun FavoritesScreen(
 
     val favorites by cocktailViewModel.favorites.observeAsState(emptyList())
     val searchedCocktails by cocktailViewModel.searchedCocktails.observeAsState(emptyList())
+    val filteredFavorites = if (searchedCocktails.isEmpty()) favorites else searchedCocktails
+    Log.d("searchedCocktails", searchedCocktails.toString())
     Column(
         modifier = Modifier
             .fillMaxWidth()
