@@ -38,6 +38,17 @@ import com.example.cocktailapi.ui.theme.DarkGreen
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
+/**
+ * Pantalla de detalles de un cóctel.
+ *
+ * Muestra la información detallada de un cóctel seleccionado, incluyendo ingredientes,
+ * instrucciones y la opción de agregarlo a favoritos.
+ *
+ * @param navController Controlador de navegación.
+ * @param apiViewModel ViewModel para gestionar las solicitudes a la API.
+ * @param cocktailViewModel ViewModel que maneja la lógica de los cócteles.
+ * @param isExpandedScreen Indica si la pantalla es grande para ajustar la UI.
+ */
 @Composable
 fun DetailsScreen(
     navController: NavController,

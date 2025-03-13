@@ -30,6 +30,11 @@ import androidx.compose.runtime.mutableFloatStateOf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Pantalla de inicio con animación de logo antes de navegar a la pantalla principal.
+ *
+ * @param navController Controlador de navegación.
+ */
 @Composable
 fun LaunchScreen(navController: NavController){
     var alpha by remember { mutableFloatStateOf(0f) }
