@@ -3,6 +3,7 @@ package com.example.cocktailapi.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,8 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Text
@@ -36,18 +35,20 @@ import com.example.cocktailapi.ui.theme.DarkGreen
 fun CategoryDropdownMenu(
     categories: List<String?>,
     selectedCategories: MutableState<MutableSet<String>>,
-    onApplyFilters: () -> Unit
+    onApplyFilters: () -> Unit,
+    isExpandedScreen: Boolean
 ) {
     var expanded by remember { mutableStateOf(false) }
 
     Column {
-        Button(
+        CustomButton(
+            text = "Seleccionar Categorías",
             onClick = { expanded = !expanded },
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = LightGreen)
-        ) {
-            Text("Seleccionar Categorías", color = Color.White)
-        }
+            isExpandedScreen,
+            backgroundColor = LightGreen,
+            textColor = Color.White,
+            modifier = Modifier.fillMaxWidth()
+        )
 
         if (expanded) {
             LazyColumn(
@@ -101,29 +102,33 @@ fun CategoryDropdownMenu(
         }
 
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Button(
+            CustomButton(
+                text = "Aplicar Filtros",
                 onClick = {
                     expanded = false
                     onApplyFilters()
                 },
-                modifier = Modifier.weight(1f),
-                colors = ButtonDefaults.buttonColors(containerColor = LightGreen)
-            ) {
-                Text("Aplicar Filtros", color = Color.White)
-            }
+                isExpandedScreen,
+                backgroundColor = LightGreen,
+                textColor = Color.White,
+                modifier = Modifier.weight(1f)
+            )
 
-            Button(
+            CustomButton(
+                text = "Limpiar Filtros",
                 onClick = {
                     selectedCategories.value = mutableSetOf()
                     onApplyFilters()
                 },
-                modifier = Modifier.weight(1f),
-                colors = ButtonDefaults.buttonColors(containerColor = LightGreen)
-            ) {
-                Text("Desmarcar", color = Color.White)
-            }
+                isExpandedScreen,
+                backgroundColor = LightGreen,
+                textColor = Color.White,
+                modifier = Modifier.weight(1f)
+            )
         }
 
     }

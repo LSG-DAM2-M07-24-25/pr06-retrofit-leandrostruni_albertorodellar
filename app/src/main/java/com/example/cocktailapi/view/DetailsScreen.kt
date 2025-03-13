@@ -103,11 +103,5 @@ fun DetailsScreen(
             style = MaterialTheme.typography.bodyLarge,
             color = Color.White
         )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(onClick = { navController.popBackStack() }) {
-            Text("Volver", color = DarkGreen)
-        }
     }
 }

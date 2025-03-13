@@ -8,26 +8,25 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.R
+import com.example.cocktailapi.components.CustomButton
 import com.example.cocktailapi.model.Routes
 import com.example.cocktailapi.ui.theme.DarkGreen
 import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.ui.theme.LightGreen
+import com.example.cocktailapi.ui.theme.SoftGold
 
 
 @Composable
 fun MainViewScreen(
-    navController: NavController
+    navController: NavController,
+    isexpandedScreen: Boolean
 ) {
     LazyColumn(
         modifier = Modifier
@@ -52,13 +51,14 @@ fun MainViewScreen(
 
         item {
             // Botón Buscar por Nombre
-            Button(
+            CustomButton(
+                text = "Buscar por nombre",
                 onClick = { navController.navigate(Routes.SearchByNameScreen.route) },
-                modifier = Modifier.fillMaxWidth(0.8f),
-                colors = ButtonDefaults.buttonColors(containerColor = LightGreen)
-            ) {
-                Text("Buscar por nombre", color = Color.White)
-            }
+                isExpandedScreen = isexpandedScreen,
+                backgroundColor = LightGreen,
+                textColor = White,
+                modifier = Modifier
+            )
         }
 
         item {
@@ -67,13 +67,14 @@ fun MainViewScreen(
 
         item {
             // Botón Cóctel Aleatorio
-            Button(
+            CustomButton(
+                text = "Random Cocktail",
                 onClick = { navController.navigate(Routes.SearchRandomScreen.route) },
-                modifier = Modifier.fillMaxWidth(0.8f),
-                colors = ButtonDefaults.buttonColors(containerColor = White)
-            ) {
-                Text("Random Cocktail", color = Color.Black)
-            }
+                isexpandedScreen,
+                backgroundColor = SoftGold,
+                textColor = White,
+                modifier = Modifier
+            )
         }
 
         item {
@@ -82,13 +83,14 @@ fun MainViewScreen(
 
         item {
             // Botón Buscar por Categoría
-            Button(
+            CustomButton(
+                text = "Buscar por categoría",
                 onClick = { navController.navigate(Routes.SearchByCategoryScreen.route) },
-                modifier = Modifier.fillMaxWidth(0.8f),
-                colors = ButtonDefaults.buttonColors(containerColor = LightGreen)
-            ) {
-                Text("Buscar por categoría", color = Color.White)
-            }
+                isexpandedScreen,
+                backgroundColor = LightGreen,
+                textColor = White,
+                modifier = Modifier
+            )
         }
 
         item {
@@ -97,13 +99,13 @@ fun MainViewScreen(
 
         item {
             // Botón Favoritos
-            Button(
+            CustomButton(
+                text = "Favoritos",
                 onClick = { navController.navigate(Routes.FavoritesScreen.route) },
-                modifier = Modifier.fillMaxWidth(0.8f),
-                colors = ButtonDefaults.buttonColors(containerColor = White)
-            ) {
-                Text("Favoritos", color = Color.Black)
-            }
+                isexpandedScreen,
+                backgroundColor = SoftGold,
+                modifier = Modifier
+            )
         }
     }
 }

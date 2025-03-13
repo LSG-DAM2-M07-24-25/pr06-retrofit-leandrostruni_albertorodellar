@@ -54,7 +54,7 @@ fun TopAppBar(
                     Icon(
                         imageVector = Lucide.Menu,
                         contentDescription = "Menú",
-                        tint = SoftGold
+                        tint = White
                     )
                 }
             } else {
