@@ -41,7 +41,8 @@ import com.example.cocktailapi.viewmodel.CocktailViewModel
 fun DetailsScreen(
     navController: NavController,
     apiViewModel: APIViewModel,
-    cocktailViewModel: CocktailViewModel
+    cocktailViewModel: CocktailViewModel,
+    isExpandedScreen: Boolean
 ){
     val scrollState = rememberScrollState()
     val selectedCocktailId by cocktailViewModel.selectedCocktailId.observeAsState()
@@ -103,5 +104,12 @@ fun DetailsScreen(
             style = MaterialTheme.typography.bodyLarge,
             color = Color.White
         )
+
+        if (isExpandedScreen) {
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(onClick = { navController.popBackStack() }) {
+                Text("Volver")
+            }
+        }
     }
 }

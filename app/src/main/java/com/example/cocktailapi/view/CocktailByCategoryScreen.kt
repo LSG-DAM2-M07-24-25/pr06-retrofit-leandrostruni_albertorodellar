@@ -82,16 +82,16 @@ fun CocktailByCategoryScreen(
             CircularProgressIndicator()
         } else {
             CocktailSearchBar(cocktailViewModel)
-            cocktailData?.drinks?.let { drinks ->
+            cocktailData?.drinks?.let {
                 if (isExpandedScreen) {
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(5),
                         modifier = Modifier.fillMaxSize(),
                         contentPadding = PaddingValues(16.dp)
                     ) {
-                        items(drinks.size) { index ->
+                        items(searchedCocktails.size) { index ->
                             CocktailItem(
-                                drinks[index],
+                                searchedCocktails[index],
                                 navController,
                                 apiViewModel,
                                 cocktailViewModel
@@ -106,17 +106,15 @@ fun CocktailByCategoryScreen(
                         items(searchedCocktails) { cocktail ->
                             CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
                         }
-                        if (searchedCocktails.isEmpty()) {
-                            item {
-                                Spacer(modifier = Modifier.padding(16.dp))
-                                Text(
-                                    "No se encontraron resultados",
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    color = White
-                                )
-                            }
-                        }
                     }
+                }
+                if (searchedCocktails.isEmpty()) {
+                    Spacer(modifier = Modifier.padding(16.dp))
+                    Text(
+                        "No se encontraron resultados",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = White
+                    )
                 }
             } ?: Text(
                 "No hay resultados",
