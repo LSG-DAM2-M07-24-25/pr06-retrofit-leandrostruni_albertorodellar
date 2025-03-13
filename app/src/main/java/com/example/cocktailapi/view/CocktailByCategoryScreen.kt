@@ -92,7 +92,6 @@ fun CocktailByCategoryScreen(
                             CocktailItem(
                                 searchedCocktails[index],
                                 navController,
-                                apiViewModel,
                                 cocktailViewModel
                             )
                         }
@@ -103,7 +102,7 @@ fun CocktailByCategoryScreen(
                         contentPadding = PaddingValues(16.dp)
                     ) {
                         items(searchedCocktails) { cocktail ->
-                            CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
+                            CocktailItem(cocktail, navController, cocktailViewModel)
                         }
                     }
                 }

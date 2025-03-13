@@ -97,7 +97,7 @@ fun DetailsScreen(
                         modifier = Modifier.size(48.dp)
                     )
                 }
-                CocktailItemDetails(drink)
+                CocktailItemDetails(drink, isExpandedScreen)
             }
         } ?: Text(
             "Cargando datos del cóctel...",

@@ -63,7 +63,7 @@ fun CocktailRandomScreen(
             .fillMaxWidth()
             .fillMaxSize()
             .background(DarkGreen)
-            .padding(16.dp),
+            .padding(if (isExpandedScreen) 0.dp else 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         CustomButton(
@@ -75,7 +75,9 @@ fun CocktailRandomScreen(
             modifier = Modifier
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        if (!isExpandedScreen) {
+            Spacer(modifier = Modifier.height(16.dp))
+        }
 
         if (loading) {
             CircularProgressIndicator()
@@ -86,7 +88,7 @@ fun CocktailRandomScreen(
                     contentPadding = PaddingValues(16.dp)
                 ) {
                     items(drinks) { cocktail ->
-                        CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
+                        CocktailItem(cocktail, navController, cocktailViewModel, isExpandedScreen)
                     }
                 }
             } ?: Text(
