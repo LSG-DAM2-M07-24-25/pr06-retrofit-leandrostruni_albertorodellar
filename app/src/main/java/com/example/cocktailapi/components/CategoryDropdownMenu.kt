@@ -3,6 +3,7 @@ package com.example.cocktailapi.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,8 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Text
@@ -24,43 +23,54 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.cocktailapi.ui.theme.DarkGreen
-import com.example.cocktailapi.ui.theme.SoftGold
+import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.ui.theme.LightGreen
+import com.example.cocktailapi.ui.theme.DarkGreen
 
-
+/**
+ * Menú desplegable para seleccionar categorías de cócteles.
+ *
+ * @param categories Lista de nombres de categorías disponibles.
+ * @param selectedCategories Estado mutable que contiene las categorías seleccionadas por el usuario.
+ * @param onApplyFilters Función que se ejecuta cuando el usuario aplica los filtros seleccionados.
+ * @param isExpandedScreen Indica si la pantalla es grande, para ajustar el diseño.
+ */
 @Composable
 fun CategoryDropdownMenu(
     categories: List<String?>,
     selectedCategories: MutableState<MutableSet<String>>,
-    onApplyFilters: () -> Unit
+    onApplyFilters: () -> Unit,
+    isExpandedScreen: Boolean
 ) {
     var expanded by remember { mutableStateOf(false) }
 
     Column {
-        Button(
+        CustomButton(
+            text = "Seleccionar Categorías",
             onClick = { expanded = !expanded },
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = LightGreen)
-        ) {
-            Text("Seleccionar Categorías", color = Color.White)
-        }
+            isExpandedScreen,
+            backgroundColor = LightGreen,
+            textColor = Color.White,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
 
+        // Lista de categorías (visible solo cuando expanded es true)
         if (expanded) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(300.dp)
-                    .background(SoftGold, shape = RoundedCornerShape(16.dp))
+                    .background(White, shape = RoundedCornerShape(16.dp))
                     .border(2.dp, DarkGreen, shape = RoundedCornerShape(16.dp))
                     .padding(8.dp)
             ) {
                 items(categories) { category ->
                     Row(
-                        verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+                        verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
@@ -75,6 +85,7 @@ fun CategoryDropdownMenu(
                             }
                             .padding(8.dp)
                     ) {
+                        // Checkbox para seleccionar o deseleccionar la categoría
                         Checkbox(
                             checked = selectedCategories.value.contains(category),
                             onCheckedChange = { checked ->
@@ -99,30 +110,35 @@ fun CategoryDropdownMenu(
                 }
             }
         }
-
+        // Fila de botones: Aplicar Filtros y Limpiar Filtros
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Button(
+            CustomButton(
+                text = "Aplicar Filtros",
                 onClick = {
                     expanded = false
                     onApplyFilters()
                 },
-                modifier = Modifier.weight(1f),
-                colors = ButtonDefaults.buttonColors(containerColor = LightGreen)
-            ) {
-                Text("Aplicar Filtros", color = Color.White)
-            }
+                isExpandedScreen,
+                backgroundColor = LightGreen,
+                textColor = Color.White,
+                modifier = Modifier.weight(1f)
+            )
 
-            Button(
+            CustomButton(
+                text = "Limpiar Filtros",
                 onClick = {
                     selectedCategories.value = mutableSetOf()
+                    onApplyFilters()
                 },
-                modifier = Modifier.weight(1f),
-                colors = ButtonDefaults.buttonColors(containerColor = LightGreen)
-            ) {
-                Text("Desmarcar", color = Color.White)
-            }
+                isExpandedScreen,
+                backgroundColor = LightGreen,
+                textColor = Color.White,
+                modifier = Modifier.weight(1f)
+            )
         }
 
     }

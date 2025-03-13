@@ -11,17 +11,28 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/**
+ * ViewModel que maneja las solicitudes a la API y la gestión del estado de la interfaz de usuario.
+ */
 class APIViewModel : ViewModel() {
     private val repository = Repository()
+
+    /** Estado de carga de la API */
     private val _loading = MutableLiveData(false)
     val loading: LiveData<Boolean> = _loading
+
+    /** Datos obtenidos de la API */
     private val _cocktailData = MutableLiveData<DataAPI?>()
     val cocktailData: LiveData<DataAPI?> = _cocktailData
 
+    /**
+     * Busca un cóctel por su nombre.
+     *
+     * @param name Nombre del cóctel a buscar.
+     */
     fun searchCocktail(name: String) {
 
         if (name.isBlank()) {
-            Log.e("Error API", "No se puede buscar un cocktail con un nombre vacío")
             return
         }
 
@@ -41,13 +52,15 @@ class APIViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Obtiene un cóctel aleatorio.
+     */
     fun fetchRandomCocktail() {
         _cocktailData.value = null
         _loading.value = true
 
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.getRandomCocktail()
-            Log.e("API", response.message())
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     _cocktailData.value = response.body()
@@ -59,6 +72,11 @@ class APIViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Obtiene los detalles de un cóctel por su ID.
+     *
+     * @param id Identificador único del cóctel.
+     */
     fun getCocktailById(id: String) {
         _cocktailData.value = null
         _loading.value = true
@@ -68,6 +86,7 @@ class APIViewModel : ViewModel() {
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     _cocktailData.value = response.body()
+                    Log.d("DetailsScreen vm", "getCocktailById: ${_cocktailData.value}")
                 } else {
                     Log.e("Error API", response.message())
                 }
@@ -76,6 +95,9 @@ class APIViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Limpia los datos almacenados de la API.
+     */
     fun clearCocktailData() {
         _cocktailData.value = null
     }

@@ -1,8 +1,9 @@
-package com.example.cocktailapi.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,11 +21,21 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.cocktailapi.model.Drink
 import com.example.cocktailapi.model.Routes
 import com.example.cocktailapi.ui.theme.DarkerGreen
-import com.example.cocktailapi.ui.theme.LightGold
-import com.example.cocktailapi.ui.theme.SoftGold
+import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
+/**
+ * Composable que representa un ítem de cóctel en la lista.
+ *
+ * Este componente muestra la imagen, nombre, categoría y tipo de un cóctel,
+ * y permite al usuario navegar a la pantalla de detalles al hacer clic en la tarjeta.
+ *
+ * @param drink Objeto [Drink] que contiene la información del cóctel.
+ * @param navController Controlador de navegación para manejar la navegación a la pantalla de detalles.
+ * @param apiViewModel ViewModel que gestiona la comunicación con la API.
+ * @param cocktailViewModel ViewModel que maneja la lógica de selección de cócteles.
+ */
 @Composable
 fun CocktailItem(
     drink: Drink,
@@ -43,39 +54,45 @@ fun CocktailItem(
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(containerColor = DarkerGreen)
     ) {
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            drink.strDrinkThumb?.let {
-                Image(
-                    painter = rememberAsyncImagePainter(it),
-                    contentDescription = drink.strDrink,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(150.dp)
-                )
-            }
-            Text(
-                "${drink.strDrink}",
-                style = MaterialTheme.typography.titleLarge,
-                color = SoftGold
-            )
-            drink.strCategory?.let {
+                .fillMaxHeight(1f)
+        ){
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                drink.strDrinkThumb?.let {
+                    Image(
+                        painter = rememberAsyncImagePainter(it),
+                        contentDescription = drink.strDrink,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(150.dp)
+                    )
+                }
                 Text(
-                    "Categoría: ${drink.strCategory}",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color.White
+                    drink.strDrink,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = White
                 )
-            }
-            drink.strAlcoholic?.let{
-                Text(
-                    "Tipo: ${drink.strAlcoholic}",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color.White
-                )
+                drink.strCategory?.let {
+                    Text(
+                        "Categoría: ${drink.strCategory}",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.White
+                    )
+                }
+                drink.strAlcoholic?.let {
+                    Text(
+                        "Tipo: ${drink.strAlcoholic}",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.White
+                    )
+                }
             }
         }
     }

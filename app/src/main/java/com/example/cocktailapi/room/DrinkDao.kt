@@ -6,21 +6,43 @@ import androidx.room.Insert
 import androidx.room.Query
 import com.example.cocktailapi.model.DrinkEntity
 
+/**
+ * Interfaz DAO (Data Access Object) para la gestión de datos de cócteles en la base de datos Room.
+ *
+ * Define las operaciones para obtener, insertar y eliminar cócteles favoritos.
+ */
 @Dao
 interface DrinkDao {
-    // Obtener todas las bebidas favoritas
+     /**
+     * Obtiene todas las bebidas marcadas como favoritas en la base de datos.
+     *
+     * @return Lista mutable de cócteles favoritos.
+     */
     @Query("SELECT * FROM drinks WHERE is_favorite = 1")
     fun getFavorites(): MutableList<DrinkEntity>
 
-    // Comprobar si una bebida es favorita
+     /**
+     * Verifica si un cóctel está marcado como favorito.
+     *
+     * @param id Identificador único del cóctel.
+     * @return `true` si el cóctel es favorito, `false` en caso contrario.
+     */
     @Query("SELECT is_favorite FROM drinks WHERE idDrink = :id")
     fun isFavorite(id: String): Boolean
 
-    // Agregar bebida a favoritos
+     /**
+     * Agrega un cóctel a la lista de favoritos.
+     *
+     * @param favoriteDrink Objeto [DrinkEntity] que representa el cóctel a agregar.
+     */
     @Insert
     fun addFavorite(favoriteDrink: DrinkEntity)
 
-    // Eliminar bebida de favoritos
+     /**
+     * Elimina un cóctel de la lista de favoritos.
+     *
+     * @param favoriteDrink Objeto [DrinkEntity] que representa el cóctel a eliminar.
+     */
     @Delete
     fun removeFavorite(favoriteDrink: DrinkEntity)
 }

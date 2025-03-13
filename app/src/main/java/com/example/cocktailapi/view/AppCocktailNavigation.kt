@@ -1,8 +1,14 @@
 package com.example.cocktailapi.view
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,17 +19,34 @@ import com.example.cocktailapi.components.TopAppBar
 import com.example.cocktailapi.model.Routes
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
+import androidx.navigation.NavHostController
+import com.example.cocktailapi.components.NavigationDrawer
+import kotlinx.coroutines.launch
 
+/**
+ * Navegación principal de la aplicación.
+ *
+ * Gestiona la navegación entre pantallas y adapta el diseño según el tamaño de la pantalla.
+ *
+ * @param apiViewModel ViewModel para gestionar la API.
+ * @param cocktailViewModel ViewModel para gestionar la lógica de los cócteles.
+ * @param windowSizeClass Clase que indica el tamaño de la pantalla.
+ */
 @Composable
 fun AppCocktailNavigation(
     modifier: Modifier = Modifier,
     apiViewModel: APIViewModel,
-    cocktailViewModel: CocktailViewModel
+    cocktailViewModel: CocktailViewModel,
+    windowSizeClass: WindowSizeClass
 ) {
-
     val navigationController = rememberNavController()
     val currentRoute = navigationController.currentBackStackEntryAsState().value?.destination?.route
+    val isExpandedScreen = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Expanded
+    val drawerState = rememberDrawerState(DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
 
+
+    // Títulos de las pantallas
     val screenTitles = mapOf(
         Routes.MainViewScreen.route to "Home",
         Routes.SearchByNameScreen.route to "Buscar por Nombre",
@@ -33,62 +56,128 @@ fun AppCocktailNavigation(
         Routes.FavoritesScreen.route to "Favoritos"
     )
 
-    Scaffold(
-        topBar = {
-            if (currentRoute != Routes.LaunchScreen.route) {
-                TopAppBar(
-                    title = screenTitles[currentRoute] ?: "Cocktail Finder",
-                    onBackPressed = { navigationController.popBackStack() },
-                    navController = navigationController
+    if (isExpandedScreen) {
+        ModalNavigationDrawer(
+            drawerState = drawerState,
+            gesturesEnabled = isExpandedScreen, // Habilitar solo en pantallas grandes
+            drawerContent = {
+                NavigationDrawer(
+                    navController = navigationController,
+                    onItemClick = { scope.launch { drawerState.close() } } // Cerrar Drawer al seleccionar
                 )
             }
-        },
-        bottomBar = {
-            if (currentRoute != Routes.LaunchScreen.route) {
-                BottomNavigationBar(navigationController)
+        ) {
+            Scaffold(
+                topBar = {
+                    if (currentRoute != Routes.LaunchScreen.route) {
+                        TopAppBar(
+                            title = screenTitles[currentRoute] ?: "Cocktail Finder",
+                            navController = navigationController,
+                            isExpandedScreen = isExpandedScreen,
+                            onMenuClick = {
+                                scope.launch {
+                                    if (drawerState.isClosed) drawerState.open() else drawerState.close()
+                                }
+                            }
+                        )
+                    }
+
+                }
+            ) { innerPadding ->
+                AppContent(
+                    navigationController,
+                    currentRoute,
+                    screenTitles,
+                    apiViewModel,
+                    cocktailViewModel,
+                    isExpandedScreen,
+                    Modifier.padding(innerPadding)
+                )
             }
         }
-    ) { innerPadding ->
-        NavHost(
-            navController = navigationController,
-            startDestination = Routes.LaunchScreen.route,
-            modifier = Modifier.padding(innerPadding)
-        ) {
-            composable(Routes.LaunchScreen.route) { LaunchScreen(navigationController) }
-            composable(Routes.MainViewScreen.route) { MainViewScreen(navigationController) }
-            composable(Routes.SearchByNameScreen.route) {
-                SearchByNameScreen(
-                    navigationController,
-                    apiViewModel,
-                    cocktailViewModel
-                )
+    } else {
+        // Usar Bottom Navigation Bar en pantallas pequeñas
+        Scaffold(
+            topBar = {
+                if (currentRoute != Routes.LaunchScreen.route) {
+                    TopAppBar(
+                        title = screenTitles[currentRoute] ?: "Cocktail Finder",
+                        navController = navigationController,
+                        isExpandedScreen = false,
+                        onMenuClick = { navigationController.popBackStack() }
+                    )
+                }
+            },
+            bottomBar = {
+                if (currentRoute != Routes.LaunchScreen.route) {
+                    BottomNavigationBar(navigationController)
+                }
             }
-            composable(Routes.SearchRandomScreen.route) {
-                CocktailRandomScreen(
-                    navigationController,
-                    apiViewModel,
-                    cocktailViewModel
-                )
-            }
-            composable(Routes.SearchByCategoryScreen.route) {
-                CocktailByCategoryScreen(
-                    navigationController,
-                    apiViewModel,
-                    cocktailViewModel
-                )
-            }
-            composable(Routes.DetailsScreen.route) {
-                DetailsScreen(
-                    navigationController,
-                    apiViewModel,
-                    cocktailViewModel
-                )
-            }
-            composable(Routes.FavoritesScreen.route) {
-                FavoritesScreen(navigationController,
-                    apiViewModel,
-                    cocktailViewModel)
-            }
+        ) { innerPadding ->
+            AppContent(
+                navigationController,
+                currentRoute,
+                screenTitles,
+                apiViewModel,
+                cocktailViewModel,
+                isExpandedScreen,
+                Modifier.padding(innerPadding)
+            )
+        }
+    }
+}
+
+@Composable
+fun AppContent(
+    navigationController: NavHostController,
+    currentRoute: String?,
+    screenTitles: Map<String, String>,
+    apiViewModel: APIViewModel,
+    cocktailViewModel: CocktailViewModel,
+    isExpandedScreen: Boolean,
+    modifier: Modifier = Modifier
+) {
+    NavHost(
+        navController = navigationController,
+        startDestination = Routes.LaunchScreen.route,
+        modifier = modifier
+    ) {
+        composable(Routes.LaunchScreen.route) { LaunchScreen(navigationController) }
+        composable(Routes.MainViewScreen.route) {
+            MainViewScreen(
+                navigationController,
+                isExpandedScreen
+            )
+        }
+        composable(Routes.SearchByNameScreen.route) {
+            SearchByNameScreen(
+                navigationController,
+                apiViewModel,
+                cocktailViewModel,
+                isExpandedScreen
+            )
+        }
+        composable(Routes.SearchRandomScreen.route) {
+            CocktailRandomScreen(
+                navigationController,
+                apiViewModel,
+                cocktailViewModel,
+                isExpandedScreen
+            )
+        }
+        composable(Routes.SearchByCategoryScreen.route) {
+            CocktailByCategoryScreen(
+                navigationController,
+                apiViewModel,
+                cocktailViewModel,
+                isExpandedScreen
+            )
+        }
+        composable(Routes.DetailsScreen.route) {
+            DetailsScreen(navigationController, apiViewModel, cocktailViewModel, isExpandedScreen)
+        }
+        composable(Routes.FavoritesScreen.route) {
+            FavoritesScreen(navigationController, apiViewModel, cocktailViewModel, isExpandedScreen)
         }
     }
 }

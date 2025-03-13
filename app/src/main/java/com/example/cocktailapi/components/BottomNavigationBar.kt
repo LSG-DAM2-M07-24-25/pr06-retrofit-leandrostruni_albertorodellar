@@ -11,12 +11,27 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.cocktailapi.model.BottomNavItem
-import com.example.cocktailapi.ui.theme.DarkGreen
+import com.example.cocktailapi.model.Routes
 import com.example.cocktailapi.ui.theme.DarkerGreen
-import com.example.cocktailapi.ui.theme.SoftGold
 
+/**
+ * Barra de navegación inferior de la aplicación.
+ *
+ * Muestra los elementos de navegación definidos en [BottomNavItem].
+ * Se oculta automáticamente en pantallas grandes (cuando [isExpandedScreen] es `true`).
+ *
+ * @param navController Controlador de navegación que gestiona la navegación entre pantallas.
+ * @param isExpandedScreen Indica si la pantalla es grande. Si es `true`, la barra de navegación no se muestra.
+ */
 @Composable
-fun BottomNavigationBar(navController: NavController) {
+fun BottomNavigationBar(
+    navController: NavController,
+    isExpandedScreen: Boolean = false
+) {
+
+    // Si la pantalla es grande, se oculta la barra de navegación inferior.
+    if (isExpandedScreen) return
+
     val items = listOf(
         BottomNavItem.Home,
         BottomNavItem.SearchByName,
@@ -44,8 +59,8 @@ fun BottomNavigationBar(navController: NavController) {
                 onClick = {
                     if (currentRoute != item.route) {
                         navController.navigate(item.route) {
-                            popUpTo(navController.graph.startDestinationId) {
-                                saveState = true
+                            popUpTo(Routes.MainViewScreen.route) {
+                                inclusive = false
                             }
                             launchSingleTop = true
                             restoreState = true
