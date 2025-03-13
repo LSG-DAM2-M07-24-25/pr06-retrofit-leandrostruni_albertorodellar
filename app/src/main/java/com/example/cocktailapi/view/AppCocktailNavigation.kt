@@ -9,7 +9,9 @@ import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -35,6 +37,7 @@ fun AppCocktailNavigation(
     val isExpandedScreen = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Expanded
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+
 
     // Títulos de las pantallas
     val screenTitles = mapOf(

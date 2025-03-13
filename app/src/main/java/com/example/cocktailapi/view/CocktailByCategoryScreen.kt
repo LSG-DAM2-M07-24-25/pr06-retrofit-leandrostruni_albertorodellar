@@ -90,12 +90,11 @@ fun CocktailByCategoryScreen(
                 isExpandedScreen
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
-
             if (loading) {
                 CircularProgressIndicator()
             } else {
                 CocktailSearchBar(cocktailViewModel)
+                Spacer(modifier = Modifier.height(16.dp))
                 cocktailData?.drinks?.let { drinks ->
                     if (isExpandedScreen) {
                         LazyVerticalGrid(
