@@ -23,7 +23,7 @@ fun CustomButton(
     Button(
         onClick = onClick,
         modifier = modifier
-            .fillMaxWidth(if (isExpandedScreen) 0.5f else 0.8f)
+            .fillMaxWidth(if (isExpandedScreen) 0.4f else 0.6f)
             .padding(8.dp),
         colors = ButtonDefaults.buttonColors(containerColor = backgroundColor)
     ) {

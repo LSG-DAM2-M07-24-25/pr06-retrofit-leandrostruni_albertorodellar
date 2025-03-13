@@ -133,21 +133,41 @@ fun AppContent(
         modifier = modifier
     ) {
         composable(Routes.LaunchScreen.route) { LaunchScreen(navigationController) }
-        composable(Routes.MainViewScreen.route) { MainViewScreen(navigationController,isExpandedScreen) }
+        composable(Routes.MainViewScreen.route) {
+            MainViewScreen(
+                navigationController,
+                isExpandedScreen
+            )
+        }
         composable(Routes.SearchByNameScreen.route) {
-            SearchByNameScreen(navigationController, apiViewModel, cocktailViewModel,isExpandedScreen)
+            SearchByNameScreen(
+                navigationController,
+                apiViewModel,
+                cocktailViewModel,
+                isExpandedScreen
+            )
         }
         composable(Routes.SearchRandomScreen.route) {
-            CocktailRandomScreen(navigationController, apiViewModel, cocktailViewModel,isExpandedScreen)
+            CocktailRandomScreen(
+                navigationController,
+                apiViewModel,
+                cocktailViewModel,
+                isExpandedScreen
+            )
         }
         composable(Routes.SearchByCategoryScreen.route) {
-            CocktailByCategoryScreen(navigationController, apiViewModel, cocktailViewModel,isExpandedScreen)
+            CocktailByCategoryScreen(
+                navigationController,
+                apiViewModel,
+                cocktailViewModel,
+                isExpandedScreen
+            )
         }
         composable(Routes.DetailsScreen.route) {
             DetailsScreen(navigationController, apiViewModel, cocktailViewModel)
         }
         composable(Routes.FavoritesScreen.route) {
-            FavoritesScreen(navigationController, apiViewModel, cocktailViewModel)
+            FavoritesScreen(navigationController, apiViewModel, cocktailViewModel, isExpandedScreen)
         }
     }
 }
