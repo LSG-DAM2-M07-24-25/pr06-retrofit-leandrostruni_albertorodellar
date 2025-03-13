@@ -54,7 +54,8 @@ fun BottomNavigationBar(
                 selected = currentRoute == item.route,
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = Color.Black,
-                    unselectedIconColor = Color.White
+                    unselectedIconColor = Color.White,
+                    indicatorColor = Color.White
                 ),
                 onClick = {
                     if (currentRoute != item.route) {
