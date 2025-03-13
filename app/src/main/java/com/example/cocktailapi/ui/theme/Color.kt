@@ -22,5 +22,4 @@ val DarkerGreen = Color(0xFF002A23) // Fondo oscuro más oscuro
 val White = Color(0xFFF3F3F3) // Resaltados y botones
 val DarkGray = Color(0xFF1C1C1C) // Fondo searchBar
 val SoftGold = Color(0xA5B7F6CD) // Resaltados y botones
-val LightGold = Color(0xFFFFF8E1) // Fondo claro y elementos secundarios
 
