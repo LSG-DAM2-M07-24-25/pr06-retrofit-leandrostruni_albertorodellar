@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Search
 import com.composables.icons.lucide.X
-import com.example.cocktailapi.ui.theme.LightGray
+import com.example.cocktailapi.ui.theme.DarkGray
 import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
@@ -63,7 +63,7 @@ fun CocktailSearchBar(cocktailViewModel: CocktailViewModel) {
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
             .clip(RoundedCornerShape(16.dp)),
-                colors = SearchBarDefaults.colors(containerColor = LightGray)
+                colors = SearchBarDefaults.colors(containerColor = DarkGray)
 
     ) {}
     // Mostrar la última búsqueda en una tarjeta

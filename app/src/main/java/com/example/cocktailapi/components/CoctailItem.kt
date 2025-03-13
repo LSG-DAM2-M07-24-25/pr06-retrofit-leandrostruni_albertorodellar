@@ -1,4 +1,3 @@
-package com.example.cocktailapi.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

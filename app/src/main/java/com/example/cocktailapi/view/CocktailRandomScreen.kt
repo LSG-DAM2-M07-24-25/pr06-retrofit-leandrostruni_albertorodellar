@@ -113,7 +113,8 @@ fun CocktailRandomScreen(
                         contentPadding = PaddingValues(16.dp)
                     ) {
                         items(drinks) { cocktail ->
-                            CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
+                            CocktailItem(cocktail, navController, cocktailViewModel, isExpandedScreen)
+
                         }
                     }
                 } ?: Text(
