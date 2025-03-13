@@ -2,6 +2,7 @@ package com.example.cocktailapi.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -80,7 +81,10 @@ fun CocktailRandomScreen(
             CircularProgressIndicator()
         } else {
             cocktailData?.drinks?.let { drinks ->
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(16.dp)
+                ) {
                     items(drinks) { cocktail ->
                         CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
                     }

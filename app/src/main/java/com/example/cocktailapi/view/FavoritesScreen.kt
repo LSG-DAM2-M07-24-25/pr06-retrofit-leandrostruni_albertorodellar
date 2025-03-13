@@ -74,7 +74,8 @@ fun FavoritesScreen(
                 } else {
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        contentPadding = PaddingValues(16.dp)
                     ) {
                         items(filteredFavorites) { cocktail ->
                             val drink = cocktail.toDrink()
