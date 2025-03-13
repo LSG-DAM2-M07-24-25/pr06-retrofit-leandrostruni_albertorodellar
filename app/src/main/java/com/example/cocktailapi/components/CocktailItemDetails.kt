@@ -30,7 +30,7 @@ fun CocktailItemDetails(cocktail: Drink) {
             )
         }
 
-        Text("Nombre: ${cocktail.strDrink}", style = MaterialTheme.typography.titleLarge)
+        Text(cocktail.strDrink, style = MaterialTheme.typography.titleLarge)
         Text("Categoría: ${cocktail.strCategory}", style = MaterialTheme.typography.bodyLarge)
         Text("Tipo: ${cocktail.strAlcoholic}", style = MaterialTheme.typography.bodyLarge)
         Text("Vaso: ${cocktail.strGlass}", style = MaterialTheme.typography.bodyLarge)

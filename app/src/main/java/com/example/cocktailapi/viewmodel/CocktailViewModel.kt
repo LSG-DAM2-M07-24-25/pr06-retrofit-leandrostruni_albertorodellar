@@ -29,6 +29,7 @@ class CocktailViewModel : ViewModel() {
     private var currentCategories: List<String?>? = null
 
     fun fetchCategories() {
+        setCurrentScreen("categories")
         _loading.value = true
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.getCategories()
@@ -79,6 +80,7 @@ class CocktailViewModel : ViewModel() {
 
             withContext(Dispatchers.Main) {
                 _cocktailData.value = DataAPI(drinksList)
+                _searchedCocktails.value = drinksList
                 _loading.value = false
             }
         }
@@ -104,10 +106,12 @@ class CocktailViewModel : ViewModel() {
 
     // Obtener todos los favoritos
     fun getFavorites() {
+        setCurrentScreen("favorites")
         CoroutineScope(Dispatchers.IO).launch {
             val response = drinkRepository.getFavorites()
             withContext(Dispatchers.Main) {
                 _favorites.value = response
+                _searchedCocktails.value = response.map { it.toDrink() }
                 _loading.value = false
             }
         }
@@ -152,14 +156,20 @@ class CocktailViewModel : ViewModel() {
     private val _searchHistory = MutableLiveData<List<String>>(emptyList())
     val searchHistory: LiveData<List<String>> = _searchHistory
 
-    private val _filteredFavorites = MutableLiveData<List<DrinkEntity>>()
-    val filteredFavorites: LiveData<List<DrinkEntity>> = _filteredFavorites
+    private var _searchedCocktails = MutableLiveData<List<Drink>>()
+    val searchedCocktails: LiveData<List<Drink>> = _searchedCocktails
+
+    private val _currentScreen = MutableLiveData("favorites")
+    val currentScreen: LiveData<String> = _currentScreen
+
+    private fun setCurrentScreen(screen: String) {
+        _currentScreen.value = screen
+    }
 
     // Esto observa los cambios en la lista de favoritos y en el texto buscado
     init {
-        _favorites.observeForever { filterFavorites() }
-        _searchedText.observeForever { filterFavorites() }
-        _searchHistory.observeForever { filterFavorites() }
+        _searchedText.observeForever { searchCocktail() }
+        _searchHistory.observeForever { searchCocktail() }
     }
 
     fun onSearchTextChange(text: String) {
@@ -172,19 +182,26 @@ class CocktailViewModel : ViewModel() {
         }
     }
 
-    fun clearHistory() {
+    fun clearHistory(totalClear: Boolean = false) {
         this._searchedText.value = ""
-        this._searchHistory.value = emptyList()
+        if (totalClear) {
+            this._searchHistory.value = emptyList()
+        }
     }
 
-    private fun filterFavorites() {
-        val query = _searchedText.value.orEmpty().lowercase().trimStart()
-        val allFavorites = _favorites.value.orEmpty()
+    private fun searchCocktail() {
+        val query = _searchedText.value.orEmpty().lowercase().trim()
 
-        _filteredFavorites.value = if (query.isBlank()) {
-            allFavorites
-        } else {
-            allFavorites.filter { it.strDrink.contains(query, ignoreCase = true) }
+        val results = when (_currentScreen.value) {
+            "favorites" -> _favorites.value.orEmpty().filter {
+                it.strDrink.contains(query, ignoreCase = true)
+            }.map { it.toDrink() }
+
+            "categories" -> _cocktailData.value?.drinks.orEmpty().filter {
+                it.strDrink.contains(query, ignoreCase = true)
+            }
+            else -> emptyList()
         }
+        _searchedCocktails.value = results
     }
 }
