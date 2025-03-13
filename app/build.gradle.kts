@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose.v260)
     implementation(libs.androidx.room.common)
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
+    implementation("androidx.compose.material3:material3-window-size-class")
     dependencies { implementation(libs.coil.compose) }
     dependencies { implementation(libs.icons.lucide) }
     testImplementation(libs.junit)
