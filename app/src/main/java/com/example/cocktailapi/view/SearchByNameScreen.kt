@@ -1,6 +1,8 @@
 package com.example.cocktailapi.view
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -30,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItem
 import com.example.cocktailapi.components.CustomButton
@@ -40,6 +43,7 @@ import com.example.cocktailapi.ui.theme.LightGreen
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
+@SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun SearchByNameScreen(
     navController: NavController,
@@ -72,78 +76,109 @@ fun SearchByNameScreen(
         }
     }
 
-    Column(
+    BoxWithConstraints(
         modifier = Modifier
-            .fillMaxWidth()
             .fillMaxSize()
             .background(DarkGreen)
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(16.dp)
     ) {
-        TextField(
-            value = cocktailName,
-            onValueChange = { cocktailName = it },
-            label = { Text("Buscar Cocktail", style = TextStyle(color = Color.White)) },
-            modifier = Modifier.fillMaxWidth(if (isExpandedScreen) 0.5f else 0.8f),
-            singleLine = true,
-            textStyle = TextStyle(color = Color.White),
-            shape = RoundedCornerShape(32.dp),
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = LightGray,
-                unfocusedContainerColor = LightGray,
-                cursorColor = Color.White,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            )
-        )
+        val maxWidthDp = maxWidth
+        val columns = when {
+            maxWidthDp < 400.dp -> 2 // Móviles pequeños
+            maxWidthDp < 600.dp -> 3 // Teléfonos grandes
+            maxWidthDp < 900.dp -> 4 // Tablets pequeñas
+            else -> 5 // Tablets grandes y pantallas extendidas
+        }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        CustomButton(
-            text = "Buscar Cocktail",
-            onClick = { apiViewModel.searchCocktail(cocktailName) },
-            isExpandedScreen,
-            backgroundColor = LightGreen,
-            textColor = Color.White,
+        Column(
             modifier = Modifier
-        )
+                .fillMaxWidth()
+                .fillMaxSize()
+                .background(DarkGreen)
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            TextField(
+                value = cocktailName,
+                onValueChange = { cocktailName = it },
 
-        Spacer(modifier = Modifier.height(8.dp))
+                label = {
+                    Text(
+                        "Buscar Cocktail",
+                        style = TextStyle(
+                            color = Color.White,
+                            fontSize = if (isExpandedScreen) 20.sp else 16.sp
+                        )
+                    )
+                },
+                modifier = Modifier.fillMaxWidth(if (isExpandedScreen) 0.5f else 0.8f),
+                singleLine = true,
+                textStyle = TextStyle(color = Color.White),
 
-        if (loading) {
-            CircularProgressIndicator()
-        } else {
-            cocktailData?.drinks?.let { drinks ->
-                if (isExpandedScreen) {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(5),
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(16.dp)
-                    ) {
-                        items(drinks.size) { index ->
-                            CocktailItem(
-                                drinks[index],
-                                navController,
-                                apiViewModel,
-                                cocktailViewModel
-                            )
-                        }
-                    }
-                } else {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(16.dp)
-                    ) {
-                        items(drinks) { cocktail ->
-                            CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
-                        }
-                    }
-                }
-            } ?: Text(
-                "No hay resultados.",
-                style = MaterialTheme.typography.bodyLarge,
-                color = White
+                shape = RoundedCornerShape(32.dp),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = LightGray,
+                    unfocusedContainerColor = LightGray,
+                    cursorColor = Color.White,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent
+                )
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            CustomButton(
+                text = "Buscar Cocktail",
+                onClick = { apiViewModel.searchCocktail(cocktailName) },
+                isExpandedScreen,
+                backgroundColor = LightGreen,
+                textColor = Color.White,
+                modifier = Modifier
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            if (loading) {
+                CircularProgressIndicator()
+            } else {
+                cocktailData?.drinks?.let { drinks ->
+                    if (isExpandedScreen) {
+                        LazyVerticalGrid(
+                            columns = GridCells.Fixed(5),
+                            modifier = Modifier.fillMaxSize(),
+                            contentPadding = PaddingValues(16.dp)
+                        ) {
+                            items(drinks.size) { index ->
+                                CocktailItem(
+                                    drinks[index],
+                                    navController,
+                                    apiViewModel,
+                                    cocktailViewModel
+                                )
+                            }
+                        }
+                    } else {
+                        LazyColumn(
+                            modifier = Modifier.fillMaxSize(),
+                            contentPadding = PaddingValues(16.dp)
+                        ) {
+                            items(drinks) { cocktail ->
+                                CocktailItem(
+                                    cocktail,
+                                    navController,
+                                    apiViewModel,
+                                    cocktailViewModel
+                                )
+                            }
+                        }
+                    }
+                } ?: Text(
+                    "No hay resultados.",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = White
+                )
+            }
         }
     }
+
 }

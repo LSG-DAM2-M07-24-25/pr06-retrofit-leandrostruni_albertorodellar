@@ -4,11 +4,14 @@ import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -31,7 +34,8 @@ import com.example.cocktailapi.viewmodel.CocktailViewModel
 fun FavoritesScreen(
     navController: NavController,
     apiViewModel: APIViewModel,
-    cocktailViewModel: CocktailViewModel
+    cocktailViewModel: CocktailViewModel,
+    isExpandedScreen: Boolean
 ) {
     // Llamar a getFavorites() cuando la pantalla se monta
     LaunchedEffect(Unit) {
@@ -57,21 +61,38 @@ fun FavoritesScreen(
             Box(
                 modifier = Modifier.fillMaxSize()
             ) {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    items(searchedCocktails) { cocktail ->
-                        CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
+                if (isExpandedScreen) {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(4),
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(16.dp)
+                    ) {
+                        items(filteredFavorites.size) { index ->
+                            val cocktail = filteredFavorites[index]
+                            val drink = cocktail.toDrink()
+                            CocktailItem(drink, navController, apiViewModel, cocktailViewModel)
+                        }
                     }
-                    if (searchedCocktails.isEmpty()) {
-                        item {
-                            Spacer(modifier = Modifier.padding(16.dp))
-                            Text(
-                                "No se encontraron resultados",
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = White
-                            )
+                } else {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        contentPadding = PaddingValues(16.dp)
+                    ) {
+                        items(filteredFavorites) { cocktail ->
+                            val drink = cocktail.toDrink()
+                            CocktailItem(drink, navController, apiViewModel, cocktailViewModel)
+                        }
+
+                        if (filteredFavorites.isEmpty()) {
+                            item {
+                                Spacer(modifier = Modifier.padding(16.dp))
+                                Text(
+                                    "No se encontraron resultados",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = White
+                                )
+                            }
                         }
                     }
                 }
