@@ -144,7 +144,7 @@ fun AppContent(
             CocktailByCategoryScreen(navigationController, apiViewModel, cocktailViewModel,isExpandedScreen)
         }
         composable(Routes.DetailsScreen.route) {
-            DetailsScreen(navigationController, apiViewModel, cocktailViewModel)
+            DetailsScreen(navigationController, apiViewModel, cocktailViewModel, isExpandedScreen)
         }
         composable(Routes.FavoritesScreen.route) {
             FavoritesScreen(navigationController, apiViewModel, cocktailViewModel)
