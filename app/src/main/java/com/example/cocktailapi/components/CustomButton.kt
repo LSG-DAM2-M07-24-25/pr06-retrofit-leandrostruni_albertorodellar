@@ -13,7 +13,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
-
+/**
+ * Botón personalizado reutilizable en la aplicación.
+ *
+ * Se adapta automáticamente a distintos tamaños de pantalla y permite personalizar
+ * su color de fondo y color de texto.
+ *
+ * @param text Texto que se mostrará en el botón.
+ * @param onClick Acción que se ejecuta al presionar el botón.
+ * @param isExpandedScreen Indica si la pantalla es grande, para ajustar el tamaño del botón.
+ * @param backgroundColor Color de fondo del botón (por defecto es blanco).
+ * @param textColor Color del texto del botón (por defecto es negro).
+ * @param modifier Modificadores para ajustar el tamaño y el espaciado del botón.
+ */
 @Composable
 fun CustomButton(
     text: String,

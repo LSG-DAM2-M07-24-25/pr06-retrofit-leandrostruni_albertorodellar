@@ -7,6 +7,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/**
+ * Composable para mostrar texto con tamaño y espaciado adaptativos.
+ *
+ * Ajusta dinámicamente el tamaño de la fuente y el espaciado según el tamaño de la pantalla.
+ *
+ * @param text Texto a mostrar.
+ * @param isExpandedScreen Indica si la pantalla es grande, para ajustar el tamaño de la fuente y el padding.
+ */
 @Composable
 fun CustomText(
     text: String,

@@ -15,6 +15,14 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.cocktailapi.model.Drink
 
+/**
+ * Composable que muestra los detalles de un cóctel específico.
+ *
+ * Incluye la imagen del cóctel, su nombre, categoría, tipo, vaso recomendado,
+ * instrucciones de preparación y una lista de ingredientes con sus respectivas medidas.
+ *
+ * @param cocktail Objeto [Drink] que contiene la información del cóctel a mostrar.
+ */
 @Composable
 fun CocktailItemDetails(cocktail: Drink, isExpandedScreen: Boolean) {
     // Función para generar las listas de ingredientes y medidas

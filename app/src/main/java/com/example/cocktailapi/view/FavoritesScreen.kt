@@ -25,12 +25,19 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItem
 import com.example.cocktailapi.components.CocktailSearchBar
-import com.example.cocktailapi.model.Drink
 import com.example.cocktailapi.ui.theme.DarkGreen
 import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
+/**
+ * Pantalla de favoritos donde se muestran los cócteles marcados como favoritos por el usuario.
+ *
+ * @param navController Controlador de navegación.
+ * @param apiViewModel ViewModel que maneja las llamadas a la API.
+ * @param cocktailViewModel ViewModel que maneja la lógica de los cócteles.
+ * @param isExpandedScreen Indica si la pantalla es grande para ajustar el diseño.
+ */
 @Composable
 fun FavoritesScreen(
     navController: NavController,

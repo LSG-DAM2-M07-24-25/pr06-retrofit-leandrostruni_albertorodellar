@@ -36,6 +36,16 @@ import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
+/**
+ * Pantalla para filtrar cócteles por categoría.
+ *
+ * Permite seleccionar una o más categorías y muestra los resultados en una cuadrícula adaptativa.
+ *
+ * @param navController Controlador de navegación.
+ * @param apiViewModel ViewModel para gestionar las solicitudes a la API.
+ * @param cocktailViewModel ViewModel que maneja la lógica de los cócteles.
+ * @param isExpandedScreen Indica si la pantalla es grande para ajustar la UI.
+ */
 @SuppressLint("MutableCollectionMutableState")
 @Composable
 fun CocktailByCategoryScreen(

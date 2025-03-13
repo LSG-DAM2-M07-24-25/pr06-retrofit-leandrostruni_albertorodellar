@@ -9,9 +9,7 @@ import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -25,6 +23,15 @@ import androidx.navigation.NavHostController
 import com.example.cocktailapi.components.NavigationDrawer
 import kotlinx.coroutines.launch
 
+/**
+ * Navegación principal de la aplicación.
+ *
+ * Gestiona la navegación entre pantallas y adapta el diseño según el tamaño de la pantalla.
+ *
+ * @param apiViewModel ViewModel para gestionar la API.
+ * @param cocktailViewModel ViewModel para gestionar la lógica de los cócteles.
+ * @param windowSizeClass Clase que indica el tamaño de la pantalla.
+ */
 @Composable
 fun AppCocktailNavigation(
     modifier: Modifier = Modifier,

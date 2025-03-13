@@ -43,6 +43,14 @@ import com.example.cocktailapi.ui.theme.LightGreen
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
+/**
+ * Pantalla que permite buscar cócteles por nombre.
+ *
+ * @param navController Controlador de navegación.
+ * @param apiViewModel ViewModel para gestionar la API.
+ * @param cocktailViewModel ViewModel que maneja la lógica de los cócteles.
+ * @param isExpandedScreen Indica si la pantalla es grande para ajustar el diseño.
+ */
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun SearchByNameScreen(

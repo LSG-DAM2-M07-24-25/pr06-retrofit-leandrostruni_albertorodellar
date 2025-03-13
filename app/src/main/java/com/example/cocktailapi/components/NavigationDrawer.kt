@@ -1,11 +1,8 @@
 package com.example.cocktailapi.components
 
 import android.R
-import android.R.attr.icon
-import android.R.attr.thickness
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -13,11 +10,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -36,7 +31,14 @@ import com.composables.icons.lucide.Search
 import com.example.cocktailapi.model.Routes
 import com.example.cocktailapi.ui.theme.DarkGreen
 
-
+/**
+ * Menú lateral de navegación de la aplicación.
+ *
+ * Este menú proporciona acceso rápido a las principales pantallas de la aplicación.
+ *
+ * @param navController Controlador de navegación para manejar el cambio de pantallas.
+ * @param onItemClick Acción a ejecutar cuando el usuario selecciona un elemento del menú.
+ */
 @Composable
 fun NavigationDrawer(
     navController: NavController,
@@ -63,7 +65,7 @@ fun NavigationDrawer(
             )
         }
 
-
+        // Lista de elementos del menú de navegación
         LazyColumn(modifier = Modifier.padding(16.dp)) {
             item {
                 HorizontalDivider(color = Color.White, thickness = 1.dp)
@@ -117,6 +119,17 @@ fun NavigationDrawer(
     }
 }
 
+/**
+ * Elemento de la lista del Drawer.
+ *
+ * Representa una opción dentro del menú de navegación lateral.
+ *
+ * @param label Texto del elemento de navegación.
+ * @param route Ruta de navegación a la que redirige este elemento.
+ * @param icon Icono representativo del elemento.
+ * @param navController Controlador de navegación.
+ * @param onClick Acción a ejecutar cuando se selecciona el elemento.
+ */
 @Composable
 fun NavigationDrawerItem(
     label: String,

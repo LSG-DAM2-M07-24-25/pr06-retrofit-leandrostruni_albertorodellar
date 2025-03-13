@@ -1,9 +1,5 @@
 package com.example.cocktailapi.components
 
-import androidx.compose.foundation.layout.height
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -12,10 +8,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.composables.icons.lucide.ArrowLeft
 import com.composables.icons.lucide.Lucide
@@ -25,6 +19,17 @@ import com.example.cocktailapi.model.Routes
 import com.example.cocktailapi.ui.theme.DarkerGreen
 import com.example.cocktailapi.ui.theme.White
 
+/**
+ * Barra superior de la aplicación.
+ *
+ * Muestra el título de la pantalla actual y permite la navegación hacia atrás
+ * o la apertura del menú lateral si está en una pantalla grande.
+ *
+ * @param title Título de la pantalla actual.
+ * @param navController Controlador de navegación para gestionar el cambio de pantallas.
+ * @param isExpandedScreen Indica si la pantalla es grande, para ajustar el comportamiento del botón de navegación.
+ * @param onMenuClick Acción que se ejecuta cuando el usuario presiona el botón del menú lateral.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBar(

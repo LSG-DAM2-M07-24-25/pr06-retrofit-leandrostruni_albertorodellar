@@ -26,19 +26,28 @@ import com.example.cocktailapi.ui.theme.DarkGray
 import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
-@kotlin.OptIn(ExperimentalMaterial3Api::class)
+/**
+ * Barra de búsqueda de cócteles.
+ *
+ * Permite al usuario ingresar texto para buscar cócteles en la base de datos.
+ * También muestra un historial de búsqueda reciente y permite eliminarlo.
+ *
+ * @param cocktailViewModel ViewModel que maneja la lógica de búsqueda y almacenamiento del historial.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CocktailSearchBar(cocktailViewModel: CocktailViewModel) {
     val searchedText by cocktailViewModel.searchedText.observeAsState("")
     val searchHistory by cocktailViewModel.searchHistory.observeAsState(emptyList())
 
+    // Componente de la barra de búsqueda
     SearchBar(
         query = searchedText,
         onQueryChange = { cocktailViewModel.onSearchTextChange(it) },
         onSearch = { cocktailViewModel.addToHistory(it) },
         active = false,
         onActiveChange = { },
-        leadingIcon = { Icon(Lucide.Search, contentDescription = "Search",tint = Color.White,) },
+        leadingIcon = { Icon(Lucide.Search, contentDescription = "Search",tint = Color.White) },
         trailingIcon = {
             if (searchHistory.isNotEmpty()) {
                 Icon(
@@ -57,6 +66,7 @@ fun CocktailSearchBar(cocktailViewModel: CocktailViewModel) {
                 colors = SearchBarDefaults.colors(containerColor = DarkGray)
 
     ) {}
+    // Mostrar la última búsqueda en una tarjeta
     searchHistory.lastOrNull()?.let {
         Card(
             modifier = Modifier
