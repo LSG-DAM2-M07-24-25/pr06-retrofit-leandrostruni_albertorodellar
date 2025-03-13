@@ -158,4 +158,3 @@ La aplicación sigue el patrón de arquitectura **MVVM (Model-View-ViewModel)**,
   </tr>
 </table>
 
-
