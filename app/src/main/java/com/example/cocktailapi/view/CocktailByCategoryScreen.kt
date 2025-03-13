@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CategoryDropdownMenu
 import com.example.cocktailapi.components.CocktailItem
+import com.example.cocktailapi.components.CocktailSearchBar
 import com.example.cocktailapi.ui.theme.DarkGreen
 import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.viewmodel.APIViewModel
@@ -46,10 +47,12 @@ fun CocktailByCategoryScreen(
     val cocktailData by cocktailViewModel.cocktailData.observeAsState(initial = null)
     val loading by cocktailViewModel.loading.observeAsState(initial = false)
     val categories by cocktailViewModel.categories.observeAsState(emptyList())
+    val searchedCocktails by cocktailViewModel.searchedCocktails.observeAsState(emptyList())
 
     LaunchedEffect(Unit) {
         apiViewModel.clearCocktailData()
         cocktailViewModel.fetchCategories()
+        cocktailViewModel.clearHistory()
     }
 
     Column(
@@ -78,6 +81,7 @@ fun CocktailByCategoryScreen(
         if (loading) {
             CircularProgressIndicator()
         } else {
+            CocktailSearchBar(cocktailViewModel)
             cocktailData?.drinks?.let { drinks ->
                 if (isExpandedScreen) {
                     LazyVerticalGrid(
@@ -99,8 +103,18 @@ fun CocktailByCategoryScreen(
                         modifier = Modifier.fillMaxSize(),
                         contentPadding = PaddingValues(16.dp)
                     ) {
-                        items(drinks) { cocktail ->
+                        items(searchedCocktails) { cocktail ->
                             CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
+                        }
+                        if (searchedCocktails.isEmpty()) {
+                            item {
+                                Spacer(modifier = Modifier.padding(16.dp))
+                                Text(
+                                    "No se encontraron resultados",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = White
+                                )
+                            }
                         }
                     }
                 }

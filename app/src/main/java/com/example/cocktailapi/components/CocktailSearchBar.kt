@@ -48,7 +48,7 @@ fun CocktailSearchBar(cocktailViewModel: CocktailViewModel) {
                     imageVector = Icons.Filled.Clear,
                     contentDescription = "Clear",
                     tint = Color.Red,
-                    modifier = Modifier.clickable { cocktailViewModel.clearHistory() }
+                    modifier = Modifier.clickable { cocktailViewModel.clearHistory(totalClear = true) }
                 )
             }
         },

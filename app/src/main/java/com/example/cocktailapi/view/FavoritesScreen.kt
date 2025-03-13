@@ -1,5 +1,6 @@
 package com.example.cocktailapi.view
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,11 +40,12 @@ fun FavoritesScreen(
     // Llamar a getFavorites() cuando la pantalla se monta
     LaunchedEffect(Unit) {
         cocktailViewModel.getFavorites()
+        cocktailViewModel.clearHistory()
     }
 
     val favorites by cocktailViewModel.favorites.observeAsState(emptyList())
-    val filteredFavorites by cocktailViewModel.filteredFavorites.observeAsState(emptyList())
-
+    val searchedCocktails by cocktailViewModel.searchedCocktails.observeAsState(emptyList())
+    Log.d("searchedCocktails", searchedCocktails.toString())
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -94,7 +96,6 @@ fun FavoritesScreen(
                         }
                     }
                 }
-
             }
         } else {
             Text(
