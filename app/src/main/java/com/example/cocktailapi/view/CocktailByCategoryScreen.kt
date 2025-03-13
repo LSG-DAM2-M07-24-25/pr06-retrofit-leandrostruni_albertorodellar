@@ -125,7 +125,8 @@ fun CocktailByCategoryScreen(
                     } else {
                         LazyColumn(
                             modifier = Modifier.fillMaxSize(),
-                            contentPadding = PaddingValues(16.dp)
+                            contentPadding = PaddingValues(horizontal = 16.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             items(searchedCocktails) { cocktail ->
                                 CocktailItem(
@@ -136,7 +137,6 @@ fun CocktailByCategoryScreen(
                             }
                             if (searchedCocktails.isEmpty()) {
                                 item {
-                                    Spacer(modifier = Modifier.padding(16.dp))
                                     Text(
                                         "No se encontraron resultados",
                                         style = MaterialTheme.typography.bodyLarge,
