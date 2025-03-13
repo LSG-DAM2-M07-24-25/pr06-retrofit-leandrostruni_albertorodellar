@@ -21,6 +21,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -51,6 +52,19 @@ fun DetailsScreen(
 
     val cocktailData by apiViewModel.cocktailData.observeAsState()
     val selectedCocktail = cocktailData?.drinks?.find { it.idDrink == selectedCocktailId }
+
+    // Limpiar la lista solo cuando se sale de la pantalla
+    DisposableEffect(navController) {
+        val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
+            if (destination.route != "detailsScreen") {
+                apiViewModel.clearCocktailData()
+            }
+        }
+        navController.addOnDestinationChangedListener(listener)
+        onDispose {
+            navController.removeOnDestinationChangedListener(listener)
+        }
+    }
 
     LaunchedEffect(selectedCocktailId) {
         selectedCocktailId?.let { id ->

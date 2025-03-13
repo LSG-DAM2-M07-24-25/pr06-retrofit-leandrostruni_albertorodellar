@@ -104,6 +104,7 @@ fun CocktailRandomScreen(
                     ) {
                         items(drinks) { cocktail ->
                             CocktailItem(cocktail, navController, cocktailViewModel, isExpandedScreen)
+
                         }
                     }
                 } ?: Text(

@@ -21,9 +21,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.composables.icons.lucide.Delete
 import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Search
-import com.example.cocktailapi.ui.theme.DarkGray
+import com.composables.icons.lucide.Search¡
+import com.example.cocktailapi.ui.theme.DarkGray¡
+import com.composables.icons.lucide.X
+import com.example.cocktailapi.ui.theme.LightGray¡
 import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
@@ -43,7 +46,7 @@ fun CocktailSearchBar(cocktailViewModel: CocktailViewModel) {
         trailingIcon = {
             if (searchHistory.isNotEmpty()) {
                 Icon(
-                    imageVector = Icons.Filled.Clear,
+                    imageVector = Lucide.X,
                     contentDescription = "Clear",
                     tint = Color.Red,
                     modifier = Modifier.clickable { cocktailViewModel.clearHistory(totalClear = true) }

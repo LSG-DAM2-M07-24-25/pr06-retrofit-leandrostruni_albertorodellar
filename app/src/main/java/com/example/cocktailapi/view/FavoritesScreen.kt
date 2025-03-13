@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItem
 import com.example.cocktailapi.components.CocktailSearchBar
+import com.example.cocktailapi.model.Drink
 import com.example.cocktailapi.ui.theme.DarkGreen
 import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.viewmodel.APIViewModel
@@ -44,6 +46,8 @@ fun FavoritesScreen(
 
     val favorites by cocktailViewModel.favorites.observeAsState(emptyList())
     val searchedCocktails by cocktailViewModel.searchedCocktails.observeAsState(emptyList())
+    Log.d("searchedCocktails", searchedCocktails.toString())
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -55,7 +59,7 @@ fun FavoritesScreen(
         if (favorites.isNotEmpty()) {
 
             CocktailSearchBar(cocktailViewModel)
-
+            Spacer(Modifier.height(8.dp))
             Box(
                 modifier = Modifier.fillMaxSize()
             ) {
