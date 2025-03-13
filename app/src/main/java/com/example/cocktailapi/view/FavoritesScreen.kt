@@ -31,7 +31,8 @@ import com.example.cocktailapi.viewmodel.CocktailViewModel
 fun FavoritesScreen(
     navController: NavController,
     apiViewModel: APIViewModel,
-    cocktailViewModel: CocktailViewModel
+    cocktailViewModel: CocktailViewModel,
+    isExpandedScreen: Boolean
 ) {
     // Llamar a getFavorites() cuando la pantalla se monta
     LaunchedEffect(Unit) {
