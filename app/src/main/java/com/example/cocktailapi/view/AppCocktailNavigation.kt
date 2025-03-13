@@ -80,6 +80,7 @@ fun AppCocktailNavigation(
                     screenTitles,
                     apiViewModel,
                     cocktailViewModel,
+                    isExpandedScreen,
                     Modifier.padding(innerPadding)
                 )
             }
@@ -109,6 +110,7 @@ fun AppCocktailNavigation(
                 screenTitles,
                 apiViewModel,
                 cocktailViewModel,
+                isExpandedScreen,
                 Modifier.padding(innerPadding)
             )
         }
@@ -122,6 +124,7 @@ fun AppContent(
     screenTitles: Map<String, String>,
     apiViewModel: APIViewModel,
     cocktailViewModel: CocktailViewModel,
+    isExpandedScreen: Boolean,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -130,7 +133,7 @@ fun AppContent(
         modifier = modifier
     ) {
         composable(Routes.LaunchScreen.route) { LaunchScreen(navigationController) }
-        composable(Routes.MainViewScreen.route) { MainViewScreen(navigationController) }
+        composable(Routes.MainViewScreen.route) { MainViewScreen(navigationController,isExpandedScreen) }
         composable(Routes.SearchByNameScreen.route) {
             SearchByNameScreen(navigationController, apiViewModel, cocktailViewModel)
         }
