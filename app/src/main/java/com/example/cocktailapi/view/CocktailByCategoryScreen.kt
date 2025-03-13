@@ -43,6 +43,7 @@ fun CocktailByCategoryScreen(
     apiViewModel: APIViewModel,
     cocktailViewModel: CocktailViewModel,
     isExpandedScreen: Boolean
+
 ) {
     val selectedCategories = rememberSaveable() { mutableStateOf(mutableSetOf<String>()) }
     val cocktailData by cocktailViewModel.cocktailData.observeAsState(initial = null)
@@ -88,13 +89,14 @@ fun CocktailByCategoryScreen(
                     }
                 },
                 isExpandedScreen
-            )
+            )¡
+
+            Spacer(modifier = Modifier.height(16.dp))¡
 
             if (loading) {
                 CircularProgressIndicator()
             } else {
                 CocktailSearchBar(cocktailViewModel)
-                Spacer(modifier = Modifier.height(16.dp))
                 cocktailData?.drinks?.let { drinks ->
                     if (isExpandedScreen) {
                         LazyVerticalGrid(
@@ -106,7 +108,6 @@ fun CocktailByCategoryScreen(
                                 CocktailItem(
                                     drinks[index],
                                     navController,
-                                    apiViewModel,
                                     cocktailViewModel
                                 )
                             }
@@ -120,7 +121,6 @@ fun CocktailByCategoryScreen(
                                 CocktailItem(
                                     cocktail,
                                     navController,
-                                    apiViewModel,
                                     cocktailViewModel
                                 )
                             }

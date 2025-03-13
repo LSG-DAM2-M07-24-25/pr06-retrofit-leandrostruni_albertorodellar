@@ -1,13 +1,11 @@
 package com.example.cocktailapi.components
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -25,9 +23,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.composables.icons.lucide.Delete
 import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Search
+import com.composables.icons.lucide.Search¡
+import com.example.cocktailapi.ui.theme.DarkGray¡
 import com.composables.icons.lucide.X
-import com.example.cocktailapi.ui.theme.LightGray
+import com.example.cocktailapi.ui.theme.LightGray¡
 import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
@@ -59,7 +58,7 @@ fun CocktailSearchBar(cocktailViewModel: CocktailViewModel) {
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
             .clip(RoundedCornerShape(16.dp)),
-                colors = SearchBarDefaults.colors(containerColor = LightGray)
+                colors = SearchBarDefaults.colors(containerColor = DarkGray)
 
     ) {}
     searchHistory.lastOrNull()?.let {

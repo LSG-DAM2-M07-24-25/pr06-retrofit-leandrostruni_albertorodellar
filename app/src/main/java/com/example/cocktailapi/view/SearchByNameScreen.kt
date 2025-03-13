@@ -37,7 +37,7 @@ import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItem
 import com.example.cocktailapi.components.CustomButton
 import com.example.cocktailapi.ui.theme.DarkGreen
-import com.example.cocktailapi.ui.theme.LightGray
+import com.example.cocktailapi.ui.theme.DarkGray
 import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.ui.theme.LightGreen
 import com.example.cocktailapi.viewmodel.APIViewModel
@@ -118,8 +118,8 @@ fun SearchByNameScreen(
 
                 shape = RoundedCornerShape(32.dp),
                 colors = TextFieldDefaults.colors(
-                    focusedContainerColor = LightGray,
-                    unfocusedContainerColor = LightGray,
+                    focusedContainerColor = DarkGray,
+                    unfocusedContainerColor = DarkGray,
                     cursorColor = Color.White,
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent
@@ -145,7 +145,7 @@ fun SearchByNameScreen(
                 cocktailData?.drinks?.let { drinks ->
                     if (isExpandedScreen) {
                         LazyVerticalGrid(
-                            columns = GridCells.Fixed(5),
+                            columns = GridCells.Fixed(4),
                             modifier = Modifier.fillMaxSize(),
                             contentPadding = PaddingValues(16.dp)
                         ) {
@@ -153,7 +153,6 @@ fun SearchByNameScreen(
                                 CocktailItem(
                                     drinks[index],
                                     navController,
-                                    apiViewModel,
                                     cocktailViewModel
                                 )
                             }
@@ -167,7 +166,6 @@ fun SearchByNameScreen(
                                 CocktailItem(
                                     cocktail,
                                     navController,
-                                    apiViewModel,
                                     cocktailViewModel
                                 )
                             }
