@@ -17,11 +17,12 @@ fun CustomButton(
     onClick: () -> Unit,
     isExpandedScreen: Boolean,
     backgroundColor: Color = Color.White,
-    textColor: Color = Color.Black
+    textColor: Color = Color.Black,
+    modifier: Modifier
 ) {
     Button(
         onClick = onClick,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(if (isExpandedScreen) 0.5f else 0.8f)
             .padding(8.dp),
         colors = ButtonDefaults.buttonColors(containerColor = backgroundColor)

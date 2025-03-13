@@ -49,10 +49,11 @@ fun FavoritesScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (favorites.isNotEmpty()) {
+
             CocktailSearchBar(cocktailViewModel)
 
             Box(
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.fillMaxSize()
             ) {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),

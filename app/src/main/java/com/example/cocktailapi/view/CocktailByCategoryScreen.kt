@@ -36,6 +36,7 @@ fun CocktailByCategoryScreen(
     navController: NavController,
     apiViewModel: APIViewModel,
     cocktailViewModel: CocktailViewModel,
+    isExpandedScreen: Boolean
 
     ) {
     val selectedCategories = rememberSaveable() { mutableStateOf(mutableSetOf<String>()) }
@@ -65,7 +66,8 @@ fun CocktailByCategoryScreen(
                 } else {
                     cocktailViewModel.clearCocktails()
                 }
-            }
+            },
+            isExpandedScreen
         )
 
         Spacer(modifier = Modifier.height(16.dp))

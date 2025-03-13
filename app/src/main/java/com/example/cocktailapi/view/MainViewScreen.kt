@@ -8,13 +8,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -60,7 +56,8 @@ fun MainViewScreen(
                 onClick = { navController.navigate(Routes.SearchByNameScreen.route) },
                 isExpandedScreen = isexpandedScreen,
                 backgroundColor = LightGreen,
-                textColor = White
+                textColor = White,
+                modifier = Modifier
             )
         }
 
@@ -75,7 +72,8 @@ fun MainViewScreen(
                 onClick = { navController.navigate(Routes.SearchRandomScreen.route) },
                 isexpandedScreen,
                 backgroundColor = SoftGold,
-                textColor = Color.Black
+                textColor = White,
+                modifier = Modifier
             )
         }
 
@@ -90,7 +88,8 @@ fun MainViewScreen(
                 onClick = { navController.navigate(Routes.SearchByCategoryScreen.route) },
                 isexpandedScreen,
                 backgroundColor = LightGreen,
-                textColor = White
+                textColor = White,
+                modifier = Modifier
             )
         }
 
@@ -105,7 +104,7 @@ fun MainViewScreen(
                 onClick = { navController.navigate(Routes.FavoritesScreen.route) },
                 isexpandedScreen,
                 backgroundColor = SoftGold,
-                textColor = Color.Black
+                modifier = Modifier
             )
         }
     }

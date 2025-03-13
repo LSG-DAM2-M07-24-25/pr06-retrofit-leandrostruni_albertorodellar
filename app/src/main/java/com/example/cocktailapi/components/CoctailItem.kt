@@ -58,7 +58,7 @@ fun CocktailItem(
                 )
             }
             Text(
-                "${drink.strDrink}",
+                drink.strDrink,
                 style = MaterialTheme.typography.titleLarge,
                 color = White
             )

@@ -9,12 +9,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -29,7 +29,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItem
+import com.example.cocktailapi.components.CustomButton
 import com.example.cocktailapi.ui.theme.DarkGreen
+import com.example.cocktailapi.ui.theme.LightGray
 import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.ui.theme.LightGreen
 import com.example.cocktailapi.viewmodel.APIViewModel
@@ -39,7 +41,8 @@ import com.example.cocktailapi.viewmodel.CocktailViewModel
 fun SearchByNameScreen(
     navController: NavController,
     apiViewModel: APIViewModel,
-    cocktailViewModel: CocktailViewModel
+    cocktailViewModel: CocktailViewModel,
+    isExpandedScreen: Boolean
 ) {
     var cocktailName by rememberSaveable { mutableStateOf("") }
     val cocktailData by apiViewModel.cocktailData.observeAsState(initial = null)
@@ -77,22 +80,30 @@ fun SearchByNameScreen(
         TextField(
             value = cocktailName,
             onValueChange = { cocktailName = it },
-            label = { Text("Buscar Cocktail", style = TextStyle(color = Color.Black)) },
+            label = { Text("Buscar Cocktail", style = TextStyle(color = Color.White)) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
-            textStyle = TextStyle(color = Color.Black)
+            textStyle = TextStyle(color = Color.White),
+            shape = RoundedCornerShape(32.dp),
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = LightGray, // ← Color de fondo cuando está enfocado
+                unfocusedContainerColor = LightGray, // ← Color de fondo cuando no está enfocado
+                cursorColor = Color.Black, // ← Color del cursor
+                focusedIndicatorColor = Color.Transparent, // ← Oculta la línea de abajo al enfocar
+                unfocusedIndicatorColor = Color.Transparent // ← Oculta la línea cuando no está enfocado
+            )
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
+        CustomButton(
+            text = "Buscar Cocktail",
             onClick = { apiViewModel.searchCocktail(cocktailName) },
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = LightGreen)
+            isExpandedScreen,
+            backgroundColor = LightGreen,
+            textColor = Color.White,
+            modifier = Modifier
         )
-        {
-            Text("Buscar Cocktail", color = Color.White)
-        }
 
         Spacer(modifier = Modifier.height(8.dp))
 

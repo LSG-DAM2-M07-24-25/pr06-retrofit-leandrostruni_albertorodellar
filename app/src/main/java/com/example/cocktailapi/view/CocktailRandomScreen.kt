@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -24,7 +22,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItem
+import com.example.cocktailapi.components.CustomButton
 import com.example.cocktailapi.ui.theme.DarkGreen
+import com.example.cocktailapi.ui.theme.LightGreen
 import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
@@ -33,7 +33,8 @@ import com.example.cocktailapi.viewmodel.CocktailViewModel
 fun CocktailRandomScreen(
     navController: NavController,
     apiViewModel: APIViewModel,
-    cocktailViewModel: CocktailViewModel
+    cocktailViewModel: CocktailViewModel,
+    isExpandedScreen: Boolean
 ) {
     val cocktailData by apiViewModel.cocktailData.observeAsState(initial = null)
     val loading by apiViewModel.loading.observeAsState(initial = false)
@@ -64,13 +65,14 @@ fun CocktailRandomScreen(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Button(
+        CustomButton(
+            text = "Cocktail Aleatorio",
             onClick = { apiViewModel.fetchRandomCocktail() },
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = White)
-        ) {
-            Text("Cocktail Aleatorio", color = Color.Black)
-        }
+            isExpandedScreen,
+            backgroundColor = LightGreen,
+            textColor = Color.White,
+            modifier = Modifier
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
