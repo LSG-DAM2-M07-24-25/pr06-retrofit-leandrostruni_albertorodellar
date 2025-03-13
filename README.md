@@ -59,7 +59,7 @@ La aplicación sigue el patrón de arquitectura **MVVM (Model-View-ViewModel)**,
 ---
 
 
-### 🎮 Muestra del la App 🎮
+### 🍸 Muestra del la App 🍸
 
 <table align="center">
   <tr>
