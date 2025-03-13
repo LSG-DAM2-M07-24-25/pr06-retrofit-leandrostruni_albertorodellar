@@ -31,7 +31,14 @@ import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.ui.theme.LightGreen
 import com.example.cocktailapi.ui.theme.DarkGreen
 
-
+/**
+ * Menú desplegable para seleccionar categorías de cócteles.
+ *
+ * @param categories Lista de nombres de categorías disponibles.
+ * @param selectedCategories Estado mutable que contiene las categorías seleccionadas por el usuario.
+ * @param onApplyFilters Función que se ejecuta cuando el usuario aplica los filtros seleccionados.
+ * @param isExpandedScreen Indica si la pantalla es grande, para ajustar el diseño.
+ */
 @Composable
 fun CategoryDropdownMenu(
     categories: List<String?>,
@@ -51,6 +58,7 @@ fun CategoryDropdownMenu(
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
+        // Lista de categorías (visible solo cuando expanded es true)
         if (expanded) {
             LazyColumn(
                 modifier = Modifier
@@ -77,6 +85,7 @@ fun CategoryDropdownMenu(
                             }
                             .padding(8.dp)
                     ) {
+                        // Checkbox para seleccionar o deseleccionar la categoría
                         Checkbox(
                             checked = selectedCategories.value.contains(category),
                             onCheckedChange = { checked ->
@@ -101,7 +110,7 @@ fun CategoryDropdownMenu(
                 }
             }
         }
-
+        // Fila de botones: Aplicar Filtros y Limpiar Filtros
         Row(
             modifier = Modifier
                 .fillMaxWidth(),

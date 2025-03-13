@@ -26,6 +26,17 @@ import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
+/**
+ * Composable que representa un ítem de cóctel en la lista.
+ *
+ * Este componente muestra la imagen, nombre, categoría y tipo de un cóctel,
+ * y permite al usuario navegar a la pantalla de detalles al hacer clic en la tarjeta.
+ *
+ * @param drink Objeto [Drink] que contiene la información del cóctel.
+ * @param navController Controlador de navegación para manejar la navegación a la pantalla de detalles.
+ * @param apiViewModel ViewModel que gestiona la comunicación con la API.
+ * @param cocktailViewModel ViewModel que maneja la lógica de selección de cócteles.
+ */
 @Composable
 fun CocktailItem(
     drink: Drink,

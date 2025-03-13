@@ -5,17 +5,22 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import com.example.cocktailapi.model.Drink
 
+/**
+ * Composable que muestra los detalles de un cóctel específico.
+ *
+ * Incluye la imagen del cóctel, su nombre, categoría, tipo, vaso recomendado,
+ * instrucciones de preparación y una lista de ingredientes con sus respectivas medidas.
+ *
+ * @param cocktail Objeto [Drink] que contiene la información del cóctel a mostrar.
+ */
 @Composable
 fun CocktailItemDetails(cocktail: Drink) {
     Column(modifier = Modifier.padding(16.dp)) {
