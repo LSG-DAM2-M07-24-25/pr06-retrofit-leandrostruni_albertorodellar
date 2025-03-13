@@ -82,7 +82,7 @@ fun SearchByNameScreen(
             .background(DarkGreen)
             .padding(16.dp)
     ) {
-        val maxWidthDp = maxWidth
+        val maxWidthDp = this.maxWidth
         val columns = when {
             maxWidthDp < 400.dp -> 2 // Móviles pequeños
             maxWidthDp < 600.dp -> 3 // Teléfonos grandes
@@ -101,7 +101,6 @@ fun SearchByNameScreen(
             TextField(
                 value = cocktailName,
                 onValueChange = { cocktailName = it },
-
                 label = {
                     Text(
                         "Buscar Cocktail",
@@ -111,9 +110,11 @@ fun SearchByNameScreen(
                         )
                     )
                 },
-                modifier = Modifier.fillMaxWidth(if (isExpandedScreen) 0.5f else 0.8f),
+                modifier = Modifier.fillMaxWidth(if (maxWidthDp < 600.dp) 0.8f else 0.5f),
                 singleLine = true,
-                textStyle = TextStyle(color = Color.White),
+                textStyle = TextStyle(
+                    color = Color.White,
+                    fontSize = if (isExpandedScreen) 20.sp else 16.sp                ),
 
                 shape = RoundedCornerShape(32.dp),
                 colors = TextFieldDefaults.colors(
@@ -173,7 +174,8 @@ fun SearchByNameScreen(
                 } ?: Text(
                     "No hay resultados.",
                     style = MaterialTheme.typography.bodyLarge,
-                    color = White
+                    color = White,
+                    fontSize = if (isExpandedScreen) 22.sp else 18.sp
                 )
             }
         }

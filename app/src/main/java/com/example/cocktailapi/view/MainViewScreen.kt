@@ -2,6 +2,7 @@ package com.example.cocktailapi.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,84 +30,95 @@ fun MainViewScreen(
     navController: NavController,
     isexpandedScreen: Boolean
 ) {
-    LazyColumn(
+
+    BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
             .background(DarkGreen)
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(16.dp)
     ) {
-        item {
-            Image(
-                painter = painterResource(id = R.drawable.logo_app),
-                contentDescription = "Cocktail Glass",
-                modifier = Modifier
-                    .fillMaxWidth(0.8f)
-                    .padding(8.dp)
-            )
-        }
+        val maxWidthDp = this.maxWidth
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(DarkGreen)
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            item {
+                Image(
+                    painter = painterResource(id = R.drawable.logo_app),
+                    contentDescription = "Cocktail Glass",
+                    modifier = Modifier
+                        .fillMaxWidth(if (maxWidthDp < 600.dp) 0.8f else 0.5f)
+                        .padding(8.dp)
+                )
+            }
 
-        item {
-            Spacer(modifier = Modifier.height(24.dp))
-        }
+            item {
+                Spacer(modifier = Modifier.height(24.dp))
+            }
 
-        item {
-            // Botón Buscar por Nombre
-            CustomButton(
-                text = "Buscar por nombre",
-                onClick = { navController.navigate(Routes.SearchByNameScreen.route) },
-                isExpandedScreen = isexpandedScreen,
-                backgroundColor = LightGreen,
-                textColor = White,
-                modifier = Modifier
-            )
-        }
+            item {
+                // Botón Buscar por Nombre
+                CustomButton(
+                    text = "Buscar por nombre",
+                    onClick = { navController.navigate(Routes.SearchByNameScreen.route) },
+                    isExpandedScreen = isexpandedScreen,
+                    backgroundColor = LightGreen,
+                    textColor = White,
+                    modifier = Modifier.fillMaxWidth(if (maxWidthDp < 600.dp) 0.8f else 0.5f)
+                )
+            }
 
-        item {
-            Spacer(modifier = Modifier.height(12.dp))
-        }
+            item {
+                Spacer(modifier = Modifier.height(12.dp))
+            }
 
-        item {
-            // Botón Cóctel Aleatorio
-            CustomButton(
-                text = "Random Cocktail",
-                onClick = { navController.navigate(Routes.SearchRandomScreen.route) },
-                isexpandedScreen,
-                backgroundColor = SoftGold,
-                textColor = Color.Black,
-                modifier = Modifier
-            )
-        }
+            item {
+                // Botón Cóctel Aleatorio
+                CustomButton(
+                    text = "Random Cocktail",
+                    onClick = { navController.navigate(Routes.SearchRandomScreen.route) },
+                    isexpandedScreen,
+                    backgroundColor = SoftGold,
+                    textColor = Color.Black,
+                    modifier = Modifier.fillMaxWidth(if (maxWidthDp < 600.dp) 0.8f else 0.5f)
+                )
+            }
 
-        item {
-            Spacer(modifier = Modifier.height(12.dp))
-        }
+            item {
+                Spacer(modifier = Modifier.height(12.dp))
+            }
 
-        item {
-            // Botón Buscar por Categoría
-            CustomButton(
-                text = "Buscar por categoría",
-                onClick = { navController.navigate(Routes.SearchByCategoryScreen.route) },
-                isexpandedScreen,
-                backgroundColor = LightGreen,
-                textColor = White,
-                modifier = Modifier
-            )
-        }
+            item {
+                // Botón Buscar por Categoría
+                CustomButton(
+                    text = "Buscar por categoría",
+                    onClick = { navController.navigate(Routes.SearchByCategoryScreen.route) },
+                    isexpandedScreen,
+                    backgroundColor = LightGreen,
+                    textColor = White,
+                    modifier = Modifier.fillMaxWidth(if (maxWidthDp < 600.dp) 0.8f else 0.5f)
+                )
+            }
 
-        item {
-            Spacer(modifier = Modifier.height(12.dp))
-        }
+            item {
+                Spacer(modifier = Modifier.height(12.dp))
+            }
 
-        item {
-            // Botón Favoritos
-            CustomButton(
-                text = "Favoritos",
-                onClick = { navController.navigate(Routes.FavoritesScreen.route) },
-                isexpandedScreen,
-                backgroundColor = SoftGold,
-                modifier = Modifier
-            )
+            item {
+                // Botón Favoritos
+                CustomButton(
+                    text = "Favoritos",
+                    onClick = { navController.navigate(Routes.FavoritesScreen.route) },
+                    isexpandedScreen,
+                    backgroundColor = SoftGold,
+                    modifier = Modifier.fillMaxWidth(if (maxWidthDp < 600.dp) 0.8f else 0.5f)
+                )
+            }
         }
     }
+
+
 }

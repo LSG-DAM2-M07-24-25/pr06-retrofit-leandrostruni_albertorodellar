@@ -1,6 +1,8 @@
 package com.example.cocktailapi.view
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.cocktailapi.components.CocktailItem
 import com.example.cocktailapi.components.CustomButton
@@ -30,6 +33,7 @@ import com.example.cocktailapi.ui.theme.White
 import com.example.cocktailapi.viewmodel.APIViewModel
 import com.example.cocktailapi.viewmodel.CocktailViewModel
 
+@SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun CocktailRandomScreen(
     navController: NavController,
@@ -58,44 +62,57 @@ fun CocktailRandomScreen(
         }
     }
 
-    Column(
+    BoxWithConstraints(
         modifier = Modifier
-            .fillMaxWidth()
             .fillMaxSize()
             .background(DarkGreen)
-            .padding(if (isExpandedScreen) 0.dp else 16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(16.dp)
     ) {
-        CustomButton(
-            text = "Cocktail Aleatorio",
-            onClick = { apiViewModel.fetchRandomCocktail() },
-            isExpandedScreen,
-            backgroundColor = LightGreen,
-            textColor = Color.White,
-            modifier = Modifier
-        )
-
-        if (!isExpandedScreen) {
-            Spacer(modifier = Modifier.height(16.dp))
+        val maxWidthDp = maxWidth
+        val columns = when {
+            maxWidthDp < 400.dp -> 1
+            maxWidthDp < 600.dp -> 2
+            maxWidthDp < 900.dp -> 3
+            else -> 4
         }
-
-        if (loading) {
-            CircularProgressIndicator()
-        } else {
-            cocktailData?.drinks?.let { drinks ->
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(16.dp)
-                ) {
-                    items(drinks) { cocktail ->
-                        CocktailItem(cocktail, navController, cocktailViewModel, isExpandedScreen)
-                    }
-                }
-            } ?: Text(
-                "No hay resultados",
-                style = MaterialTheme.typography.bodyLarge,
-                color = White
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxSize()
+                .background(DarkGreen)
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CustomButton(
+                text = "Cocktail Aleatorio",
+                onClick = { apiViewModel.fetchRandomCocktail() },
+                isExpandedScreen,
+                backgroundColor = LightGreen,
+                textColor = Color.White,
+                modifier = Modifier
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            if (loading) {
+                CircularProgressIndicator()
+            } else {
+                cocktailData?.drinks?.let { drinks ->
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(16.dp)
+                    ) {
+                        items(drinks) { cocktail ->
+                            CocktailItem(cocktail, navController, cocktailViewModel, isExpandedScreen)
+                        }
+                    }
+                } ?: Text(
+                    "No hay resultados",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = White,
+                    fontSize = if (isExpandedScreen) 22.sp else 18.sp
+                )
+            }
         }
     }
 }
