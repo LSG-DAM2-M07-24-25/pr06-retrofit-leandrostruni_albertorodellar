@@ -3,12 +3,15 @@ package com.example.cocktailapi.view
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -38,7 +41,7 @@ fun CocktailByCategoryScreen(
     cocktailViewModel: CocktailViewModel,
     isExpandedScreen: Boolean
 
-    ) {
+) {
     val selectedCategories = rememberSaveable() { mutableStateOf(mutableSetOf<String>()) }
     val cocktailData by cocktailViewModel.cocktailData.observeAsState(initial = null)
     val loading by cocktailViewModel.loading.observeAsState(initial = false)
@@ -55,7 +58,7 @@ fun CocktailByCategoryScreen(
             .fillMaxSize()
             .background(DarkGreen)
             .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         CategoryDropdownMenu(
             categories = categories,
@@ -76,9 +79,29 @@ fun CocktailByCategoryScreen(
             CircularProgressIndicator()
         } else {
             cocktailData?.drinks?.let { drinks ->
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(drinks) { cocktail ->
-                        CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
+                if (isExpandedScreen) {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(5),
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(16.dp)
+                    ) {
+                        items(drinks.size) { index ->
+                            CocktailItem(
+                                drinks[index],
+                                navController,
+                                apiViewModel,
+                                cocktailViewModel
+                            )
+                        }
+                    }
+                } else {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(16.dp)
+                    ) {
+                        items(drinks) { cocktail ->
+                            CocktailItem(cocktail, navController, apiViewModel, cocktailViewModel)
+                        }
                     }
                 }
             } ?: Text(
